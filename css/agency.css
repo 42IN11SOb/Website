@@ -157,12 +157,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .navbar-default .navbar-nav>.active>a {
     border-radius: 0;
-    color: #fff;
+    color: #000;
     background-color: #fed136
 }
 
 .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
-    color: #fff;
+    color: #000;
     background-color: #fec503
 }
 
@@ -583,11 +583,12 @@ section#contact .form-group {
     margin-bottom: 25px
 }
 
-section#contact .form-group input, section#contact .form-group textarea {
-    padding: 20px
+.form-group input, .form-horizontal .control-label, section#contact .form-group textarea {
+    padding: 20px;
+    font-size: larger;
 }
 
-section#contact .form-group input.form-control {
+.form-group input.form-control {
     height: auto
 }
 
@@ -595,7 +596,7 @@ section#contact .form-group textarea.form-control {
     height: 236px
 }
 
-section#contact .form-control:focus {
+.form-control:focus {
     border-color: #fed136;
     box-shadow: none
 }
@@ -628,7 +629,7 @@ section#contact:-ms-input-placeholder {
     color: #bbb
 }
 
-section#contact .text-danger {
+section#contact .text-danger, section#login .text-danger {
     color: #e74c3c
 }
 
