@@ -24,8 +24,8 @@ altairApp
                     templateUrl: 'app/components/pages/error_500View.html'
                 })
             // -- LOGIN PAGE --
-                .state("login", {
-                    url: "/login",
+                .state("oldlogin", {
+                    url: "/old/login",
                     templateUrl: 'app/components/pages/loginView.html',
                     controller: 'loginCtrl',
                     resolve: {
@@ -33,6 +33,20 @@ altairApp
                             return $ocLazyLoad.load([
                                 'lazy_iCheck',
                                 'app/components/pages/loginController.js'
+                            ]);
+                        }]
+                    }
+                })
+            // -- LOGIN PAGE BATRIMEUS --
+                .state("login", {
+                    url: "/login",
+                    templateUrl: 'app/components/login/loginView.html',
+                    controller: 'loginCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_iCheck',
+                                'app/components/login/loginController.js'
                             ]);
                         }]
                     }

@@ -26,6 +26,25 @@ altairApp.config(function($sceDelegateProvider) {
     ]);
 });
 
+altairApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+
+    $httpProvider.interceptors.push(function() {
+        return {
+            request: function(config) {
+                if (localStorage.getItem("token") != null) {
+                    $.ajaxSetup({
+                        beforeSend: function(xhr) {
+                            xhr.setRequestHeader("x-access-token", localStorage.getItem("token"));
+                        }
+                    });
+                }
+                return config;
+            }
+        };
+    });
+}]);
+
 /* Run Block */
 altairApp
     .run([
