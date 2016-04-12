@@ -46,11 +46,56 @@ altairApp
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
                                 'lazy_iCheck',
+                                'lazy_parsleyjs',
                                 'app/components/login/loginController.js'
                             ]);
                         }]
                     }
                 })
+            // -- BARTIMEUS --
+                .state("bartimeus", {
+                    abstract: true,
+                    url: "",
+                    views: {
+                        'main_header': {
+                            templateUrl: 'app/shared/header/bartimeus_headerView.html',
+                            controller: 'main_headerCtrl'
+                        },
+                        '': {
+                            templateUrl: 'app/views/bartimeus.html',
+                            controller: 'bartimeusCtrl'
+                        }
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_selectizeJS',
+                                'lazy_switchery',
+                                'lazy_prismJS',
+                                'lazy_autosize',
+                                'lazy_iCheck',
+                                'app/components/visitors/bartimeusController.js'
+                            ],{ serie: true });
+                        }]
+                    }
+                })
+            // -- INDEX --
+                .state("bartimeus.index", {
+                    url: "/index",
+                    templateUrl: 'app/components/visitors/indexView.html',
+                    controller: 'indexCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/visitors/indexController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Index'
+                    }
+                })
+
             // -- RESTRICTED --
                 .state("restricted", {
                     abstract: true,

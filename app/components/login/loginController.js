@@ -15,7 +15,8 @@ angular
                 $login_form = $('#login_form'),
                 $login_help = $('#login_help'),
                 $register_form = $('#register_form'),
-                $login_password_reset = $('#login_password_reset');
+                $login_password_reset = $('#login_password_reset'),
+                $formValidate = $('#form_validation');
 
             // show login form (hide other forms)
             var login_form_show = function() {
@@ -48,6 +49,17 @@ angular
                     .siblings()
                     .hide();
             };
+
+            $formValidate
+                .parsley()
+                .on('form:validated', function() {
+                    $scope.$apply();
+                })
+                .on('field:validated', function(parsleyField) {
+                    if ($(parsleyField.$element).hasClass('md-input')) {
+                        $scope.$apply();
+                    }
+                });
 
             $scope.loginHelp = function($event) {
                 $event.preventDefault();

@@ -89,9 +89,9 @@ altairApp
                 // page heading
                 $rootScope.pageHeadingActive = false;
                 // top menu
-                $rootScope.topMenuActive = false;
+                $rootScope.topMenuActive = false; //set to true for top header
                 // full header
-                $rootScope.fullHeaderActive = false;
+                $rootScope.fullHeaderActive = false; //set to true for top header
                 // full height
                 $rootScope.page_full_height = false;
                 // secondary sidebar
