@@ -64,6 +64,9 @@ altairApp
                         '': {
                             templateUrl: 'app/views/bartimeus.html',
                             controller: 'bartimeusCtrl'
+                        },
+                        'main_footer': {
+                            templateUrl: 'app/shared/footer/bartimeus_footerView.html',
                         }
                     },
                     resolve: {
@@ -93,6 +96,54 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Index'
+                    }
+                })
+            // -- ERVARGINSVERHALEN --
+                .state("bartimeus.ervaringsverhalen", {
+                    url: "/ervaringsverhalen",
+                    templateUrl: 'app/components/visitors/verhalenView.html',
+                    controller: 'verhalenCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/visitors/verhalenController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Ervarings Verhalen'
+                    }
+                })
+            // -- PROFIEL --
+                .state("bartimeus.profiel", {
+                    url: "/profiel",
+                    templateUrl: 'app/components/users/profielView.html',
+                    controller: 'profielCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/users/profielController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Profiel'
+                    }
+                })
+            // -- PROFIEL --
+                .state("bartimeus.pepdag", {
+                    url: "/pepdag",
+                    templateUrl: 'app/components/visitors/pepView.html',
+                    controller: 'pepCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/visitors/pepController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'PEPdag'
                     }
                 })
 

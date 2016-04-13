@@ -1,6 +1,7 @@
 body {
     overflow-x: hidden;
-    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif
+    font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*background-color: #000000;*/
 }
 
 .text-muted {
@@ -630,10 +631,7 @@ section#contact:-ms-input-placeholder {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
     width: 100%;
-    padding: 25px 0;
     background-color: #000000;
     text-align: center;
 }
@@ -816,6 +814,10 @@ nav.navbar-default{
 #menu_top .material-icons, #header_main .material-icons {
     font-size: 25px;
 }
+#menu_top>li:hover, #menu_top>li>a:hover, #menu_top .active {
+    color: #000000;
+    background-color: #fed136;
+}
 
 /*Panel*/
 .md-card .md-card-toolbar-heading-text, .md-card .md-card-toolbar {
@@ -825,4 +827,19 @@ nav.navbar-default{
 }
 .md-card .md-card-content, .md-card-content>p {
     font-size: 16px;
+}
+.md-card .md-card-toolbar-heading-text.subitem, .md-card .md-card-toolbar.subitem, .md-card.subitem {
+    background-color: #ffffff;
+    box-shadow: none;
+    margin: 0;
+}
+.md-card .md-card-toolbar-heading-text.large-heading{
+    font-size: x-large;
+} 
+
+/*Footer*/
+
+.footer_main_content .md-card{
+    background-color: #000000;
+    color: #ffffff;
 }

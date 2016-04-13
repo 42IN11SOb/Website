@@ -95,7 +95,7 @@ angular
                             if (data.success === true) {
                                 console.log(data.message);
                                 localStorage.setItem("token", data.token);
-                                //$state.go('restricted.bank');
+                                $state.go('bartimeus.index');
                             } else {
                                 console.log({ message: 'login failed' });
                                 return data.message;
@@ -114,10 +114,10 @@ angular
                     });
                 } else {
                     //show error message
-                    $scope.loginError = {
+                    /*$scope.loginError = {
                         status: true,
                         message: "Both username and password are required!"
-                    }
+                    }*/
                 }
             };
 

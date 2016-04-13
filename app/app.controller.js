@@ -554,14 +554,36 @@ angular
         '$scope',
         '$rootScope',
         function ($scope,$rootScope) {
+            //dynamically set the active class in menu
+            $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error){
+                //still needs reload check 
+                for(var section in $scope.sections){
+                    var sec = $scope.sections[section];
+
+                    if(sec.link == toState.name){
+                        $('#'+sec.id).addClass('active');
+                    } else if(sec.link == fromState.name){
+                        $('#'+sec.id).removeClass('active');
+                    }
+                }
+            });
+
             $scope.sections = [
                 {
-                    title: 'Pepdag',
+                    id: 0,
+                    title: 'home',
+                    class: 'material-icons md-24',
+                    link: 'bartimeus.index'
+                },
+                {
+                    id: 1,
+                    title: 'PEPdag',
                     link: 'bartimeus.pepdag'
                 },
                 {
+                    id: 2,
                     title: 'Ervaringsverhalen',
-                    link: 'bartimeus.verhalen'
+                    link: 'bartimeus.ervaringsverhalen'
                 }
             ];
         }

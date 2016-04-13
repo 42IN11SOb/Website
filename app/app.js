@@ -32,10 +32,11 @@ altairApp.config(['$httpProvider', function($httpProvider) {
     $httpProvider.interceptors.push(function() {
         return {
             request: function(config) {
-                if (localStorage.getItem("token") != null) {
+                var token = localStorage.getItem("token");
+                if (token != null) {
                     $.ajaxSetup({
                         beforeSend: function(xhr) {
-                            xhr.setRequestHeader("x-access-token", localStorage.getItem("token"));
+                            xhr.setRequestHeader("x-access-token", token);
                         }
                     });
                 }
