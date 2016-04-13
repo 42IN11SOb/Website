@@ -630,8 +630,12 @@ section#contact:-ms-input-placeholder {
 }
 
 footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     padding: 25px 0;
-    text-align: center
+    background-color: #000000;
+    text-align: center;
 }
 
 footer span.copyright {
@@ -776,8 +780,9 @@ body {
 }
 
 
+/********** CUSTOM *************/
 
-/**** CUSTOM ****/
+
 nav.navbar-default{
 	background-color: #222;
 }
@@ -786,7 +791,7 @@ nav.navbar-default{
 .login_page {
     background-color: #000000;
 }
-#login_help_show,#password_reset_show {
+#login_help_show, #password_reset_show {
     color: #1e88e5;
 }
 .icheckbox_md.hover.checked,
@@ -810,4 +815,14 @@ nav.navbar-default{
 }
 #menu_top .material-icons, #header_main .material-icons {
     font-size: 25px;
+}
+
+/*Panel*/
+.md-card .md-card-toolbar-heading-text, .md-card .md-card-toolbar {
+    font-size: large;
+    background-color: #fed136;
+    font-weight: bold;
+}
+.md-card .md-card-content, .md-card-content>p {
+    font-size: 16px;
 }

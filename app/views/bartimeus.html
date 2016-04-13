@@ -1,8 +1,14 @@
+    <!-- bartimeus stylesheet -->
+    <link rel="stylesheet" href="assets/css/bartimeus.css" media="all" id="main_stylesheet">
+
     <!-- full header at top -->
     <div ng-include src="'app/shared/menu_top/bartimeus_menu_topView.html'"></div>
 
     <!-- bartimeus main content -->
     <div ui-view ng-class="{ 'uk-height-1-1': page_full_height }"></div>
 
+    <!-- footer -->
+    <div ng-include src="'app/shared/footer/bartimeus_footerView.html'"></div>
+
     <!-- style switcher -->
-    <style-switcher></style-switcher>
+    <!-- <style-switcher></style-switcher> -->

@@ -560,8 +560,8 @@ angular
                     link: 'bartimeus.pepdag'
                 },
                 {
-                    title: 'Pepdag',
-                    link: 'bartimeus.pepdag'
+                    title: 'Ervaringsverhalen',
+                    link: 'bartimeus.verhalen'
                 }
             ];
         }
