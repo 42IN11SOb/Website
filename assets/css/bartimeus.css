@@ -782,22 +782,32 @@ nav.navbar-default{
 	background-color: #222;
 }
 
+/*login*/
 .login_page {
     background-color: #000000;
 }
-
 #login_help_show,#password_reset_show {
     color: #1e88e5;
 }
-
 .icheckbox_md.hover.checked,
 .icheckbox_md.checked {
   background: #fed136;
   border-color: #fed136;
 }
-
 .error {
     color: red;
     font-weight: bold;
     font-size: large;
+}
+
+/*header*/
+#header_main, #top_bar {
+  background-color: #000000;
+}
+#header_main .uk-navbar .uk-navbar-nav>li>a, #menu_top>li>a, #menu_top .material-icons {
+  color: #fed136;
+  font-size:large;
+}
+#menu_top .material-icons, #header_main .material-icons {
+    font-size: 25px;
 }

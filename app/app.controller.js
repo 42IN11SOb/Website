@@ -550,5 +550,20 @@ angular
 
         }
     ])
-
+    .controller('menu_topViewCtrl', [
+        '$scope',
+        '$rootScope',
+        function ($scope,$rootScope) {
+            $scope.sections = [
+                {
+                    title: 'Pepdag',
+                    link: 'bartimeus.pepdag'
+                },
+                {
+                    title: 'Pepdag',
+                    link: 'bartimeus.pepdag'
+                }
+            ];
+        }
+    ])
 ;
