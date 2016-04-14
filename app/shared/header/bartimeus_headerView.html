@@ -1,0 +1,32 @@
+<!-- main header -->
+<header id="header_main" ng-controller="main_headerCtrl">
+    <div class="header_main_content">
+        <nav class="uk-navbar">
+            <div class="main_logo_top" ng-if="topMenuActive || fullHeaderActive">
+                <a ui-sref="bartimeus.index"><!-- <img ng-src="assets/img/logo_main_white.png" alt="" add-image-prop/> --> <h3 class="text-primary">Bartimeus</h3></a>
+            </div>
+            <!-- main sidebar switch -->
+            <sidebar-primary-toggle></sidebar-primary-toggle>
+            <!-- secondary sidebar switch -->
+            <sidebar-secondary-toggle ng-class="{ 'uk-hidden-large': secondarySidebarHiddenLarge }"></sidebar-secondary-toggle>
+            <div class="uk-navbar-flip">
+                <ul class="uk-navbar-nav user_actions">
+                    <!-- <li><a href="#" class="user_action_icon" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a></li> -->
+                    <li><a ui-sref="bartimeus.profiel">My profile</a></li>
+                    <li><a ui-sref="login">Login</a></li>
+                    <li><a ng-click="logoff()">Logout</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div id="top_bar" ng-controller="menu_topViewCtrl">
+        <div class="md-top-bar">
+            <ul id="menu_top" class="uk-clearfix">
+                <li ng-repeat="section in sections">
+                    <a id="{{section.id}}" class="{{section.class}}" ui-sref="{{section.link}}">{{section.title}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<!-- main header end -->

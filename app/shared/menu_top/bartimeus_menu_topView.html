@@ -1,0 +1,8 @@
+<div id="top_bar" ng-controller="menu_topViewCtrl">
+    <div class="md-top-bar">
+        <ul id="menu_top" class="uk-clearfix">
+            <li><a ui-sref="bartimeus.index"><i class="material-icons md-24">&#xE88A;</i></a></li>
+            <li ng-repeat="section in sections"><a ui-sref="{{section.link}}">{{section.title}}</a></li>
+        </ul>
+    </div>
+</div>
