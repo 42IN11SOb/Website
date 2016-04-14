@@ -19,6 +19,9 @@ angular
             $scope.logoff = function(){
                 localStorage.removeItem("token");
             }
+            $scope.loggedin = function() {
+                return localStorage.getItem("token") != null;
+            }
             
             $scope.user_data = {
                 name: "Lue Feest",
