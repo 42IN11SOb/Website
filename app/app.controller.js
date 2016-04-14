@@ -15,7 +15,11 @@ angular
         '$scope',
         '$window',
         function ($timeout,$scope,$window) {
-
+            //logout
+            $scope.logoff = function(){
+                localStorage.removeItem("token");
+            }
+            
             $scope.user_data = {
                 name: "Lue Feest",
                 avatar: "assets/img/avatars/avatar_11_tn.png",
