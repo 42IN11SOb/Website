@@ -83,67 +83,66 @@ altairApp
                     }
                 })
             // -- INDEX --
-                .state("bartimeus.index", {
+                .state("bartimeus.content", {
+                    url: "/page/:name",
+                    templateUrl: 'app/components/visitors/contentView.html',
+                    controller: 'contentCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/visitors/contentController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: name
+                    }
+                })
+            // -- BARTIMEUS ADMIN --
+                .state("bartimeus.admin", {
+                    abstract: true,
+                    url: "/admin",
+                    views: {
+                        'main_header': {
+                            templateUrl: 'app/shared/header/bartimeus_headerView.html',
+                            controller: 'main_headerCtrl'
+                        },
+                        '': {
+                            templateUrl: 'app/views/bartimeusAdmin.html',
+                            controller: 'bartimeusCtrl'
+                        },
+                        'main_footer': {
+                            templateUrl: 'app/shared/footer/bartimeus_footerView.html',
+                        }
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_selectizeJS',
+                                'lazy_switchery',
+                                'lazy_prismJS',
+                                'lazy_autosize',
+                                'lazy_iCheck',
+                                'app/components/visitors/bartimeusController.js'
+                            ],{ serie: true });
+                        }]
+                    },
+                    params: { isAdmin: true } //set this param to set page as admin page
+                })
+            // -- ADMIN INDEX --
+                .state("bartimeus.admin.index", {
                     url: "/index",
-                    templateUrl: 'app/components/visitors/indexView.html',
+                    templateUrl: 'app/components/admins/indexView.html',
                     controller: 'indexCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'app/components/visitors/indexController.js'
+                                'app/components/admins/indexController.js'
                             ], { serie: true });
                         }]
                     },
                     data: {
-                        pageTitle: 'Index'
-                    }
-                })
-            // -- ERVARGINSVERHALEN --
-                .state("bartimeus.ervaringsverhalen", {
-                    url: "/ervaringsverhalen",
-                    templateUrl: 'app/components/visitors/verhalenView.html',
-                    controller: 'verhalenCtrl',
-                    resolve: {
-                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'app/components/visitors/verhalenController.js'
-                            ], { serie: true });
-                        }]
-                    },
-                    data: {
-                        pageTitle: 'Ervarings Verhalen'
-                    }
-                })
-            // -- PROFIEL --
-                .state("bartimeus.profiel", {
-                    url: "/profiel",
-                    templateUrl: 'app/components/users/profielView.html',
-                    controller: 'profielCtrl',
-                    resolve: {
-                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'app/components/users/profielController.js'
-                            ], { serie: true });
-                        }]
-                    },
-                    data: {
-                        pageTitle: 'Profiel'
-                    }
-                })
-            // -- PROFIEL --
-                .state("bartimeus.pepdag", {
-                    url: "/pepdag",
-                    templateUrl: 'app/components/visitors/pepView.html',
-                    controller: 'pepCtrl',
-                    resolve: {
-                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'app/components/visitors/pepController.js'
-                            ], { serie: true });
-                        }]
-                    },
-                    data: {
-                        pageTitle: 'PEPdag'
+                        pageTitle: 'Index',
                     }
                 })
 

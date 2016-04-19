@@ -81,6 +81,12 @@ altairApp
             });
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                //admin pages restriction
+                if (toParams.hasOwnProperty('isAdmin') && localStorage.token == null) {
+                    event.preventDefault();
+                    $state.go('login');
+                }
+
                 // main search
                 $rootScope.mainSearchActive = false;
                 // single card

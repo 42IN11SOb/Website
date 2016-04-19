@@ -5,7 +5,8 @@ angular
         '$rootScope',
         'utils',
         '$state',
-        function ($scope,$rootScope,utils,$state) {
+        'apiBartimeus',
+        function ($scope,$rootScope,utils,$state,apiBartimeus) {
 
             $scope.registerFormActive = false;
 
@@ -87,37 +88,10 @@ angular
                 $scope.loginError = {};
 
                 if ($scope.login_form.login_username.$valid && $scope.login_form.login_password.$valid) {
-                    $.ajax({
-                        url: "http://localhost:3000/users/login",
-                        type: "POST",
-                        data: { 'username': $scope.login_name, 'password': $scope.login_password },
-                        success: function(data) {
-                            if (data.success === true) {
-                                console.log(data.message);
-                                localStorage.setItem("token", data.token);
-                                $state.go('bartimeus.index');
-                            } else {
-                                console.log({ message: 'login failed' });
-                                return data.message;
-                            }
-                        },
-                        error: function(data) {
-                            console.log(data);
-                            //show error message
-                            $scope.loginError = {
-                                status: true,
-                                message: "Something went wrong, login again."
-                            }
-                            $scope.$apply();
-                        },
-                        dataType: "json"
-                    });
-                } else {
-                    //show error message
-                    /*$scope.loginError = {
-                        status: true,
-                        message: "Both username and password are required!"
-                    }*/
+                    apiBartimeus.login($scope.login_name, $scope.login_password, function(response){
+                        $scope.loginError = response;
+                        $scope.$apply();
+                    })
                 }
             };
 
