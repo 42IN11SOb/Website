@@ -14,7 +14,7 @@ altairApp
                         success: function(data) {
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
-                                $state.go('bartimeus.index');
+                                $state.go('bartimeus.content', {name : 'index'});
                             } else {
                                 retVal = data;
                             }
@@ -97,7 +97,6 @@ altairApp
                             break;
                     }
                 },
-
                 getPages : function() {
                     return [{
                         title: 'home',
@@ -110,6 +109,9 @@ altairApp
                         title: 'Ervaringsverhalen',
                         name: 'ervaringsverhalen'
                     }];
+                },
+                getProfile : function() {
+                    
                 }
             }
         }

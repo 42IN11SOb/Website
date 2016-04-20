@@ -98,6 +98,22 @@ altairApp
                         pageTitle: name
                     }
                 })
+            // -- PROFIEL --
+                .state("bartimeus.profiel", {
+                    url: "/profile",
+                    templateUrl: 'app/components/users/profielView.html',
+                    controller: 'profielCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/users/profielController.js'
+                            ], { serie: true });
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'profiel'
+                    }
+                })
             // -- BARTIMEUS ADMIN --
                 .state("bartimeus.admin", {
                     abstract: true,
