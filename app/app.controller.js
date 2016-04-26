@@ -102,7 +102,8 @@ angular
         '$timeout',
         '$scope',
         '$rootScope',
-        function ($timeout,$scope,$rootScope) {
+        'apiBartimeus',
+        function ($timeout,$scope,$rootScope,apiBartimeus) {
 
             $scope.$on('onLastRepeat', function (scope, element, attrs) {
                 $timeout(function() {
@@ -554,6 +555,7 @@ angular
                     ]
                 }
             ]
+            //$scope.sections = apiBartimeus.getAdminSections();
 
         }
     ])

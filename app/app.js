@@ -57,8 +57,9 @@ altairApp
         '$timeout',
         'preloaders',
         'variables',
-        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables) {
-
+        'apiBartimeus',
+        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables, apiBartimeus) {
+            $rootScope.initialized = false;
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
@@ -86,7 +87,7 @@ altairApp
                     event.preventDefault();
                     $state.go('login');
                 }
-
+                
                 // main search
                 $rootScope.mainSearchActive = false;
                 // single card

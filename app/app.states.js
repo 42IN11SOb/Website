@@ -55,7 +55,7 @@ altairApp
             // -- BARTIMEUS --
                 .state("bartimeus", {
                     abstract: true,
-                    url: "",
+                    url: "/bartimeus",
                     views: {
                         'main_header': {
                             templateUrl: 'app/shared/header/bartimeus_headerView.html',
@@ -115,20 +115,21 @@ altairApp
                     }
                 })
             // -- BARTIMEUS ADMIN --
-                .state("bartimeus.admin", {
+                .state("admin", {
                     abstract: true,
                     url: "/admin",
                     views: {
                         'main_header': {
-                            templateUrl: 'app/shared/header/bartimeus_headerView.html',
+                            templateUrl: 'app/shared/header/admin_headerView.html',
                             controller: 'main_headerCtrl'
+                        },
+                        'main_sidebar': {
+                            templateUrl: 'app/shared/main_sidebar/main_sidebarView.html',
+                            controller: 'main_sidebarCtrl'
                         },
                         '': {
                             templateUrl: 'app/views/bartimeusAdmin.html',
                             controller: 'bartimeusCtrl'
-                        },
-                        'main_footer': {
-                            templateUrl: 'app/shared/footer/bartimeus_footerView.html',
                         }
                     },
                     resolve: {
@@ -139,14 +140,14 @@ altairApp
                                 'lazy_prismJS',
                                 'lazy_autosize',
                                 'lazy_iCheck',
-                                'app/components/visitors/bartimeusController.js'
+                                'app/components/admins/bartimeusController.js'
                             ],{ serie: true });
                         }]
                     },
                     params: { isAdmin: true } //set this param to set page as admin page
                 })
             // -- ADMIN INDEX --
-                .state("bartimeus.admin.index", {
+                .state("admin.index", {
                     url: "/index",
                     templateUrl: 'app/components/admins/indexView.html',
                     controller: 'indexCtrl',
@@ -159,6 +160,47 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Index',
+                    }
+                })
+            // -- ADMIN PAGE LIST --
+                .state("admin.pages", {
+                    url: "/pages",
+                    templateUrl: 'app/components/admins/pageListView.html',
+                    controller: 'pageListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/pageListController.js'
+                            ], {serie:true});
+                        }],
+                        pages: function(apiBartimeus){
+                            return apiBartimeus.getPages();
+                        }
+                    },
+                    data: {
+                        pageTitle: 'Pages'
+                    }
+                })
+            // -- ADMIN PAGE CONTENT --
+            // inside modules/anuglar-tinymce.js set init to use css and custom block to create new panel
+                .state("admin.pagecontent", {
+                    url: "/pages/:name",
+                    templateUrl: 'app/components/admins/pageContentView.html',
+                    controller: 'pageContentCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tinymce',
+                                'app/components/admins/pageContentController.js'
+                            ], {serie:true});
+                        }],
+                        pageContent : function($stateParams, apiBartimeus){
+                            return apiBartimeus.getContent($stateParams.name);
+                        }
+                    },
+                    data: {
+                        pageTitle: 'Pages'
                     }
                 })
 
