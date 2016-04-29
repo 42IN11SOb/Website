@@ -5,7 +5,10 @@ angular
         'pageContent',
         'apiBartimeus',
         '$stateParams',
-        function ($scope, pageContent, apiBartimeus, $stateParams) {
+        '$state',
+        function ($scope, pageContent, apiBartimeus, $stateParams, $state) {
+            $scope.tinymce_content = convertToHtml(pageContent);
+            
             // HTML after convert
             var retContent;
             //JSON object after convert
@@ -100,9 +103,8 @@ angular
 
             $scope.saveContent = function(){
                 convertToJson($scope.tinymce_content);
+                $state.go('admin.pages');
             }
-
-            $scope.tinymce_content = convertToHtml(pageContent);
                 
             $scope.tinymce_options = {
                 skin_url: 'assets/skins/tinymce/material_design',

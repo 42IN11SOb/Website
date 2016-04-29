@@ -63,7 +63,7 @@ altairApp
                         },
                         '': {
                             templateUrl: 'app/views/bartimeus.html',
-                            controller: 'bartimeusCtrl'
+                            //controller: 'bartimeusCtrl'
                         },
                         'main_footer': {
                             templateUrl: 'app/shared/footer/bartimeus_footerView.html',
@@ -77,7 +77,7 @@ altairApp
                                 'lazy_prismJS',
                                 'lazy_autosize',
                                 'lazy_iCheck',
-                                'app/components/visitors/bartimeusController.js'
+                                //'app/components/visitors/bartimeusController.js'
                             ],{ serie: true });
                         }]
                     }
@@ -92,6 +92,9 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/visitors/contentController.js'
                             ], { serie: true });
+                        }],
+                        pageContent: ['$stateParams','apiBartimeus', function($stateParams,apiBartimeus){
+                            return apiBartimeus.getContent($stateParams.name);
                         }]
                     },
                     data: {
@@ -129,7 +132,7 @@ altairApp
                         },
                         '': {
                             templateUrl: 'app/views/bartimeusAdmin.html',
-                            controller: 'bartimeusCtrl'
+                            //controller: 'bartimeusCtrl'
                         }
                     },
                     resolve: {
@@ -140,7 +143,7 @@ altairApp
                                 'lazy_prismJS',
                                 'lazy_autosize',
                                 'lazy_iCheck',
-                                'app/components/admins/bartimeusController.js'
+                                //'app/components/admins/bartimeusController.js'
                             ],{ serie: true });
                         }]
                     },

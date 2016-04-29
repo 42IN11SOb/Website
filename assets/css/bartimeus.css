@@ -788,6 +788,13 @@ nav.navbar-default{
 	background-color: #222;
 }
 
+.blackLink a {
+    color:#1e88e5;
+}
+.blackLink a:hover{
+    color:#000000;
+}
+
 /*login*/
 .login_page {
     background-color: #000000;

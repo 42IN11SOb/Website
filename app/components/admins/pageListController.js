@@ -8,11 +8,44 @@ angular
         'utils',
         'variables',
         function ($rootScope,$scope,$stateParams,pages,utils,variables) {
+            $scope.heading = "Pages";
 
-            //$rootScope.pageHeadingActive = true;
+            var $pages_card = $('#pages_card'),
+                $page_list = $('#page_list'),
+                $new_page = $('#new_page');
+
+            // show lpage list (hide other forms)
+            var pageListShow = function() {
+                $page_list
+                    .show()
+                    .siblings()
+                    .hide();
+            };
+            // show new page (hide other forms)
+            var newPageShow = function() {
+                $new_page
+                    .show()
+                    .siblings()
+                    .hide();
+            };
+            $scope.newPage = function($event) {
+                $scope.heading = "New Page";
+                $event.preventDefault();
+                utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
+            };
+            $scope.backToLogin = function($event) {
+                $scope.heading = "Pages";
+                $event.preventDefault();
+                utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
+            };
 
             $scope.pages = pages;
 
+            $scope.deletePage = function(name){
+
+            };
+
+            //table setup 
             $scope.$on('onLastRepeat', function (scope, element, attrs) {
 
                 // issues list tablesorter

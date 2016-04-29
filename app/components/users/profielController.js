@@ -10,7 +10,7 @@ angular
 
             function getProfile() {
                 $.ajax({
-                    url: "http://localhost:3000/seasons",
+                    url: "http://localhost:3000/users/passport",
                     type: "GET",
                     success: function(data) {
                         console.log(data);

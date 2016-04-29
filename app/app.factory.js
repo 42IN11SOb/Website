@@ -85,7 +85,7 @@ altairApp
                         success: function(data) {
                             if (data.success === true) {
                                 localStorage.removeItem("token");
-                                //$state.go('bartimeus.content', {name : 'index'});
+                                $state.go('bartimeus.content', {name : 'index'});
                             }
                         },
                         error: function(data) {
@@ -97,19 +97,19 @@ altairApp
                     //this function is called alot, to prevent flood on api just return true when token is defined. if token is false you should return to login page (after its expried, or server rebooted)
                     if(!checkApi) return localStorage.getItem("token") != null;
 
-                    if(checkApi) {
+                    if (checkApi) {
                         $.ajax({
-                        url: "http://localhost:3000/users/loggedIn",
-                        type: "GET",
-                        success: function(data) {
-                            if(data.success === true){
-                                return true;
-                            } else {
-                                return false;
-                            }
-                        },
-                    });
-                    } 
+                            url: "http://localhost:3000/users/loggedIn",
+                            type: "GET",
+                            success: function(data) {
+                                if (data.success === true) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            },
+                        });
+                    }
                 },
                 isAdmin: function() {
 
@@ -130,7 +130,6 @@ altairApp
                 setContent : function(page, content){
                     switch (page) {
                         case 'index':
-                        console.log(content);
                             index = content;
                             break;
                         case 'pepdag':

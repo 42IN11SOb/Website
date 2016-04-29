@@ -6,9 +6,9 @@ angular
         '$timeout',
         '$sce',
         'apiBartimeus',
-        '$stateParams',
-        function ($rootScope,$scope,$timeout,$sce,apiBartimeus,$stateParams) {
-        	$scope.items = apiBartimeus.getContent($stateParams.name);
+        'pageContent',
+        function ($rootScope,$scope,$timeout,$sce,apiBartimeus,pageContent) {
+        	$scope.items = pageContent;
 
             $scope.toTrustedHTML = function(html) {
                 return $sce.trustAsHtml(html);
