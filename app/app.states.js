@@ -109,6 +109,7 @@ altairApp
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
+                                'lazy_KendoUI',
                                 'app/components/users/profielController.js'
                             ], { serie: true });
                         }]

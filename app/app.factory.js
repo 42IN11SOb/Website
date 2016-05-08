@@ -2,7 +2,8 @@ altairApp
     //api wrapper
     .factory('apiBartimeus', [
         '$state',
-        function($state) {
+        '$rootScope',
+        function($state, $rootScope) {
                 var ervaringsverhalen = [{
                                 title: 'Ervaringsverhalen',
                                 text: 'Deelnemers van verschillende Pep-dagen hebben in onderstaande video vragen beantwoord over de dagen.<p><iframe src="//www.youtube.com/embed/nRUx7HqVmdI" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>'
@@ -112,7 +113,7 @@ altairApp
                     }
                 },
                 isAdmin: function() {
-
+                    
                 },
                 getContent: function(page) {
                     switch (page) {

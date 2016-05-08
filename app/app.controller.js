@@ -18,6 +18,7 @@ angular
         '$state',
         function ($timeout,$scope,$window,apiBartimeus,$state) { 
             $scope.loggedin = apiBartimeus.loggedIn();
+            $scope.isAdmin = apiBartimeus.isAdmin();
 
             $scope.logoff = function() {
                 apiBartimeus.logout();
