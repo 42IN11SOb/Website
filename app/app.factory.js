@@ -2,7 +2,8 @@ altairApp
     //api wrapper
     .factory('apiBartimeus', [
         '$state',
-        function($state) {
+        '$rootScope',
+        function($state, $rootScope) {
                 var ervaringsverhalen = [{
                                 title: 'Ervaringsverhalen',
                                 text: 'Deelnemers van verschillende Pep-dagen hebben in onderstaande video vragen beantwoord over de dagen.<p><iframe src="//www.youtube.com/embed/nRUx7HqVmdI" width="560" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>'
@@ -55,7 +56,7 @@ altairApp
                     var retVal;
 
                     $.ajax({
-                        url: "http://localhost:3000/users/login",
+                        url: "http://projectpep.herokuapp.com/users/login",
                         type: "POST",
                         data: { 'username': username, 'password': password },
                         success: function(data) {
@@ -80,7 +81,7 @@ altairApp
                 },
                 logout: function() {
                     $.ajax({
-                        url: "http://localhost:3000/users/logout",
+                        url: "http://projectpep.herokuapp.com/users/logout",
                         type: "POST",
                         success: function(data) {
                             if (data.success === true) {
@@ -99,7 +100,7 @@ altairApp
 
                     if (checkApi) {
                         $.ajax({
-                            url: "http://localhost:3000/users/loggedIn",
+                            url: "http://projectpep.herokuapp.com/users/loggedIn",
                             type: "GET",
                             success: function(data) {
                                 if (data.success === true) {
@@ -112,7 +113,7 @@ altairApp
                     }
                 },
                 isAdmin: function() {
-
+                    
                 },
                 getContent: function(page) {
                     switch (page) {
@@ -152,6 +153,31 @@ altairApp
                         title: 'Ervaringsverhalen',
                         name: 'ervaringsverhalen'
                     }];
+                },
+                getSeasons : function(callback) {
+                    $.ajax({
+                            url: "http://projectpep.herokuapp.com/seasons",
+                            type: "GET",
+                            success: function(data) {
+                                if (data.success === true) {
+                                    console.log(data);
+                                    callback(data);
+                                    return data;
+                                } else return null;
+                            }
+                        });
+                },
+                getSeasonColors : function(color, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/seasons/" + color,
+                        type: "GET",
+                        success: function(data){
+                            if(data.success === true){
+                                callback(data);
+                                return data;
+                            } else return null;
+                        }
+                    })
                 },
                 getProfile : function() {
                     
