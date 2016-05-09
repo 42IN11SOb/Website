@@ -207,6 +207,43 @@ altairApp
                         pageTitle: 'Pages'
                     }
                 })
+            // -- ADMIN SEASON LIST --
+                .state("admin.seasons", {
+                    url: "/seasons",
+                    templateUrl: 'app/components/admins/seasonListView.html',
+                    controller: 'seasonListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/seasonListController.js'
+                            ], {serie:true});
+                        }],
+                        seasons: function(apiBartimeus){
+                            return apiBartimeus.getSeasons();
+                        }
+                    },
+                    data: {
+                        pageTitle: 'Seasons'
+                    }
+                })
+            // -- ADMIN PAGE CONTENT --
+            // inside modules/anuglar-tinymce.js set init to use css and custom block to create new panel
+                .state("admin.seasoncolors", {
+                    url: "/seasons/:name",
+                    templateUrl: 'app/components/admins/seasonColorView.html',
+                    controller: 'seasonColorCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/seasonColorController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Seasons'
+                    }
+                })
 
             // -- RESTRICTED --
                 .state("restricted", {
