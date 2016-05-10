@@ -244,6 +244,22 @@ altairApp
                         pageTitle: 'Seasons'
                     }
                 })
+                // -- ADMIN REGISTER USER --
+                .state("admin.register", {
+                    url: "/register",
+                    templateUrl: 'app/components/admins/addUserProfileView.html',
+                    controller: 'userProfileCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/addUserProfileController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Register'
+                    }
+                })
 
             // -- RESTRICTED --
                 .state("restricted", {
