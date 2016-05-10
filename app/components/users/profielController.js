@@ -3,15 +3,15 @@ angular
     .controller('profielCtrl', [
         '$rootScope',
         '$scope',
-        '$timeout',
         '$state',
-        function($rootScope, $scope, $timeout, $state) {
+        'apiBartimeus',
+        function($rootScope, $scope, $state, apiBartimeus) {
             $scope.user;
             var colors = [];
 
             function getProfile() {
                 $.ajax({
-                    url: "http://localhost:3000/users/profile",
+                    url: "http://projectpep.herokuapp.com/users/profile",
                     type: "GET",
                     success: function(data) {
                         console.log(data);
@@ -24,7 +24,7 @@ angular
                             //push colors to array and convert to hex, for palette
                             for (var i in data.user.passport.season.colors) {
                                 var color = data.user.passport.season.colors[i].color;
-                                colors.push(rgbToHex(color.r, color.g, color.b));
+                                colors.push(apiBartimeus.rgbToHex(color.r, color.g, color.b));
                             }
 
                             $scope.$apply();
@@ -45,16 +45,6 @@ angular
                     }
                 });
             }
-
-            function componentToHex(c) {
-                var hex = c.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
-
-            function rgbToHex(r, g, b) {
-                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-            }
-
 
             $(function(){
                 getProfile();

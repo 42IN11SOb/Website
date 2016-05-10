@@ -1,0 +1,99 @@
+<div id="page_content">
+    <div id="page_heading">
+        <h1>Figure: {{figure.title}}</h1>
+    </div>
+
+    <div id="page_content_inner">
+        <form action="" class="uk-form-stacked" id="product_edit_form">
+            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                <div class="uk-width-xLarge  uk-width-large">
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Details
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                            <div class="uk-grid uk-grid-divider uk-grid-medium">
+                                <div class="uk-width-large-1-2">
+                                    <div class="uk-form-row">
+                                        <label for="figure_image">Figure image:</label>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <img ng-src="{{figure.img}}" alt="Picture of figure {{figure.title}}"/>
+                                        <div ng-if="figure.img" class="md-btn md-btn-primary"> change picture </div>
+                                        <div ng-if="!figure.img" class="md-btn md-btn-primary"> add picture </div>
+                                    </div>
+                                </div>
+                                <div class="uk-width-large-1-2">
+                                    <div class="uk-form-row uk-margin-medium-bottom">
+                                        <label for="figure_info">Info</label>
+                                        <textarea class="md-input" name="figure_info" id="figure_info" cols="30" rows="4" ng-model="figure.info" md-input textarea-autosize></textarea>
+                                    </div>
+                                    <div class="uk-form-row">
+                                        <label for="figure_advice">Advice</label>
+                                        <textarea class="md-input" name="figure_advice" id="figure_advice" cols="30" rows="4" ng-model="figure.advice" md-input textarea-autosize></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Do's & Dont's
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                            <div class="uk-grid uk-grid-divider uk-grid-medium">
+                                <div class="uk-width-large-1-2">
+                                    <div class="uk-form-row">
+                                        <label for="figure_image"><b>Do's:</b></label>
+                                    </div>
+                                    <div class="uk-form-row">
+                                    <table class="uk-table">
+                                        <tbody>
+                                            <tr ng-repeat="do in figure.dos track by $index" style="border-style:hidden;">
+                                                <td><input type="text" class="md-input md-input-width-medium" ng-model="do" md-input /></td>
+                                                <td class="uk-text-right uk-text-middle"><a ng-click="figure.dos.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
+                                            </tr>
+                                            <tr style="border-style:hidden;">
+                                                <td><a ng-click="figure.dos.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                                <div class="uk-width-large-1-2">
+                                    <div class="uk-form-row">
+                                        <label for="figure_image"><b>Dont's:</b></label>
+                                    </div>
+                                    <div class="uk-form-row">
+                                    <table class="uk-table">
+                                        <tbody>
+                                            <tr ng-repeat="dont in figure.donts track by $index" style="border-style:hidden;">
+                                                <td><input type="text" class="md-input md-input-width-medium" ng-model="figure.donts[$index]" md-input /></td>
+                                                <td class="uk-text-right uk-text-middle"><a ng-click="figure.donts.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
+                                            </tr>
+                                            <tr style="border-style:hidden;">
+                                                <td><a ng-click="figure.donts.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></a></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="md-fab-wrapper">
+    <a class="md-fab md-fab-primary md-btn-primary" ng-click="saveFigure()">
+        <i class="material-icons">&#xE161;</i>
+    </a>
+</div>

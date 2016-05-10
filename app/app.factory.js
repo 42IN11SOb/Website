@@ -154,33 +154,162 @@ altairApp
                         name: 'ervaringsverhalen'
                     }];
                 },
+                rgbToHex: function(r, g, b) {
+                    function componentToHex(c) {
+                        var hex = c.toString(16);
+                        return hex.length == 1 ? "0" + hex : hex;
+                    }
+
+                    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+                },
+                hexToRgb: function(hex) {
+                    hex = hex.replace(/[^0-9A-F]/gi, '');
+                    var bigint = parseInt(hex, 16);
+                    var r = (bigint >> 16) & 255;
+                    var g = (bigint >> 8) & 255;
+                    var b = bigint & 255;
+
+                    return { r: r, g: g, b: b };
+                },
                 getSeasons : function(callback) {
                     $.ajax({
                             url: "http://projectpep.herokuapp.com/seasons",
                             type: "GET",
                             success: function(data) {
                                 if (data.success === true) {
-                                    console.log(data);
-                                    callback(data);
-                                    return data;
+                                    callback(data.seasons);
+                                    //return data;
                                 } else return null;
                             }
                         });
                 },
-                getSeasonColors : function(color, callback) {
+                getSeason : function(season, callback) {
                     $.ajax({
-                        url: "http://projectpep.herokuapp.com/seasons/" + color,
+                        url: "http://projectpep.herokuapp.com/seasons/" + season,
+                        type: "GET",
+                        success: function(data){
+                           // if(data.success === true){
+                                callback(data);
+                                return data;
+                           // } else return null;
+                        }
+                    })
+                },
+                updateSeason : function(name, season) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/seasons/" + name,
+                        type: "PUT",
+                        data: season,
+                        contentType: "application/json",
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                getFigures : function(callback) {
+                    $.ajax({
+                            url: "http://projectpep.herokuapp.com/figures",
+                            type: "GET",
+                            success: function(data) {
+                                if (data.success === true) {
+                                    callback(data.figures);
+                                    //return data;
+                                } else return null;
+                            }
+                        });
+                },
+                getFigure : function(figure, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/figures/" + figure,
+                        type: "GET",
+                        success: function(data){
+                           // if(data.success === true){
+                                callback(data);
+                                return data;
+                           // } else return null;
+                        }
+                    })
+                },
+                updateFigure : function(name, figure) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/figures/" + name,
+                        type: "PUT",
+                        data: figure,
+                        contentType: "application/json",
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                getColors : function(callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/colors",
                         type: "GET",
                         success: function(data){
                             if(data.success === true){
-                                callback(data);
+                                callback(data.colors);
                                 return data;
                             } else return null;
                         }
                     })
                 },
+                postColor : function(color) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/colors",
+                        type: "POST",
+                        data: color,
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                updateColor : function(name, color) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/colors/" + name,
+                        type: "PUT",
+                        data: color,
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
                 getProfile : function() {
                     
+                },
+                deleteItem : function(item, name) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + item + "/" + name,
+                        type: "DELETE",
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        }
+                    })
+                },
+                createItem : function(item, name) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + item,
+                        type: "POST",
+                        data: item = ('figures') ? {title : name}:{ name: name },
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        }
+                    })
                 },
                 getAdminSections: function() {
                     return [{
@@ -195,6 +324,18 @@ altairApp
                         title: 'Pages',
                         icon: '&#xE24D;',
                         link: 'admin.pages'
+                    }, {
+                        title: 'Seasons',
+                        icon: '&#xE545;',
+                        link: 'admin.seasons'
+                    }, {
+                        title: 'Colors',
+                        icon: '&#xE40A;',
+                        link: 'admin.colors'
+                    }, {
+                        title: 'Figures',
+                        icon: '&#xE40A;',
+                        link: 'admin.figures'
                     }];
                 }
             }

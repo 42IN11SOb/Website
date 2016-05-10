@@ -35,22 +35,22 @@
                     </table>
                 </div>
                 <ul class="uk-pagination ts_pager">
-                    <li data-uk-tooltip title="Select Page">
+                    <!-- <li data-uk-tooltip title="Select Page">
                         <select class="ts_gotoPage ts_selectize"></select>
-                    </li>
-                    <li ng-hide="true" class="first"><a href="javascript:void(0)"><i class="uk-icon-angle-double-left"></i></a></li>
+                    </li> -->
+                    <!-- <li ng-hide="true" class="first"><a href="javascript:void(0)"><i class="uk-icon-angle-double-left"></i></a></li> -->
                     <li class="prev"><a href="javascript:void(0)"><i class="uk-icon-angle-left"></i></a></li>
                     <li><span class="pagedisplay"></span></li>
                     <li class="next"><a href="javascript:void(0)"><i class="uk-icon-angle-right"></i></a></li>
-                    <li ng-hide="true" class="last"><a href="javascript:void(0)"><i class="uk-icon-angle-double-right"></i></a></li>
-                    <li ng-hide="true" data-uk-tooltip title="Page Size">
+                    <!-- <li ng-hide="true" class="last"><a href="javascript:void(0)"><i class="uk-icon-angle-double-right"></i></a></li> -->
+                    <!-- <li ng-hide="true" data-uk-tooltip title="Page Size">
                         <select class="pagesize ts_selectize">
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
                         </select>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
@@ -64,12 +64,12 @@
                     </div>
                     <div class="uk-form-row">
                         <div class="parsley-row">
-                            <label for="page_title">Title</label>
-                            <input class="md-input" type="text" name="page_title" id="page_title" ng-model="pageTitle" md-input required/>
+                            <label for="season_name">Name</label>
+                            <input class="md-input" type="text" name="season_name" id="season_name" ng-model="newName" md-input required/>
                             </div>
                         </div>
                     <div class="uk-margin-medium-top">
-                        <button type="submit" ng-click="login()" class="md-btn md-btn-primary md-btn-large">Create</button>
+                        <button type="submit" ng-click="createSeason(newName, $event)" class="md-btn md-btn-primary md-btn-large">Create</button>
                         <button ng-click="backToLogin($event)" class="md-btn md-btn-primary md-btn-large">Back</button>
                     </div>
                 </form>

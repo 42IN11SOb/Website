@@ -2,7 +2,8 @@ altairApp
     .config([
         '$stateProvider',
         '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+        '$locationProvider',
+        function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
             // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
             $urlRouterProvider
@@ -218,30 +219,76 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/seasonListController.js'
                             ], {serie:true});
-                        }],
-                        seasons: function(apiBartimeus){
-                            return apiBartimeus.getSeasons();
-                        }
+                        }]
                     },
                     data: {
                         pageTitle: 'Seasons'
                     }
                 })
-            // -- ADMIN PAGE CONTENT --
-            // inside modules/anuglar-tinymce.js set init to use css and custom block to create new panel
+            // -- ADMIN SEASON COLORS --
                 .state("admin.seasoncolors", {
                     url: "/seasons/:name",
-                    templateUrl: 'app/components/admins/seasonColorView.html',
-                    controller: 'seasonColorCtrl',
+                    templateUrl: 'app/components/admins/seasonColorsView.html',
+                    controller: 'seasonColorsCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'app/components/admins/seasonColorController.js'
+                                'app/components/admins/seasonColorsController.js'
                             ], {serie:true});
                         }]
                     },
                     data: {
-                        pageTitle: 'Seasons'
+                        pageTitle: 'Season Colors'
+                    }
+                })
+            // -- ADMIN COLORS FOR SEASONS --
+                .state("admin.colors", {
+                    url: "/colors",
+                    templateUrl: 'app/components/admins/colorsView.html',
+                    controller: 'colorsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_KendoUI',
+                                'app/components/admins/colorsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Colors'
+                    }
+                })
+            // -- ADMIN FIGURES LIST --
+                .state("admin.figures", {
+                    url: "/figures",
+                    templateUrl: 'app/components/admins/figureListView.html',
+                    controller: 'figureListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/figureListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Figures'
+                    }
+                })
+            // -- ADMIN FIGURE DETAILS --
+                .state("admin.figuredetails", {
+                    url: "/figures/:name",
+                    templateUrl: 'app/components/admins/figureDetailsView.html',
+                    controller: 'figureDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/figureDetailsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Figure Details'
                     }
                 })
 
@@ -1479,5 +1526,8 @@ altairApp
                         pageTitle: 'Blog Article'
                     }
                 })
+
+                //to get rid of /#/
+            //$locationProvider.html5Mode({enabled:true,requireBase:false});
         }
     ]);

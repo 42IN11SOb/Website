@@ -1,14 +1,14 @@
 angular
     .module('altairApp')
-    .controller('seasonListCtrl', [
+    .controller('figureListCtrl', [
         '$rootScope',
         '$scope',
         'utils',
         'variables',
         'apiBartimeus',
         function ($rootScope,$scope,utils,variables,apiBartimeus) {
-            $scope.heading = "Seasons";
-            $scope.seasons = [];
+            $scope.heading = "Figures";
+            $scope.figures = [];
 
             var $pages_card = $('#pages_card'),
                 $page_list = $('#page_list'),
@@ -29,49 +29,51 @@ angular
                     .hide();
             };
             $scope.newPage = function($event) {
-                $scope.heading = "New Season";
+                $scope.heading = "New Figure";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
             };
             $scope.backToLogin = function($event) {
-                $scope.heading = "Seasons";
+                $scope.heading = "Figures";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
             };
 
-            function getSeasons() {
-                $scope.seasons.length = 0;
-                apiBartimeus.getSeasons(function(seasons) {
-                    for(var i in seasons){
-                        $scope.seasons.push(seasons[i]);
+            function getFigures() {
+                $scope.figures.length = 0;
+                apiBartimeus.getFigures(function(figures) {
+                    console.log(figures);
+                    for(var i in figures){
+                        $scope.figures.push(figures[i]);
                     }
                     $scope.$apply();
                     //update table 
-                    $ts_issues.trigger('update');
+                    ts_users.trigger('update');
                 });
             }
 
             $(function() {
-                getSeasons();
+                getFigures();
             });
 
-            $scope.deleteSeason = function(name) {
-                apiBartimeus.deleteItem("seasons", name);
-                getSeasons();
+            $scope.deleteFigure = function(name) {
+                apiBartimeus.deleteItem("figures", name);
             };
 
-            $scope.createSeason = function(name, event) {
-                apiBartimeus.createItem("seasons", name);
+            $scope.createFigure = function(name, event) {
+                apiBartimeus.createItem("figures", name);
                 $scope.backToLogin(event);
-                getSeasons();
+                getFigures();
             };
 
             //table setup 
-            var $ts_issues = $("#ts_issues");
-            $scope.$on('onLastRepeat', function(scope, element, attrs) {
+            var $ts_pager_filter = $("#ts_pager_filter");
+            var ts_users = $ts_pager_filter
+            // initialize tables TABLESORTER PLUGIN STUFF
+            $scope.$on('onLastRepeat', function (scope, element, attrs) {
 
-                // issues list tablesorter
-                if ($(element).closest($ts_issues).length) {
+                // pager + filter
+                if($(element).closest($ts_pager_filter).length) {
 
                     // define pager options
                     var pagerOptions = {
@@ -84,28 +86,52 @@ angular
                         fixedHeight: true,
                         // remove rows from the table to speed up the sort of large tables.
                         // setting this to false, only hides the non-visible rows; needed if you plan to add/remove rows with the pager enabled.
-                        removeRows: false
+                        removeRows: false,
+                        // go to page selector - select dropdown that sets the current page
+                        cssGoto: '.ts_gotoPage'
                     };
 
                     // Initialize tablesorter
-                    $ts_issues
+                        ts_users = $ts_pager_filter
                         .tablesorter({
                             theme: 'altair',
                             widthFixed: true,
-                            widgets: ['zebra', 'filter']
+                            widgets: ['zebra', 'filter'],
+                            headers: {
+                                0: {
+                                    sorter: false,
+                                    parser: false
+                                }
+                            }
                         })
                         // initialize the pager plugin
                         .tablesorterPager(pagerOptions)
-                        .on('pagerComplete', function(e, filter) {
+                        .on('pagerComplete', function(e, filter){
                             // update selectize value
-                            if (typeof selectizeObj !== 'undefined' && selectizeObj.data('selectize')) {
+                            if(typeof selectizeObj !== 'undefined' && selectizeObj.data('selectize')) {
                                 selectizePage = selectizeObj[0].selectize;
                                 selectizePage.setValue($('select.ts_gotoPage option:selected').index() + 1, false);
                             }
 
                         });
-                }
 
-            })
+                    // remove single row
+                    $ts_pager_filter.on('click','.ts_remove_row',function(e) {
+                        e.preventDefault();
+
+                        var $this = $(this);
+                        UIkit.modal.confirm('Are you sure you want to delete this user?', function(){
+                            $this.closest('tr').remove();
+                            ts_users.trigger('update');
+                        }, {
+                            labels: {
+                                'Ok': 'Delete'
+                            }
+                        });
+                    });
+                }
+            });
+
+
         }
     ]);
