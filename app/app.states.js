@@ -252,6 +252,7 @@ altairApp
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
+                                'lazy_wizard',
                                 'app/components/admins/addUserProfileController.js'
                             ], {serie:true});
                         }]
