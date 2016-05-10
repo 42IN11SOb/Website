@@ -56,7 +56,7 @@ angular
                 getFigures();
             });
 
-            $scope.deleteFigure = function(name) {
+            function deleteFigure (name) {
                 apiBartimeus.deleteItem("figures", name);
             };
 
@@ -120,7 +120,8 @@ angular
                         e.preventDefault();
 
                         var $this = $(this);
-                        UIkit.modal.confirm('Are you sure you want to delete this user?', function(){
+                        UIkit.modal.confirm('Are you sure you want to delete this figure?', function(){
+                            deleteFigure($this.closest('tr')[0].cells[1].innerText);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');
                         }, {

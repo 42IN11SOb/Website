@@ -291,6 +291,39 @@ altairApp
                         pageTitle: 'Figure Details'
                     }
                 })
+            // -- ADMIN USERS LIST --
+                .state("admin.users", {
+                    url: "/users",
+                    templateUrl: 'app/components/admins/userListView.html',
+                    controller: 'userListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {   
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/userListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Users'
+                    }
+                })
+            // -- ADMIN USER DETAILS --
+                .state("admin.userdetails", {
+                    url: "/users/:name",
+                    templateUrl: 'app/components/admins/userDetailsView.html',
+                    controller: 'userDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/userDetailsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'User Details'
+                    }
+                })
 
             // -- RESTRICTED --
                 .state("restricted", {

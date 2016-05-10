@@ -1,14 +1,14 @@
 angular
     .module('altairApp')
-    .controller('seasonListCtrl', [
+    .controller('userListCtrl', [
         '$rootScope',
         '$scope',
         'utils',
         'variables',
         'apiBartimeus',
         function ($rootScope,$scope,utils,variables,apiBartimeus) {
-            $scope.heading = "Seasons";
-            $scope.seasons = [];
+            $scope.heading = "Users";
+            $scope.users = [];
 
             var $pages_card = $('#pages_card'),
                 $page_list = $('#page_list'),
@@ -29,22 +29,22 @@ angular
                     .hide();
             };
             $scope.newPage = function($event) {
-                $scope.heading = "New Season";
+                $scope.heading = "New User";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
             };
             $scope.backToLogin = function($event) {
-                $scope.heading = "Seasons";
+                $scope.heading = "Users";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
             };
 
-            function getFigures() {
-                $scope.seasons.length = 0;
-                apiBartimeus.getSeasons(function(seasons) {
-                    console.log(seasons);
-                    for(var i in seasons){
-                        $scope.seasons.push(seasons[i]);
+            function getUsers() {
+                $scope.users.length = 0;
+                apiBartimeus.getUsers(function(users) {
+                    console.log(users);
+                    for(var i in users){
+                        $scope.users.push(users[i]);
                     }
                     $scope.$apply();
                     //update table 
@@ -53,17 +53,17 @@ angular
             }
 
             $(function() {
-                getFigures();
+                getUsers();
             });
 
-            function deleteSeason(name) {
-                apiBartimeus.deleteItem("seasons", name);
+            function deleteUser(name) {
+                apiBartimeus.deleteItem("users", name);
             };
 
-            $scope.createSeason = function(name, event) {
-                apiBartimeus.createItem("seasons", name);
+            $scope.createUser = function(name, event) {
+                apiBartimeus.createItem("users", name);
                 $scope.backToLogin(event);
-                getFigures();
+                getUsers();
             };
 
             //table setup 
@@ -121,7 +121,7 @@ angular
 
                         var $this = $(this);
                         UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
-                            deleteSeason($this.closest('tr')[0].cells[0].innerText);
+                            deleteUser($this.closest('tr')[0].cells[0].innerText);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');
                         }, {

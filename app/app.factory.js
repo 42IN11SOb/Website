@@ -285,6 +285,58 @@ altairApp
                         dataType: 'json'
                     })
                 },
+                getUsers : function(callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users",
+                        type: "GET",
+                        success: function(data){
+                            if(data.success === true){
+                                callback(data.users);
+                                return data;
+                            } else return null;
+                        }
+                    })
+                },
+                getUser : function(user, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/" + user,
+                        type: "GET",
+                        success: function(data){
+                           // if(data.success === true){
+                                callback(data);
+                                return data;
+                           // } else return null;
+                        }
+                    })
+                },
+                updateUser : function(id, user) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/" + id,
+                        type: "PUT",
+                        data: user,
+                        contentType: "application/json",
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                updatePassport : function(id, passport) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/passports/" + id,
+                        type: "PUT",
+                        data: passport,
+                        contentType: "application/json",
+                        success: function(data){
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
                 getProfile : function() {
                     
                 },

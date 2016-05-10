@@ -21,8 +21,8 @@
                                 <td><img class="md-user-image" ng-src="{{figure.img}}" alt="Picture for a visual display of the figure: {{figure.title}}"/></td>
                                 <td><a ui-sref="admin.figuredetails({ name: figure.title })"> {{figure.title}} </a></td>
                                 <td class="uk-text-center">
-                                    <a ui-sref="admin.figuredetails({ name: figure.title })"><i name="edit" class="md-icon material-icons">&#xE8B8;</i></a>
-                                    <a class="ts_remove_row" ng-click="deleteFigure(figure.title)"><i name="delete" class="md-icon material-icons">&#xE872;</i></a>
+                                    <a ui-sref="admin.figuredetails({ name: figure.title })"><i title="edit" class="md-icon material-icons">&#xE8B8;</i></a>
+                                    <a class="ts_remove_row"><i title="delete" class="md-icon material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -60,8 +60,8 @@
                     </div>
                     <div class="uk-form-row">
                         <div class="parsley-row">
-                            <label for="season_name">Name</label>
-                            <input class="md-input" type="text" name="season_name" id="season_name" ng-model="newName" md-input required/>
+                            <label for="figure_name">Name</label>
+                            <input class="md-input" type="text" name="figure_name" id="figure_name" ng-model="newName" md-input required/>
                             </div>
                         </div>
                     <div class="uk-margin-medium-top">

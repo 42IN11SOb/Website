@@ -1,0 +1,66 @@
+<div id="page_content">
+    <div id="page_heading">
+        <h1>User: {{user.username}}</h1>
+    </div>
+
+    <div id="page_content_inner">
+        <form action="" class="uk-form-stacked" id="product_edit_form">
+            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                <div class="uk-width-xLarge  uk-width-large">
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Details
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                            <div class="uk-grid uk-grid-divider uk-grid-medium">
+                                <div class="uk-width-large-1-2">
+                                    <div class="uk-form-row">
+                                        <div class="parsley-row">
+                                            <label for="login_username">Username</label>
+                                            <input class="md-input" type="text" name="login_username" id="login_username" ng-model="user.username" md-input required/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Season
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                            <span class="icheck-inline" ng-repeat="season in seasons">
+                                <input type="radio" name="radio_{{season.name}}" id="radio_{{season.name}}" icheck ng-model="user.passport.season._id" value="{{season.id}}" />
+                                <label for="radio_{{season.name}}" class="inline-label">{{season.name}}</label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Figure
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                            <span class="icheck-inline" ng-repeat="figure in figures">
+                                <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
+                                <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="md-fab-wrapper">
+    <a class="md-fab md-fab-primary md-btn-primary" ng-click="saveUser()">
+        <i class="material-icons">&#xE161;</i>
+    </a>
+</div>
