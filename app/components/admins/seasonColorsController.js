@@ -15,7 +15,7 @@ angular
                     var colors = season.colors;
 
                     for (var i in colors) {
-                        seasonColors.push(colors[i].color.name);
+                        if(colors[i].color != null) seasonColors.push(colors[i].color.name);
                     }
 
                     apiBartimeus.getColors(function(colors) {

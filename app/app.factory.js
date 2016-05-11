@@ -356,7 +356,7 @@ altairApp
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/" + item,
                         type: "POST",
-                        data: item = ('figures') ? {title : name}:{ name: name },
+                        data: ('figures' == item ? {title : name}:{ name: name }),
                         success: function(data){
                            // if(data.success === true){
                                 return data;
