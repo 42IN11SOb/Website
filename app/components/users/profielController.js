@@ -15,11 +15,11 @@ angular
                     type: "GET",
                     success: function(data) {
                         console.log(data);
-                        //if (data.success != true) {
+                        if (data.success != true) {
                             console.log(data)
                             //user not logged in or token expired
-                            //$state.go('login');
-                        //} else {
+                            $state.go('login');
+                        } else {
                             $scope.user = data.data;
 
                             //push colors to array and convert to hex, for palette
@@ -38,7 +38,7 @@ angular
                                 },
                                 palette: colors
                             });
-                       // }
+                        }
                     },
                     error: function(data) {
                         console.log(data);

@@ -324,23 +324,6 @@ altairApp
                         pageTitle: 'User Details'
                     }
                 })
-                // -- ADMIN REGISTER USER --
-                .state("admin.register", {
-                    url: "/register",
-                    templateUrl: 'app/components/admins/addUserProfileView.html',
-                    controller: 'userProfileCtrl',
-                    resolve: {
-                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'lazy_wizard',
-                                'app/components/admins/addUserProfileController.js'
-                            ], {serie:true});
-                        }]
-                    },
-                    data: {
-                        pageTitle: 'Register'
-                    }
-                })
 
             // -- RESTRICTED --
                 .state("restricted", {

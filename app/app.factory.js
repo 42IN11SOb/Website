@@ -60,6 +60,7 @@ altairApp
                         type: "POST",
                         data: { 'username': username, 'password': password },
                         success: function(data) {
+                            var data = data.data;
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
                                 $state.go('bartimeus.content', {name : 'index'});
