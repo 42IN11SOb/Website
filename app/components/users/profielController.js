@@ -3,28 +3,29 @@ angular
     .controller('profielCtrl', [
         '$rootScope',
         '$scope',
-        '$timeout',
         '$state',
-        function($rootScope, $scope, $timeout, $state) {
+        'apiBartimeus',
+        function($rootScope, $scope, $state, apiBartimeus) {
             $scope.user;
             var colors = [];
 
             function getProfile() {
                 $.ajax({
-                    url: "http://localhost:3000/users/profile",
+                    url: "http://projectpep.herokuapp.com/users/profile",
                     type: "GET",
                     success: function(data) {
                         console.log(data);
-                        if (data.success != true) {
+                        //if (data.success != true) {
+                            console.log(data)
                             //user not logged in or token expired
-                            $state.go('login');
-                        } else {
-                            $scope.user = data.user;
+                            //$state.go('login');
+                        //} else {
+                            $scope.user = data;
 
                             //push colors to array and convert to hex, for palette
-                            for (var i in data.user.passport.season.colors) {
-                                var color = data.user.passport.season.colors[i].color;
-                                colors.push(rgbToHex(color.r, color.g, color.b));
+                            for (var i in data.passport.season.colors) {
+                                var color = data.passport.season.colors[i].color;
+                                colors.push(apiBartimeus.rgbToHex(color.r, color.g, color.b));
                             }
 
                             $scope.$apply();
@@ -37,24 +38,14 @@ angular
                                 },
                                 palette: colors
                             });
-                        }
+                       // }
                     },
                     error: function(data) {
-                        console.log(data.message);
+                        console.log(data);
                         //show error message
                     }
                 });
             }
-
-            function componentToHex(c) {
-                var hex = c.toString(16);
-                return hex.length == 1 ? "0" + hex : hex;
-            }
-
-            function rgbToHex(r, g, b) {
-                return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-            }
-
 
             $(function(){
                 getProfile();

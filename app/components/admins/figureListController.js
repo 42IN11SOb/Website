@@ -1,14 +1,14 @@
 angular
     .module('altairApp')
-    .controller('seasonListCtrl', [
+    .controller('figureListCtrl', [
         '$rootScope',
         '$scope',
         'utils',
         'variables',
         'apiBartimeus',
         function ($rootScope,$scope,utils,variables,apiBartimeus) {
-            $scope.heading = "Seasons";
-            $scope.seasons = [];
+            $scope.heading = "Figures";
+            $scope.figures = [];
 
             var $pages_card = $('#pages_card'),
                 $page_list = $('#page_list'),
@@ -29,22 +29,22 @@ angular
                     .hide();
             };
             $scope.newPage = function($event) {
-                $scope.heading = "New Season";
+                $scope.heading = "New Figure";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
             };
             $scope.backToLogin = function($event) {
-                $scope.heading = "Seasons";
+                $scope.heading = "Figures";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
             };
 
             function getFigures() {
-                $scope.seasons.length = 0;
-                apiBartimeus.getSeasons(function(seasons) {
-                    console.log(seasons);
-                    for(var i in seasons){
-                        $scope.seasons.push(seasons[i]);
+                $scope.figures.length = 0;
+                apiBartimeus.getFigures(function(figures) {
+                    console.log(figures);
+                    for(var i in figures){
+                        $scope.figures.push(figures[i]);
                     }
                     $scope.$apply();
                     //update table 
@@ -56,12 +56,12 @@ angular
                 getFigures();
             });
 
-            function deleteSeason(name) {
-                apiBartimeus.deleteItem("seasons", name);
+            function deleteFigure (name) {
+                apiBartimeus.deleteItem("figures", name);
             };
 
-            $scope.createSeason = function(name, event) {
-                apiBartimeus.createItem("seasons", name);
+            $scope.createFigure = function(name, event) {
+                apiBartimeus.createItem("figures", name);
                 $scope.backToLogin(event);
                 getFigures();
             };
@@ -100,7 +100,7 @@ angular
                             headers: {
                                 0: {
                                     sorter: false,
-                                    parser: true
+                                    parser: false
                                 }
                             }
                         })
@@ -120,8 +120,8 @@ angular
                         e.preventDefault();
 
                         var $this = $(this);
-                        UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
-                            deleteSeason($this.closest('tr')[0].cells[0].innerText);
+                        UIkit.modal.confirm('Are you sure you want to delete this figure?', function(){
+                            deleteFigure($this.closest('tr')[0].cells[1].innerText);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');
                         }, {
@@ -132,5 +132,7 @@ angular
                     });
                 }
             });
+
+
         }
     ]);
