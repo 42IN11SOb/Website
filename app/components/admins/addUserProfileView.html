@@ -33,7 +33,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="passwordRepeat">Herhaal Wachtwoord<span class="req">*</span></label>
-                                    <input type="password" name="passwordRepeat" id="passwordRepeat" required class="md-input" md-input ng-model="wizard.paswordAgain" />
+                                    <input type="password" name="passwordRepeat" id="passwordRepeat" required class="md-input" md-input ng-model="wizard.paswordRepeat" />
                                 </div>
                             </div>
 
@@ -41,7 +41,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="email">Emailadres<span class="req">*</span></label>
-                                    <input type="text" name="email" id="email" required class="md-input" md-input ng-model="wizard.email" />
+                                    <input type="email" name="email" id="email" required class="md-input" md-input ng-model="wizard.email" />
                                 </div>
                             </div>
 
@@ -62,7 +62,10 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="season">Kleur seizoen<span class="req">*</span></label>
-                                    <input type="text" name="season" id="season" required class="md-input"  md-input ng-model="wizard.season" />
+                                    <input type="radio" name="season" id="season" required class="md-input" value="zomer"  md-input ng-model="wizard.season" /> Zomer <br>
+                                    <input type="radio" name="season" id="season" required class="md-input" value="herfst" md-input ng-model="wizard.season" /> Herfst <br>
+                                    <input type="radio" name="season" id="season" required class="md-input" value="winter" md-input ng-model="wizard.season" /> Winter <br>
+                                    <input type="radio" name="season" id="season" required class="md-input" value="lente" md-input ng-model="wizard.season" /> Lente <br>
                                 </div>
                             </div>
 
