@@ -324,6 +324,22 @@ altairApp
                         dataType: 'json'
                     })
                 },
+                createUser : function(user) {
+                    console.log(user);
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/signup",
+                        type: "POST",
+                        data: user,
+                        //contentType: "application/json",
+                        success: function(data){
+                            console.log(data);
+                           // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
                 updatePassport : function(id, passport) {
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/passports/" + id,
@@ -332,6 +348,21 @@ altairApp
                         contentType: "application/json",
                         success: function(data){
                            // if(data.success === true){
+                                return data;
+                           // } else return null;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                createPassport : function(passport, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/passports/",
+                        type: "POST",
+                        data: passport,
+                        contentType: "application/json",
+                        success: function(data){
+                           // if(data.success === true){
+                            callback(data);
                                 return data;
                            // } else return null;
                         },

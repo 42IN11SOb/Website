@@ -17,7 +17,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="userName">Gebruikersnaam<span class="req">*</span></label>
-                                    <input type="text" name="userName" id="userName" required class="md-input"  md-input ng-model="wizard.username" />
+                                    <input type="text" name="userName" id="userName" required class="md-input"  md-input ng-model="user.username" />
                                 </div>
                             </div>
 
@@ -25,7 +25,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="password">Wachtwoord<span class="req">*</span></label>
-                                    <input type="password" name="password" id="password" required class="md-input" md-input ng-model="wizard.password" />
+                                    <input type="password" name="password" id="password" required class="md-input" md-input ng-model="user.password" />
                                 </div>
                             </div>
 
@@ -33,7 +33,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="passwordRepeat">Herhaal Wachtwoord<span class="req">*</span></label>
-                                    <input type="password" name="passwordRepeat" id="passwordRepeat" required class="md-input" md-input ng-model="wizard.paswordRepeat" />
+                                    <input type="password" name="passwordRepeat" id="passwordRepeat" required class="md-input" md-input ng-model="user.paswordRepeat" />
                                 </div>
                             </div>
 
@@ -41,7 +41,7 @@
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <label for="email">Emailadres<span class="req">*</span></label>
-                                    <input type="email" name="email" id="email" required class="md-input" md-input ng-model="wizard.email" />
+                                    <input type="email" name="email" id="email" required class="md-input" md-input ng-model="user.email" />
                                 </div>
                             </div>
 
@@ -53,22 +53,25 @@
 
                         <!-- Profile section -->
                         <wz-step title="profile_information" template="app/templates/wizard.step.tpl.html">
-                            <h2 class="heading_a">
-                                Profiel
-                                <span class="sub-heading">Vul hier informatie in over het profiel van de gebruiker</span>
+                            <h2 class="heading_a uk-margin-medium-bottom">
+                                Stijladvies
+                                <span class="sub-heading">Selecteer hieronder welk seizon en welk figuur de gebruiker heeft</span>
                             </h2>
+                            <h3 class="heading_a">
+                                Figuur
+                            </h3>
                             <hr class="md-hr"/>
                             <!-- season -->
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="season">Kleur seizoen<span class="req">*</span></label>
-                                    <input type="radio" name="season" id="season" required class="md-input" value="zomer"  md-input ng-model="wizard.season" /> Zomer <br>
-                                    <input type="radio" name="season" id="season" required class="md-input" value="herfst" md-input ng-model="wizard.season" /> Herfst <br>
-                                    <input type="radio" name="season" id="season" required class="md-input" value="winter" md-input ng-model="wizard.season" /> Winter <br>
-                                    <input type="radio" name="season" id="season" required class="md-input" value="lente" md-input ng-model="wizard.season" /> Lente <br>
+                                    <span class="icheck-inline" ng-repeat="season in seasons">
+                                        <input type="radio" name="radio_{{season.name}}" id="radio_{{season.name}}" icheck ng-model="user.passport.season._id" value="{{season.id}}" />
+                                        <label for="radio_{{season.name}}" class="inline-label">{{season.name}}</label>
+                                    </span>
                                 </div>
                             </div>
 
+                            <hr class="md-hr"/>
                             <!-- figure -->
                             <h3 class="heading_a">
                                 Figuur
@@ -77,45 +80,10 @@
                                 <!-- title -->
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="figure_title">Titel<span class="req">*</span></label>
-                                    <input type="text" name="figure_title" id="figure_title" required class="md-input"  md-input ng-model="wizard.figure_title" />
-                                </div>
-                            </div>
-                                <!-- advice -->
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="advice">Advies<span class="req">*</span></label>
-                                    <input type="text" name="advice" id="advice" required class="md-input"  md-input ng-model="wizard.figure_advice" />
-                                </div>
-                            </div>
-                                <!-- do's-->
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="do">do's<span class="req">*</span></label>
-                                    <input type="text" name="do" id="do" required class="md-input"  md-input ng-model="wizard.figure_do" />
-                                </div>
-                            </div>
-                                <!--  don'ts  -->
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="dont">don'ts<span class="req">*</span></label>
-                                    <input type="text" name="dont" id="dont" required class="md-input"  md-input ng-model="wizard.figure_dont" />
-                                </div>
-                            </div>
-
-                            <!-- make up -->
-                            <!-- titel -->
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="makeup_title">makeup titel<span class="req">*</span></label>
-                                    <input type="text" name="makeup_title" id="makeup_title" required class="md-input"  md-input ng-model="wizard.makeup_title" />
-                                </div>
-                            </div>
-                            <!-- tips -->
-                            <div class="uk-grid">
-                                <div class="uk-width-medium-1-1 parsley-row">
-                                    <label for="makeup_tips">makeup tips<span class="req">*</span></label>
-                                    <input type="text" name="makeup_tips" id="makeup_tips" required class="md-input"  md-input ng-model="wizard.makeup_tips" />
+                                    <span class="icheck-inline" ng-repeat="figure in figures">
+                                        <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
+                                        <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
+                                    </span>
                                 </div>
                             </div>
                             <!-- <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-4" data-uk-grid-margin>
