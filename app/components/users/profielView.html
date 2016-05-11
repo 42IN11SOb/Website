@@ -26,7 +26,7 @@
                                     <div class="md-card-content subitem">
                                         <p>U bent een <b>'{{user.passport.season.name}}'</b>. Dat betekend dat de volgende kleuren u zullen staan:</p>
                                         <div class="uk-margin-bottom">
-                                        <!-- ugly border for now, because of possible white color -->
+                                            <!-- ugly border for now, because of possible white color -->
                                             <div id="palette" style="border:solid 0.1px;"></div>
                                         </div>
                                     </div>
@@ -34,7 +34,6 @@
                             </div>
                         </div>
                         <!-- end -->
-
                         <!-- 'sub item content' -->
                         <div class="md-card-content">
                             <div>
@@ -45,23 +44,32 @@
                                         </h3>
                                     </div>
                                     <div class="md-card-content subitem">
-                                        <p>U heeft het figuur <b>'{{user.passport.figure.title}}'</b>, hieronder staat informatie, advies en de do's en dont's van dit figuur</p>
-                                        <p>Some info: {{user.passport.figure.info}}</p>
-                                        <p>Some advices: {{user.passport.figure.advice}}</p>
-
-                                        <p>Do's:
-                                        <ul>
-                                            <li ng-repeat="do in user.passport.figure.dos">
-                                                {{do}}
-                                            </li>
-                                        </ul></p>
-
-                                        <p>Dont's:
-                                        <ul>
-                                            <li ng-repeat="dont in user.passport.figure.donts">
-                                                {{dont}}
-                                            </li>
-                                        </ul></p>
+                                        <div class="uk-grid uk-grid-divider uk-grid-medium">
+                                            <div class="uk-width-large-1-2">
+                                                <p>U heeft het figuur <b>'{{user.passport.figure.title}}'</b>, hieronder staat informatie, advies en de do's en dont's van dit figuur</p>
+                                                <p>{{user.passport.figure.info}}</p>
+                                                <p>{{user.passport.figure.advice}}</p>
+                                                <p><b>Do's:</b>
+                                                    <ul>
+                                                        <li ng-repeat="do in user.passport.figure.dos">
+                                                            {{do}}
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                                <p><b>Dont's:</b>
+                                                    <ul>
+                                                        <li ng-repeat="dont in user.passport.figure.donts">
+                                                            {{dont}}
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                            <div class="uk-width-large-1-2">
+                                                <img ng-src="{{user.passport.figure.img}}" alt="Picture of figure {{user.passport.figure.title}}" />
+                                                <!-- <div ng-if="figure.img" class="md-btn md-btn-primary"> change picture </div>
+                                        <div ng-if="!figure.img" class="md-btn md-btn-primary"> add picture </div> -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

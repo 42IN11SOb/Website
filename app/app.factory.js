@@ -177,7 +177,7 @@ altairApp
                             type: "GET",
                             success: function(data) {
                                 if (data.success === true) {
-                                    callback(data.seasons);
+                                    callback(data.data);
                                     //return data;
                                 } else return null;
                             }
@@ -189,7 +189,7 @@ altairApp
                         type: "GET",
                         success: function(data){
                            // if(data.success === true){
-                                callback(data);
+                                callback(data.data);
                                 return data;
                            // } else return null;
                         }
@@ -215,7 +215,7 @@ altairApp
                             type: "GET",
                             success: function(data) {
                                 if (data.success === true) {
-                                    callback(data.figures);
+                                    callback(data.data);
                                     //return data;
                                 } else return null;
                             }
@@ -227,7 +227,7 @@ altairApp
                         type: "GET",
                         success: function(data){
                            // if(data.success === true){
-                                callback(data);
+                                callback(data.data);
                                 return data;
                            // } else return null;
                         }
@@ -253,7 +253,7 @@ altairApp
                         type: "GET",
                         success: function(data){
                             if(data.success === true){
-                                callback(data.colors);
+                                callback(data.data);
                                 return data;
                             } else return null;
                         }
@@ -291,7 +291,7 @@ altairApp
                         type: "GET",
                         success: function(data){
                             if(data.success === true){
-                                callback(data.users);
+                                callback(data.data);
                                 return data;
                             } else return null;
                         }
@@ -302,8 +302,8 @@ altairApp
                         url: "http://projectpep.herokuapp.com/users/" + user,
                         type: "GET",
                         success: function(data){
-                           // if(data.success === true){
-                                callback(data);
+                           // if(data.success ==    = true){
+                                callback(data.data);
                                 return data;
                            // } else return null;
                         }
@@ -364,7 +364,7 @@ altairApp
                     })
                 },
                 getAdminSections: function() {
-                    return [{
+                    return [/*{
                         title: 'User Profile',
                         icon: '&#xE87C;',
                         //link: 'restricted.pages.user_profile',
@@ -372,6 +372,10 @@ altairApp
                             title: 'Regular Elements',
                             link: 'restricted.forms.regular'
                         }]
+                    },*/ {
+                        title: 'Users',
+                        icon: '&#xE87C;',
+                        link: 'admin.users'
                     }, {
                         title: 'Pages',
                         icon: '&#xE24D;',
@@ -386,7 +390,7 @@ altairApp
                         link: 'admin.colors'
                     }, {
                         title: 'Figures',
-                        icon: '&#xE40A;',
+                        icon: '&#xE84E;',
                         link: 'admin.figures'
                     }];
                 }
