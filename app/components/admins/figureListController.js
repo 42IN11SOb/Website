@@ -4,45 +4,43 @@ angular
         '$rootScope',
         '$scope',
         'utils',
-        'variables',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,variables,apiBartimeus) {
+        function ($rootScope,$scope,utils,apiBartimeus) {
             $scope.heading = "Figures";
             $scope.figures = [];
 
-            var $pages_card = $('#pages_card'),
-                $page_list = $('#page_list'),
-                $new_page = $('#new_page');
+            var $figures_card = $('#figures_card'),
+                $figure_list = $('#figure_list'),
+                $new_figure = $('#new_figure');
 
             // show lpage list (hide other forms)
-            var pageListShow = function() {
-                $page_list
+            var figureListShow = function() {
+                $figure_list
                     .show()
                     .siblings()
                     .hide();
             };
             // show new page (hide other forms)
-            var newPageShow = function() {
-                $new_page
+            var newFigureShow = function() {
+                $new_figure
                     .show()
                     .siblings()
                     .hide();
             };
-            $scope.newPage = function($event) {
+            $scope.newFigure = function($event) {
                 $scope.heading = "New Figure";
                 $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
+                utils.card_show_hide($figures_card,undefined,newFigureShow,undefined);
             };
-            $scope.backToLogin = function($event) {
+            $scope.backToFigures = function($event) {
                 $scope.heading = "Figures";
                 $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
+                utils.card_show_hide($figures_card,undefined,figureListShow,undefined);
             };
 
             function getFigures() {
                 $scope.figures.length = 0;
-                apiBartimeus.getFigures(function(figures) {
-                    console.log(figures);
+                apiBartimeus.getItems("figures", function(figures) {
                     for(var i in figures){
                         $scope.figures.push(figures[i]);
                     }
@@ -62,7 +60,7 @@ angular
 
             $scope.createFigure = function(name, event) {
                 apiBartimeus.createItem("figures", name);
-                $scope.backToLogin(event);
+                $scope.backToFigures(event);
                 getFigures();
             };
 

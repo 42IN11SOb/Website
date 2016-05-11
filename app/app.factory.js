@@ -19,7 +19,7 @@ altairApp
                             }];
                 var index = [{
                                 title: '‘Straal uit wie je bent’',
-                                text: '<img class="klein" src="/wp-content/uploads/2014/04/unnamed.png" alt="Vrouw met make-up oogschaduw palet aan de rechterkant van haar gezicht, links kwasten om op te maken" width="60%"><p>Er goed uitzien is voor iemand met een visuele beperking niet minder belangrijk. Het benadrukt de sterke kanten van je persoonlijkheid en maakt je oogverblindend mooi. ‘Oogverblindend Mooi’ is een initiatief van Bartiméus en inspireert over jouw kleur en stijl. Met persoonlijke kleuradvies en je persoonlijke kracht werken we aan je PEP: Persoonlijke Effectieve Presentatie!</p><p>We organiseren regelmatig een gezellige PEP- dag waar onze professionele stylist en visagist je een uitgebreid stylingadvies geven. Twijfel je ook wel eens of die ene spijkerbroek wel staat, of over welke kleur jou echt laat stralen? Zet die twijfel aan de kant en trakteer jezelf op een inspirerende dag waarbij je alles leert over jouw eigen stijl en de kleuren die jou laten stralen! </p>'
+                                text: '<img class="klein" src="http://oogverblindendmooi.nl/wp-content/uploads/2014/04/unnamed.png" alt="Vrouw met make-up oogschaduw palet aan de rechterkant van haar gezicht, links kwasten om op te maken" width="60%"><p>Er goed uitzien is voor iemand met een visuele beperking niet minder belangrijk. Het benadrukt de sterke kanten van je persoonlijkheid en maakt je oogverblindend mooi. ‘Oogverblindend Mooi’ is een initiatief van Bartiméus en inspireert over jouw kleur en stijl. Met persoonlijke kleuradvies en je persoonlijke kracht werken we aan je PEP: Persoonlijke Effectieve Presentatie!</p><p>We organiseren regelmatig een gezellige PEP- dag waar onze professionele stylist en visagist je een uitgebreid stylingadvies geven. Twijfel je ook wel eens of die ene spijkerbroek wel staat, of over welke kleur jou echt laat stralen? Zet die twijfel aan de kant en trakteer jezelf op een inspirerende dag waarbij je alles leert over jouw eigen stijl en de kleuren die jou laten stralen! </p>'
                             }, {
                                 title: 'De winnaars van de loterij op de ZieZo beurs zijn:',
                                 text: '<ul><li>Donderdag: Elma Gelens</li><li>Vrijdag: Anna Kruithof</li><li>Zaterdag: Shirley Maasland</li></ul><p>Gefeliciteerd! Veel plezier op de PEP dag.</p>'
@@ -172,227 +172,115 @@ altairApp
 
                     return { r: r, g: g, b: b };
                 },
-                getSeasons : function(callback) {
+                getProfile: function(callback) {
                     $.ajax({
-                            url: "http://projectpep.herokuapp.com/seasons",
-                            type: "GET",
-                            success: function(data) {
-                                if (data.success === true) {
-                                    callback(data.data);
-                                    //return data;
-                                } else return null;
+                        url: "http://projectpep.herokuapp.com/users/profile",
+                        type: "GET",
+                        success: function(profile) {
+                            if (profile.success != true) {
+                                //user not logged in or token expired
+                                $state.go('login');
+                            } else {
+                                callback(profile.data);
                             }
-                        });
-                },
-                getSeason : function(season, callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/seasons/" + season,
-                        type: "GET",
-                        success: function(data){
-                           // if(data.success === true){
-                                callback(data.data);
-                                return data;
-                           // } else return null;
                         }
-                    })
-                },
-                updateSeason : function(name, season) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/seasons/" + name,
-                        type: "PUT",
-                        data: season,
-                        contentType: "application/json",
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                getFigures : function(callback) {
-                    $.ajax({
-                            url: "http://projectpep.herokuapp.com/figures",
-                            type: "GET",
-                            success: function(data) {
-                                if (data.success === true) {
-                                    callback(data.data);
-                                    //return data;
-                                } else return null;
-                            }
-                        });
-                },
-                getFigure : function(figure, callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/figures/" + figure,
-                        type: "GET",
-                        success: function(data){
-                           // if(data.success === true){
-                                callback(data.data);
-                                return data;
-                           // } else return null;
-                        }
-                    })
-                },
-                updateFigure : function(name, figure) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/figures/" + name,
-                        type: "PUT",
-                        data: figure,
-                        contentType: "application/json",
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                getColors : function(callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/colors",
-                        type: "GET",
-                        success: function(data){
-                            if(data.success === true){
-                                callback(data.data);
-                                return data;
-                            } else return null;
-                        }
-                    })
-                },
-                postColor : function(color) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/colors",
-                        type: "POST",
-                        data: color,
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                updateColor : function(name, color) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/colors/" + name,
-                        type: "PUT",
-                        data: color,
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                getUsers : function(callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/users",
-                        type: "GET",
-                        success: function(data){
-                            if(data.success === true){
-                                callback(data.data);
-                                return data;
-                            } else return null;
-                        }
-                    })
-                },
-                getUser : function(user, callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/users/" + user,
-                        type: "GET",
-                        success: function(data){
-                           // if(data.success ==    = true){
-                                callback(data.data);
-                                return data;
-                           // } else return null;
-                        }
-                    })
-                },
-                updateUser : function(id, user) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/users/" + id,
-                        type: "PUT",
-                        data: user,
-                        contentType: "application/json",
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
+                    });
                 },
                 createUser : function(user) {
-                    console.log(user);
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/users/signup",
                         type: "POST",
                         data: user,
                         //contentType: "application/json",
-                        success: function(data){
-                            console.log(data);
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
+                        success: function(user){
+                            if(user.success === true){
+                                return user.data;
+                            } else return user;
                         },
                         dataType: 'json'
                     })
                 },
-                updatePassport : function(id, passport) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/passports/" + id,
-                        type: "PUT",
-                        data: passport,
-                        contentType: "application/json",
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                createPassport : function(passport, callback) {
+                createPassport: function(passport, callback) {
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/passports/",
                         type: "POST",
                         data: passport,
                         contentType: "application/json",
-                        success: function(data){
-                           // if(data.success === true){
-                            callback(data);
-                                return data;
-                           // } else return null;
+                        success: function(passport) {
+                            if (passport.success === true) {
+                                callback(passport.data);
+                                return passport.data;
+                            } else return passport;
                         },
                         dataType: 'json'
                     })
                 },
-                getProfile : function() {
-                    
-                },
-                deleteItem : function(item, name) {
+                getItems : function(type, callback) {
                     $.ajax({
-                        url: "http://projectpep.herokuapp.com/" + item + "/" + name,
-                        type: "DELETE",
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        }
+                        url: "http://projectpep.herokuapp.com/" + type,
+                        type: "GET",
+                        success: function(items){
+                            if(items.success === true){
+                                if(callback) callback(items.data)
+                                return items.data;
+                           } else return items;
+                        },
+                        dataType: "json"
                     })
                 },
-                createItem : function(item, name) {
+                getItem : function(type, name, callback) {
                     $.ajax({
-                        url: "http://projectpep.herokuapp.com/" + item,
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "GET",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data)
+                                return item.data;
+                           } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                createItem : function(type, name, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type,
                         type: "POST",
                         data: ('figures' == item ? {title : name}:{ name: name }),
-                        success: function(data){
-                           // if(data.success === true){
-                                return data;
-                           // } else return null;
-                        }
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                updateItem : function(type, name, item, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "PUT",
+                        data: item,
+                        contentType: "application/json",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                deleteItem : function(type, name, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "DELETE",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
                     })
                 },
                 getAdminSections: function() {

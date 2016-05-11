@@ -11,13 +11,13 @@ angular
             $scope.figures = [];
 
             function getUser(){
-                apiBartimeus.getUser($stateParams.name, function(user) {
+                apiBartimeus.getItem("users", $stateParams.name, function(user) {
                     $scope.user = user;
                     $scope.$apply();
                 });
             }
             function getSeasons() {
-                apiBartimeus.getSeasons(function(seasons) {
+                apiBartimeus.getItems("seasons", function(seasons) {
                     for(var i in seasons){
                         $scope.seasons.push({
                             name: seasons[i].name,
@@ -27,7 +27,7 @@ angular
                 });
             }
             function getFigures() {
-                apiBartimeus.getFigures(function(figures) {
+                apiBartimeus.getItems("figures", function(figures) {
                     for(var i in figures){
                         $scope.figures.push({
                             name: figures[i].title,
@@ -58,8 +58,8 @@ angular
                 user.passport.season = season;
                 user.passport.figure = figure;
 
-                apiBartimeus.updateUser(user._id, JSON.stringify(user));
-                apiBartimeus.updatePassport(user.passport._id, JSON.stringify(user.passport));
+                apiBartimeus.updateItem("users", user._id, JSON.stringify(user));
+                apiBartimeus.updateItem("passports", user.passport._id, JSON.stringify(user.passport));
                 $state.go('admin.users');
             }
         }

@@ -5,8 +5,8 @@
     </div>
 
     <div id="page_content_inner">
-        <div class="md-card" id="pages_card">
-            <div class="md-card-content" id="page_list">
+        <div class="md-card" id="figures_card">
+            <div class="md-card-content" id="figure_list">
                 <div class="uk-overflow-container uk-margin-bottom">
                     <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_pager_filter">
                         <thead>
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="md-card-content" id="new_page" style="display:none;">
+            <div class="md-card-content" id="new_figure" style="display:none;">
 
                 <form id="form_validation" name="new_page">
                     <!-- change into correct error showing -->
@@ -66,7 +66,7 @@
                         </div>
                     <div class="uk-margin-medium-top">
                         <button type="submit" ng-click="createFigure(newName, $event)" class="md-btn md-btn-primary md-btn-large">Create</button>
-                        <button ng-click="backToLogin($event)" class="md-btn md-btn-primary md-btn-large">Back</button>
+                        <button ng-click="backToFigures($event)" class="md-btn md-btn-primary md-btn-large">Back</button>
                     </div>
                 </form>
             </div>
@@ -77,7 +77,7 @@
 </div>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-btn-primary" ng-click="newPage($event)" data-uk-modal="{ center:true }">
+    <a class="md-fab md-fab-accent md-btn-primary" ng-click="newFigure($event)" data-uk-modal="{ center:true }">
         <i class="material-icons">&#xE145;</i>
     </a>
 </div>

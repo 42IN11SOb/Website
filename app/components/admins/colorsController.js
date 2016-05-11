@@ -9,7 +9,7 @@ angular
 
             function getColors() {
                 $scope.colors.length = 0;
-                apiBartimeus.getColors(function(colors) {
+                apiBartimeus.getItems("colors", function(colors) {
                     for(var i in colors){
                         colors[i].hex = apiBartimeus.rgbToHex(colors[i].r,colors[i].g,colors[i].b);
                         $scope.colors.push(colors[i]);
@@ -40,7 +40,7 @@ angular
                         col.g = rgb.g;
                         col.b = rgb.b;
 
-                        apiBartimeus.postColor(col);
+                        apiBartimeus.createItem("colors", col);
                         retColors.push(col);
                     } else if (color.changed){
                         var col = {name: color.newname};
@@ -51,11 +51,10 @@ angular
                         col.g = rgb.g;
                         col.b = rgb.b;
 
-                        apiBartimeus.updateColor(color.name, col);
+                        apiBartimeus.updateItem("colors", color.name, col);
                         retColors.push(col);
                     }
                 }
-                console.log(retColors);
             }
 
             $scope.deleteColor = function(name){

@@ -3,46 +3,14 @@ angular
     .controller('userListCtrl', [
         '$rootScope',
         '$scope',
-        'utils',
-        'variables',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,variables,apiBartimeus) {
+        function ($rootScope,$scope,apiBartimeus) {
             $scope.heading = "Users";
             $scope.users = [];
 
-            var $pages_card = $('#pages_card'),
-                $page_list = $('#page_list'),
-                $new_page = $('#new_page');
-
-            // show lpage list (hide other forms)
-            var pageListShow = function() {
-                $page_list
-                    .show()
-                    .siblings()
-                    .hide();
-            };
-            // show new page (hide other forms)
-            var newPageShow = function() {
-                $new_page
-                    .show()
-                    .siblings()
-                    .hide();
-            };
-            $scope.newPage = function($event) {
-                $scope.heading = "New User";
-                $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
-            };
-            $scope.backToLogin = function($event) {
-                $scope.heading = "Users";
-                $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
-            };
-
             function getUsers() {
                 $scope.users.length = 0;
-                apiBartimeus.getUsers(function(users) {
-                    console.log(users);
+                apiBartimeus.getItems("users", function(users) {
                     for(var i in users){
                         $scope.users.push(users[i]);
                     }
@@ -58,12 +26,6 @@ angular
 
             function deleteUser(name) {
                 apiBartimeus.deleteItem("users", name);
-            };
-
-            $scope.createUser = function(name, event) {
-                apiBartimeus.createItem("users", name);
-                $scope.backToLogin(event);
-                getUsers();
             };
 
             //table setup 

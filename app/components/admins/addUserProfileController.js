@@ -9,8 +9,9 @@ angular
             $scope.user = {};
             $scope.seasons = [];
             $scope.figures = [];
+
             function getSeasons() {
-                apiBartimeus.getSeasons(function(seasons) {
+                apiBartimeus.getItems("seasons", function(seasons) {
                     for(var i in seasons){
                         $scope.seasons.push({
                             name: seasons[i].name,
@@ -20,7 +21,7 @@ angular
                 });
             }
             function getFigures() {
-                apiBartimeus.getFigures(function(figures) {
+                apiBartimeus.getItems("seasons", function(figures) {
                     for(var i in figures){
                         $scope.figures.push({
                             name: figures[i].title,
@@ -39,9 +40,9 @@ angular
   
             $scope.finishedWizard = function() {
                 apiBartimeus.createPassport(JSON.stringify($scope.user.passport), function(retData) {
-                    console.log(retData);
-                    $scope.user.passport = retData.data._id;
+                    $scope.user.passport = retData._id;
                     apiBartimeus.createUser($scope.user);
+                    $state.go('admin.users');
                 });               
                 /*var form_serialized = JSON.stringify( utils.serializeObject($userProfileForm), null, 2 );
                 UIkit.modal.alert('<p>Form data:</p><pre>' + form_serialized + '</pre>');*/

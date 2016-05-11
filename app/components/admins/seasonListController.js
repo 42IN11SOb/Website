@@ -4,45 +4,43 @@ angular
         '$rootScope',
         '$scope',
         'utils',
-        'variables',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,variables,apiBartimeus) {
+        function ($rootScope,$scope,utils,apiBartimeus) {
             $scope.heading = "Seasons";
             $scope.seasons = [];
 
-            var $pages_card = $('#pages_card'),
-                $page_list = $('#page_list'),
-                $new_page = $('#new_page');
+            var $seasons_card = $('#seasons_card'),
+                $season_list = $('#season_list'),
+                $new_season = $('#new_season');
 
             // show lpage list (hide other forms)
-            var pageListShow = function() {
-                $page_list
+            var seasonListShow = function() {
+                $season_list
                     .show()
                     .siblings()
                     .hide();
             };
             // show new page (hide other forms)
-            var newPageShow = function() {
-                $new_page
+            var newSeasonShow = function() {
+                $new_season
                     .show()
                     .siblings()
                     .hide();
             };
-            $scope.newPage = function($event) {
+            $scope.newSeason = function($event) {
                 $scope.heading = "New Season";
                 $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
+                utils.card_show_hide($seasons_card,undefined,newSeasonShow,undefined);
             };
-            $scope.backToLogin = function($event) {
+            $scope.backToSeasons = function($event) {
                 $scope.heading = "Seasons";
                 $event.preventDefault();
-                utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
+                utils.card_show_hide($seasons_card,undefined,seasonListShow,undefined);
             };
 
-            function getFigures() {
+            function getSeasons() {
                 $scope.seasons.length = 0;
-                apiBartimeus.getSeasons(function(seasons) {
-                    console.log(seasons);
+                apiBartimeus.getItems("seasons", function(seasons) {
                     for(var i in seasons){
                         $scope.seasons.push(seasons[i]);
                     }
@@ -53,7 +51,7 @@ angular
             }
 
             $(function() {
-                getFigures();
+                getSeasons();
             });
 
             function deleteSeason(name) {
@@ -62,8 +60,8 @@ angular
 
             $scope.createSeason = function(name, event) {
                 apiBartimeus.createItem("seasons", name);
-                $scope.backToLogin(event);
-                getFigures();
+                $scope.backToSeasons(event);
+                getSeasons();
             };
 
             //table setup 
