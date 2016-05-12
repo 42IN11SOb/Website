@@ -6,7 +6,7 @@ angular
         'utils',
         'apiBartimeus',
         function ($rootScope,$scope,utils,apiBartimeus) {
-            $scope.heading = "Figures";
+            $scope.heading = "Figuren";
             $scope.figures = [];
 
             var $figures_card = $('#figures_card'),
@@ -28,12 +28,12 @@ angular
                     .hide();
             };
             $scope.newFigure = function($event) {
-                $scope.heading = "New Figure";
+                $scope.heading = "Nieuw Figuur";
                 $event.preventDefault();
                 utils.card_show_hide($figures_card,undefined,newFigureShow,undefined);
             };
             $scope.backToFigures = function($event) {
-                $scope.heading = "Figures";
+                $scope.heading = "Figuren";
                 $event.preventDefault();
                 utils.card_show_hide($figures_card,undefined,figureListShow,undefined);
             };

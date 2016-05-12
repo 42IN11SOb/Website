@@ -1,6 +1,6 @@
 <div id="page_content">
     <div id="page_heading">
-        <h1>Figure: {{figure.title}}</h1>
+        <h1>Figuur: {{figure.title}}</h1>
     </div>
 
     <div id="page_content_inner">
@@ -17,7 +17,7 @@
                             <div class="uk-grid uk-grid-divider uk-grid-medium">
                                 <div class="uk-width-large-1-2">
                                     <div class="uk-form-row">
-                                        <label for="figure_image">Figure image:</label>
+                                        <label for="figure_image">Figuur afbeelding:</label>
                                     </div>
                                     <div class="uk-form-row">
                                         <img ng-src="{{figure.img}}" alt="Picture of figure {{figure.title}}"/>
@@ -55,10 +55,10 @@
                                         <tbody>
                                             <tr ng-repeat="do in figure.dos track by $index" style="border-style:hidden;">
                                                 <td><input type="text" class="md-input md-input-width-medium" ng-model="figure.dos[$index]" md-input /></td>
-                                                <td class="uk-text-right uk-text-middle"><a ng-click="figure.dos.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
+                                                <td class="uk-text-right uk-text-middle"><button title="verwijder" ng-click="figure.dos.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></button></td>
                                             </tr>
                                             <tr style="border-style:hidden;">
-                                                <td><a ng-click="figure.dos.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></a></td>
+                                                <td><button ng-click="figure.dos.push('')"><i title="toevoegen" class="md-icon material-icons md-24">&#xE145;</i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -73,10 +73,10 @@
                                         <tbody>
                                             <tr ng-repeat="dont in figure.donts track by $index" style="border-style:hidden;">
                                                 <td><input type="text" class="md-input md-input-width-medium" ng-model="figure.donts[$index]" md-input /></td>
-                                                <td class="uk-text-right uk-text-middle"><a ng-click="figure.donts.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
+                                                <td class="uk-text-right uk-text-middle"><button title="verwijder" ng-click="figure.donts.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></button></td>
                                             </tr>
                                             <tr style="border-style:hidden;">
-                                                <td><a ng-click="figure.donts.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></a></td>
+                                                <td><button title="toevoegen" ng-click="figure.donts.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></button></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -93,7 +93,7 @@
 </div>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-primary md-btn-primary" ng-click="saveFigure()">
+    <button title="opslaan" class="md-fab md-fab-primary md-btn-primary" ng-click="saveFigure()">
         <i class="material-icons">&#xE161;</i>
-    </a>
+    </button>
 </div>

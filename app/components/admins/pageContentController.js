@@ -19,6 +19,7 @@ angular
                 retContent = "<div>";
 
                 for (var i in content) {
+                    retContent +="&nbsp;";
                     retContent += "<div class='md-card' id='item'>";
                     if(content[i].subTitle)
                         retContent += "<div class='md-card-toolbar'> <h1 class='md-card-toolbar-heading-text large-heading' id='title'>" + content[i].title + " <small id='subtitle'>" + content[i].subTitle + "</small></h1></div>";
@@ -29,14 +30,17 @@ angular
                     if (content[i].subItems) {
                         retContent += "<div class='md-card-content'>";
                         for (var j in content[i].subItems) {
+                            retContent += "&nbsp;";
                             retContent += "<div id='subitem' class='md-card subitem'>";
                             retContent += "<div class='md-card-toolbar subitem'> <h3 class='md-card-toolbar-heading-text subitem' id='subitemTitle'>" + content[i].subItems[j].title + "</h3></div>";
                             retContent += "<div class='md-card-content subitem' id='subitemText'>" + content[i].subItems[j].text + "</div>";
-                            retContent += "</div>"
+                            retContent += "</div>";
+                            retContent += "&nbsp;";
                         }
                         retContent += "</div>";
                     }
                     retContent += "</div>";
+                    retContent += "&nbsp;";
                 }
                 retContent += "</div>";
 
@@ -64,41 +68,45 @@ angular
                     var subTitle = $(items[i]).find('#subtitle').html();
                     var text = $(items[i]).find('#text').html();
 
-                    tempJson.title = title;
-                    if (subTitle) tempJson.subTitle = subTitle;
-                    tempJson.text = text;
+                    if (title && text) {
+                        tempJson.title = title;
+                        if (subTitle) tempJson.subTitle = subTitle;
+                        tempJson.text = text;
 
-                    //for each subitem in panel
-                    for (var j = 0; j < subItems.length; j++) {
-                        var tempSub = {};
+                        //for each subitem in panel
+                        for (var j = 0; j < subItems.length; j++) {
+                            var tempSub = {};
 
-                        //subitem title and subitem text strings
-                        var subitemTitle = $(subItems[i]).find('#subitemTitle');
-                        var subitemText = $(subItems[i]).find('#subitemText');
+                            //subitem title and subitem text strings
+                            var subitemTitle = $(subItems[j]).find('#subitemTitle').html();
+                            var subitemText = $(subItems[j]).find('#subitemText').html();
 
-                        tempSub.title = subitemTitle;
-                        tempSub.tecxt = subitemText;
+                            tempSub.title = subitemTitle;
+                            tempSub.text = subitemText;
 
-                        tempSubs.push(tempSub);
+                            tempSubs.push(tempSub);
+                        }
+                        if (tempSubs.length > 0) tempJson.subItems = tempSubs;
+                        retArray.push(tempJson);
                     }
-                    if(tempSubs.length > 0) tempJson.subItems = tempSubs;
-                    retArray.push(tempJson);
                 }
                 console.log(retArray);
                 apiBartimeus.setContent($stateParams.name, retArray);
             }
 
-            function splitTitle(title){
-                var retString = '';
-                var titleString = title.innerHTML;
-                var splittet = titleString.split(' <small');
+            function splitTitle(title) {
+                if (title) {
+                    var retString = '';
+                    var titleString = title.innerHTML;
+                    var splittet = titleString.split(' <small');
 
-                if(splittet.length)
-                    retString = splittet[0];
-                else
-                    retString = titleString;
+                    if (splittet.length)
+                        retString = splittet[0];
+                    else
+                        retString = titleString;
 
-                return retString;
+                    return retString;
+                } else return null;
             }
 
             $scope.saveContent = function(){
@@ -113,8 +121,35 @@ angular
                     "searchreplace visualblocks code fullscreen",
                     "insertdatetime media table contextmenu paste"
                 ],
+                height: 600,
                 //todo get rid of the dropdowns?
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
+                menubar: false, //enable again if missing components
+                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | mybutton abutton",
+                //buttons to add a panel and an heading item (subitem)
+                setup: function(editor) {
+                    editor.addButton('mybutton', {
+                        text: 'Add panel',
+                        icon: false,
+                        onclick: function() {
+                            retContent = "<div class='md-card' id='item'>";
+                            retContent += "<div class='md-card-toolbar'><h1 class='md-card-toolbar-heading-text large-heading' id='title'>&nbsp;</h1></div>";
+                            retContent += "<div class='md-card-content' id='text'><p>&nbsp;</p></div>";
+                            retContent += "</div>&nbsp;";console.log(retContent);
+                            editor.insertContent(retContent);
+                        }
+                    });
+                    editor.addButton('abutton', {
+                        text: 'Add item',
+                        icon: false,
+                        onclick: function() {
+                            retContent = "<div id='subitem' class='md-card subitem'>";
+                            retContent += "<div class='md-card-toolbar subitem'> <h3 class='md-card-toolbar-heading-text subitem' id='subitemTitle'>&nbsp;</h3></div>";
+                            retContent += "<div class='md-card-content subitem' id='subitemText'><p>&nbsp;</p></div>";
+                            retContent += "</div> &nbsp;";console.log(retContent);
+                            editor.insertContent(retContent);
+                        }
+                    });
+                },
                 content_css: "assets/css/main.css,assets/css/bartimeus.css" //load our css's to show the page correctly in editor
             }
 

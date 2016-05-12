@@ -2,14 +2,14 @@
     <div id="page_content_inner">
         <div class="md-card">
             <div class="md-card-content">
-                <h3 class="heading_a">Select Colors for: <b>{{$stateParams.name}}</b></h3>
+                <h3 class="heading_a">Selecteer kleuren voor: <b>{{$stateParams.name}}</b></h3>
                 <div class="uk-grid uk-margin-small-bottom" data-uk-grid-margin>
                     <div class="uk-width-medium-1-6" ng-repeat="color in allColors">
                         <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="color.active" id="{{color.name}}" />
                         <label for="{{color.name}}" class="inline-label">{{color.name}}</label>
                     </div>
                 </div>
-                <div class="md-btn md-btn-primary" ng-click="save()">save</div>
+                <button class="md-btn md-btn-primary" ng-click="save()">Opslaan</button>
             </div>
         </div>
     </div>

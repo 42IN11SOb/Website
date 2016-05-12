@@ -11,8 +11,8 @@
                     <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_issues">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Actions</th>
+                            <th>Titel</th>
+                            <th>Acties</th>
                         </tr>
                         </thead>
                         <!-- <tfoot>
@@ -27,7 +27,7 @@
                                     <a ui-sref="admin.pagecontent({ name: page.name })">{{page.title}}</a>
                                 </td>
                                 <td>
-                                    <a ui-sref="admin.pagecontent({ name: page.name })">Edit</a> |
+                                    <button ui-sref="admin.pagecontent({ name: page.name })">Edit</a> |
                                     <a ng-click="deletePage(page.name)">Delete</a>
                                 </td>
                             </tr>

@@ -5,7 +5,7 @@ angular
         '$scope',
         'apiBartimeus',
         function ($rootScope,$scope,apiBartimeus) {
-            $scope.heading = "Users";
+            $scope.heading = "Gebruikers";
             $scope.users = [];
 
             function getUsers() {

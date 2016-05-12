@@ -6,7 +6,7 @@ angular
         'utils',
         'apiBartimeus',
         function ($rootScope,$scope,utils,apiBartimeus) {
-            $scope.heading = "Seasons";
+            $scope.heading = "Seizoenen";
             $scope.seasons = [];
 
             var $seasons_card = $('#seasons_card'),
@@ -28,12 +28,12 @@ angular
                     .hide();
             };
             $scope.newSeason = function($event) {
-                $scope.heading = "New Season";
+                $scope.heading = "Nieuw Seizoen";
                 $event.preventDefault();
                 utils.card_show_hide($seasons_card,undefined,newSeasonShow,undefined);
             };
             $scope.backToSeasons = function($event) {
-                $scope.heading = "Seasons";
+                $scope.heading = "Seizoen";
                 $event.preventDefault();
                 utils.card_show_hide($seasons_card,undefined,seasonListShow,undefined);
             };

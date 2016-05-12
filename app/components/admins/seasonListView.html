@@ -11,16 +11,16 @@
                     <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_pager_filter">
                         <thead>
                             <tr>
-                                <th>Title</th>
-                                <th class="filter-false remove sorter-false uk-text-center">Actions</th>
+                                <th>Titel</th>
+                                <th class="filter-false remove sorter-false uk-text-center">Acties</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="season in seasons" on-last-repeat class="blackLink">
                                 <td><a ui-sref="admin.seasoncolors({ name: season.name })"> {{season.name}} </a></td>
                                 <td class="uk-text-center">
-                                    <a ui-sref="admin.seasoncolors({ name: season.name })"><i title="edit" class="md-icon material-icons">&#xE8B8;</i></a>
-                                    <a class="ts_remove_row"><i title="delete" class="md-icon material-icons">&#xE872;</i></a>
+                                    <a ui-sref="admin.seasoncolors({ name: season.name })"><i title="wijzig" class="md-icon material-icons">&#xE8B8;</i></a>
+                                    <a class="ts_remove_row"><i title="verwijder" class="md-icon material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -58,13 +58,13 @@
                     </div>
                     <div class="uk-form-row">
                         <div class="parsley-row">
-                            <label for="season_name">Name</label>
+                            <label for="season_name">Naam</label>
                             <input class="md-input" type="text" name="season_name" id="season_name" ng-model="newName" md-input required/>
                             </div>
                         </div>
                     <div class="uk-margin-medium-top">
-                        <button type="submit" ng-click="createSeason(newName, $event)" class="md-btn md-btn-primary md-btn-large">Create</button>
-                        <button ng-click="backToSeasons($event)" class="md-btn md-btn-primary md-btn-large">Back</button>
+                        <button type="submit" ng-click="createSeason(newName, $event)" class="md-btn md-btn-primary md-btn-large">Opslaan</button>
+                        <button ng-click="backToSeasons($event)" class="md-btn md-btn-primary md-btn-large">Terug</button>
                     </div>
                 </form>
             </div>
@@ -75,7 +75,7 @@
 </div>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-btn-primary" ng-click="newSeason($event)" data-uk-modal="{ center:true }">
+    <button title="toevoegen" class="md-fab md-fab-accent md-btn-primary" ng-click="newSeason($event)" data-uk-modal="{ center:true }">
         <i class="material-icons">&#xE145;</i>
-    </a>
+    </button>
 </div>
