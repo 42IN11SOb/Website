@@ -4,11 +4,19 @@ angular
         '$rootScope',
         '$scope',
         '$stateParams',
-        'pages',
         'utils',
-        'variables',
-        function ($rootScope,$scope,$stateParams,pages,utils,variables) {
+        'apiBartimeus',
+        function ($rootScope,$scope,$stateParams,utils,apiBartimeus) {
             $scope.heading = "Pages";
+            $scope.pages = [];
+
+            function getPages() {
+                apiBartimeus.getItems("pages", function(pages) {
+                    for(var page in pages){
+                        $scope.pages.push(pages[page]);
+                    }
+                })
+            }
 
             var $pages_card = $('#pages_card'),
                 $page_list = $('#page_list'),
@@ -33,31 +41,48 @@ angular
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,newPageShow,undefined);
             };
-            $scope.backToLogin = function($event) {
+            $scope.backToPages = function($event) {
                 $scope.heading = "Pages";
                 $event.preventDefault();
                 utils.card_show_hide($pages_card,undefined,pageListShow,undefined);
             };
 
-            $scope.pages = pages;
+            //$scope.pages = pages;
 
-            $scope.deletePage = function(name){
+            $(function() {
+                getPages();
+            });
 
+            $scope.createPage = function(event) {
+                var page = {
+                    name: $scope.pageTitle,
+                    title: $scope.pageTitle,
+                    class: "noClass",
+                    content: "<div></div>"
+                }
+                apiBartimeus.createItemObject("pages", page);
+                $scope.pages.push(page);
+                $scope.backToPages(event);
+            };
+            function deletePage(name){
+                apiBartimeus.deleteItem("pages", name);
             };
 
             //table setup 
+            var $ts_pager_filter = $("#ts_pager_filter");
+            var ts_users = $ts_pager_filter
+            // initialize tables TABLESORTER PLUGIN STUFF
             $scope.$on('onLastRepeat', function (scope, element, attrs) {
 
-                // issues list tablesorter
-                var $ts_issues = $("#ts_issues");
-                if($(element).closest($ts_issues).length) {
+                // pager + filter
+                if($(element).closest($ts_pager_filter).length) {
 
                     // define pager options
                     var pagerOptions = {
                         // target the pager markup - see the HTML block below
                         container: $(".ts_pager"),
                         // output string - default is '{page}/{totalPages}'; possible variables: {page}, {totalPages}, {startRow}, {endRow} and {totalRows}
-                        output: '{startRow} - {endRow} / {filteredRows}',
+                        output: '{startRow} - {endRow} / {totalRows}',
                         // if true, the table will remain the same height no matter how many records are displayed. The space is made up by an empty
                         // table row set to a height to compensate; default is false
                         fixedHeight: true,
@@ -69,92 +94,45 @@ angular
                     };
 
                     // Initialize tablesorter
-                    $ts_issues
+                        ts_users = $ts_pager_filter
                         .tablesorter({
                             theme: 'altair',
                             widthFixed: true,
-                            widgets: ['zebra', 'filter']
+                            widgets: ['zebra', 'filter'],
+                            headers: {
+                                0: {
+                                    sorter: false,
+                                    parser: true
+                                }
+                            }
                         })
                         // initialize the pager plugin
                         .tablesorterPager(pagerOptions)
-                        .on('pagerComplete', function (e, filter) {
+                        .on('pagerComplete', function(e, filter){
                             // update selectize value
-                            if (typeof selectizeObj !== 'undefined' && selectizeObj.data('selectize')) {
+                            if(typeof selectizeObj !== 'undefined' && selectizeObj.data('selectize')) {
                                 selectizePage = selectizeObj[0].selectize;
                                 selectizePage.setValue($('select.ts_gotoPage option:selected').index() + 1, false);
                             }
 
                         });
 
-                    // replace 'goto Page' select
-                    function createPageSelectize() {
-                        selectizeObj = $('select.ts_gotoPage')
-                            .val($("select.ts_gotoPage option:selected").val())
-                            .after('<div class="selectize_fix"></div>')
-                            .selectize({
-                                hideSelected: true,
-                                onDropdownOpen: function ($dropdown) {
-                                    $dropdown
-                                        .hide()
-                                        .velocity('slideDown', {
-                                            duration: 200,
-                                            easing: variables.easing_swiftOut
-                                        })
-                                },
-                                onDropdownClose: function ($dropdown) {
-                                    $dropdown
-                                        .show()
-                                        .velocity('slideUp', {
-                                            duration: 200,
-                                            easing: variables.easing_swiftOut
-                                        });
+                    // remove single row
+                    $ts_pager_filter.on('click','.ts_remove_row',function(e) {
+                        e.preventDefault();
 
-                                    // hide tooltip
-                                    $('.uk-tooltip').hide();
-                                }
-                            });
-                    }
-
-                    createPageSelectize();
-
-                    // replace 'pagesize' select
-/*                    $('.pagesize.ts_selectize')
-                        .after('<div class="selectize_fix"></div>')
-                        .selectize({
-                            hideSelected: true,
-                            onDropdownOpen: function ($dropdown) {
-                                $dropdown
-                                    .hide()
-                                    .velocity('slideDown', {
-                                        duration: 200,
-                                        easing: variables.easing_swiftOut
-                                    })
-                            },
-                            onDropdownClose: function ($dropdown) {
-                                $dropdown
-                                    .show()
-                                    .velocity('slideUp', {
-                                        duration: 200,
-                                        easing: variables.easing_swiftOut
-                                    });
-
-                                // hide tooltip
-                                $('.uk-tooltip').hide();
-
-                                if (typeof selectizeObj !== 'undefined' && selectizeObj.data('selectize')) {
-                                    selectizePage = selectizeObj[0].selectize;
-                                    selectizePage.destroy();
-                                    $('.ts_gotoPage').next('.selectize_fix').remove();
-                                    setTimeout(function () {
-                                        createPageSelectize()
-                                    })
-                                }
-
+                        var $this = $(this);
+                        UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
+                            deletePage($this.closest('tr')[0].cells[0].innerText);
+                            $this.closest('tr').remove();
+                            ts_users.trigger('update');
+                        }, {
+                            labels: {
+                                'Ok': 'Delete'
                             }
-                        });*/
+                        });
+                    });
                 }
-
-            })
-
+            });
         }
     ]);

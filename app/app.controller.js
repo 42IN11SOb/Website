@@ -557,7 +557,7 @@ angular
                     ]
                 }
             ];
-            //$scope.sections = apiBartimeus.getAdminSections();
+            $scope.sections = apiBartimeus.getAdminSections();
 
         }
     ])
@@ -583,7 +583,18 @@ angular
             });
 
             $(function(){
-                $scope.sections = apiBartimeus.getPages();
+                $scope.sections = [];
+                apiBartimeus.getItems("pages", function(items) {
+                    for(var page in items){
+                        $scope.sections.push({
+                            title: items[page].title,
+                            class: items[page].class,
+                            name: items[page].name
+                        })
+                    }
+                    $scope.$apply();
+                })
+                //$scope.sections = apiBartimeus.getPages();
 
                 //on first enter set active class on entered page
                /* for(var section in $scope.sections){

@@ -7,7 +7,7 @@ altairApp
 
             // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
             $urlRouterProvider
-                .when('/dashboard', '/')
+                .when('/', '/bartimeus/page/Home')
                 .otherwise('/');
 
             $stateProvider
@@ -93,9 +93,6 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/visitors/contentController.js'
                             ], { serie: true });
-                        }],
-                        pageContent: ['$stateParams','apiBartimeus', function($stateParams,apiBartimeus){
-                            return apiBartimeus.getContent($stateParams.name);
                         }]
                     },
                     data: {
@@ -178,10 +175,7 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/pageListController.js'
                             ], {serie:true});
-                        }],
-                        pages: function(apiBartimeus){
-                            return apiBartimeus.getPages();
-                        }
+                        }]
                     },
                     data: {
                         pageTitle: 'Pages'
@@ -199,10 +193,7 @@ altairApp
                                 'lazy_tinymce',
                                 'app/components/admins/pageContentController.js'
                             ], {serie:true});
-                        }],
-                        pageContent : function($stateParams, apiBartimeus){
-                            return apiBartimeus.getContent($stateParams.name);
-                        }
+                        }]
                     },
                     data: {
                         pageTitle: 'Pages'

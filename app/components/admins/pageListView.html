@@ -8,50 +8,44 @@
         <div class="md-card" id="pages_card">
             <div class="md-card-content" id="page_list">
                 <div class="uk-overflow-container uk-margin-bottom">
-                    <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_issues">
+                    <table class="uk-table uk-table-align-vertical uk-table-nowrap tablesorter tablesorter-altair" id="ts_pager_filter">
                         <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>Acties</th>
-                        </tr>
+                            <tr>
+                                <th>Titel</th>
+                                <th class="filter-false remove sorter-false uk-text-center">Acties</th>
+                            </tr>
                         </thead>
-                        <!-- <tfoot>
-                        <tr>
-                            <th>Title</th>
-                            <th>Actions</th>
-                        </tr>
-                        </tfoot> -->
                         <tbody>
                             <tr ng-repeat="page in pages" on-last-repeat class="blackLink">
-                                <td>
-                                    <a ui-sref="admin.pagecontent({ name: page.name })">{{page.title}}</a>
-                                </td>
-                                <td>
-                                    <button ui-sref="admin.pagecontent({ name: page.name })">Edit</a> |
-                                    <a ng-click="deletePage(page.name)">Delete</a>
+                                <td><a ui-sref="admin.pagecontent({ name: page.title })"> {{page.title}} </a></td>
+                                <td class="uk-text-center">
+                                    <a ui-sref="admin.pagecontent({ name: page.title })"><i title="wijzig" class="md-icon material-icons">&#xE8B8;</i></a>
+                                    <a class="ts_remove_row"><i title="verwijder" class="md-icon material-icons">&#xE872;</i></a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <ul class="uk-pagination ts_pager">
-                    <li data-uk-tooltip title="Select Page">
-                        <select class="ts_gotoPage ts_selectize"></select>
-                    </li>
-                    <li ng-hide="true" class="first"><a href="javascript:void(0)"><i class="uk-icon-angle-double-left"></i></a></li>
-                    <li class="prev"><a href="javascript:void(0)"><i class="uk-icon-angle-left"></i></a></li>
-                    <li><span class="pagedisplay"></span></li>
-                    <li class="next"><a href="javascript:void(0)"><i class="uk-icon-angle-right"></i></a></li>
-                    <li ng-hide="true" class="last"><a href="javascript:void(0)"><i class="uk-icon-angle-double-right"></i></a></li>
-                    <li ng-hide="true" data-uk-tooltip title="Page Size">
-                        <select class="pagesize ts_selectize">
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                        </select>
-                    </li>
-                </ul>
+                <div class="ts_pager">
+                    <ul class="uk-pagination ts_pager">
+                        <!-- <li data-uk-tooltip title="Select Page">
+                            <select class="ts_gotoPage ts_selectize"></select>
+                        </li> -->
+                        <!-- <li class="first"><a href="javascript:void(0)"><i class="uk-icon-angle-double-left"></i></a></li> -->
+                        <li class="prev"><a href="javascript:void(0)"><i class="uk-icon-angle-left"></i></a></li>
+                        <li><span class="pagedisplay"></span></li>
+                        <li class="next"><a href="javascript:void(0)"><i class="uk-icon-angle-right"></i></a></li>
+                        <!-- <li class="last"><a href="javascript:void(0)"><i class="uk-icon-angle-double-right"></i></a></li> -->
+                        <!-- <li data-uk-tooltip title="Page Size">
+                            <select class="pagesize ts_selectize">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                            </select>
+                        </li> -->
+                    </ul>
+                </div>
             </div>
 
             <div class="md-card-content" id="new_page" style="display:none;">
@@ -64,23 +58,24 @@
                     </div>
                     <div class="uk-form-row">
                         <div class="parsley-row">
-                            <label for="page_title">Title</label>
-                            <input class="md-input" type="text" name="page_title" id="page_title" ng-model="pageTitle" md-input required/>
+                            <label for="page_name">Naam</label>
+                            <input class="md-input" type="text" name="page_name" id="page_name" ng-model="pageTitle" md-input required/>
                             </div>
                         </div>
                     <div class="uk-margin-medium-top">
-                        <button type="submit" ng-click="login()" class="md-btn md-btn-primary md-btn-large">Create</button>
-                        <button ng-click="backToLogin($event)" class="md-btn md-btn-primary md-btn-large">Back</button>
+                        <button type="submit" ng-click="createPage($event)" class="md-btn md-btn-primary md-btn-large">Opslaan</button>
+                        <button ng-click="backToPages($event)" class="md-btn md-btn-primary md-btn-large">Terug</button>
                     </div>
                 </form>
             </div>
+
         </div>
     </div>
 
 </div>
 
 <div class="md-fab-wrapper">
-    <a class="md-fab md-fab-accent md-btn-primary" ng-click="newPage($event)" data-uk-modal="{ center:true }">
+    <button title="toevoegen" class="md-fab md-fab-accent md-btn-primary" ng-click="newPage($event)" data-uk-modal="{ center:true }">
         <i class="material-icons">&#xE145;</i>
-    </a>
+    </button>
 </div>

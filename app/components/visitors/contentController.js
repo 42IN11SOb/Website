@@ -3,12 +3,14 @@ angular
     .controller('contentCtrl', [
         '$rootScope',
         '$scope',
-        '$timeout',
         '$sce',
         'apiBartimeus',
-        'pageContent',
-        function ($rootScope,$scope,$timeout,$sce,apiBartimeus,pageContent) {
-        	$scope.items = pageContent;
+        '$stateParams',
+        function ($rootScope,$scope,$sce,apiBartimeus,$stateParams) {
+        	apiBartimeus.getItem("pages", $stateParams.name, function(item) {
+                $scope.page = item;
+                $scope.$apply();
+            })
 
             $scope.toTrustedHTML = function(html) {
                 return $sce.trustAsHtml(html);
@@ -16,6 +18,7 @@ angular
 
             $(function() {
                 if (!$rootScope.initialized) {
+                    //checks token on api, if this is too demanding with more users just get rid of the true parameter
                     if (apiBartimeus.loggedIn(true) === false) {
                         apiBartimeus.logout();
                     }
