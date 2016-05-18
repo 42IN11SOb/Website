@@ -14,6 +14,10 @@
                             </h3>
                         </div>
                         <div class="md-card-content large-padding">
+                            <div class="parsley-row uk-margin-medium-bottom">
+                                <label for="figure_name">Naam</label>
+                                <input type="text" class="md-input" name="figure_name" id="figure_name" ng-model="figure.title" md-input required/>
+                            </div>
                             <div class="uk-grid uk-grid-divider uk-grid-medium">
                                 <div class="uk-width-large-1-2">
                                     <div class="uk-form-row">
@@ -27,12 +31,16 @@
                                 </div>
                                 <div class="uk-width-large-1-2">
                                     <div class="uk-form-row uk-margin-medium-bottom">
-                                        <label for="figure_info">Info</label>
-                                        <textarea class="md-input" name="figure_info" id="figure_info" cols="15" rows="2" ng-model="figure.info" md-input textarea-autosize></textarea>
+                                        <div class="parsley-row">
+                                            <label for="figure_info">Info</label>
+                                            <textarea class="md-input" name="figure_info" id="figure_info" ng-model="figure.info" md-input required textarea-autosize></textarea>
+                                        </div>
                                     </div>
                                     <div class="uk-form-row">
-                                        <label for="figure_advice">Advice</label>
-                                        <textarea class="md-input" name="figure_advice" id="figure_advice" cols="15" rows="2" ng-model="figure.advice" md-input textarea-autosize></textarea>
+                                        <div class="parsley-row">
+                                            <label for="figure_advice">Advies</label>
+                                            <textarea class="md-input" name="figure_advice" id="figure_advice" ng-model="figure.advice" md-input required textarea-autosize></textarea>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -55,10 +63,10 @@
                                         <tbody>
                                             <tr ng-repeat="do in figure.dos track by $index" style="border-style:hidden;">
                                                 <td><input type="text" class="md-input md-input-width-medium" ng-model="figure.dos[$index]" md-input /></td>
-                                                <td class="uk-text-right uk-text-middle"><button title="verwijder" ng-click="figure.dos.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></button></td>
+                                                <td class="uk-text-right uk-text-middle"><a title="verwijder" ng-click="figure.dos.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
                                             </tr>
                                             <tr style="border-style:hidden;">
-                                                <td><button ng-click="figure.dos.push('')"><i title="toevoegen" class="md-icon material-icons md-24">&#xE145;</i></button></td>
+                                                <td><a ng-click="figure.dos.push('')"><i title="toevoegen" class="md-icon material-icons md-24">&#xE145;</i></a></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -73,10 +81,10 @@
                                         <tbody>
                                             <tr ng-repeat="dont in figure.donts track by $index" style="border-style:hidden;">
                                                 <td><input type="text" class="md-input md-input-width-medium" ng-model="figure.donts[$index]" md-input /></td>
-                                                <td class="uk-text-right uk-text-middle"><button title="verwijder" ng-click="figure.donts.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></button></td>
+                                                <td class="uk-text-right uk-text-middle"><a title="verwijder" ng-click="figure.donts.splice($index, 1)"><i class="md-icon material-icons md-24">&#xE872;</i></a></td>
                                             </tr>
                                             <tr style="border-style:hidden;">
-                                                <td><button title="toevoegen" ng-click="figure.donts.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></button></td>
+                                                <td><a title="toevoegen" ng-click="figure.donts.push('')"><i class="md-icon material-icons md-24">&#xE145;</i></a></td>
                                             </tr>
                                         </tbody>
                                     </table>

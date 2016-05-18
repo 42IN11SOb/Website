@@ -235,18 +235,35 @@ altairApp
             // -- ADMIN COLORS FOR SEASONS --
                 .state("admin.colors", {
                     url: "/colors",
-                    templateUrl: 'app/components/admins/colorsView.html',
-                    controller: 'colorsCtrl',
+                    templateUrl: 'app/components/admins/colorListView.html',
+                    controller: 'colorListCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'lazy_KendoUI',
-                                'app/components/admins/colorsController.js'
+                                'lazy_tablesorter',
+                                'app/components/admins/colorListController.js'
                             ], {serie:true});
                         }]
                     },
                     data: {
                         pageTitle: 'Colors'
+                    }
+                })
+            // -- ADMIN COLORS FOR SEASONS --
+                .state("admin.colordetails", {
+                    url: "/colors/:name",
+                    templateUrl: 'app/components/admins/colorDetailsView.html',
+                    controller: 'colorDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_wheelcolorpicker',
+                                'app/components/admins/colorDetailsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Color details'
                     }
                 })
             // -- ADMIN FIGURES LIST --

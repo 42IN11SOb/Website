@@ -8,9 +8,13 @@ angular
         '$state',
         function ($rootScope, $scope, apiBartimeus, $stateParams, $state) {
             $scope.allColors = [];
+            $scope.season;
+            var oldName;
 
             $(function() {
-                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {
+                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {console.log(season);
+                    oldName = season.name;
+                    $scope.season = season;
                     var seasonColors = [];
                     var colors = season.colors;
 
@@ -30,7 +34,7 @@ angular
             });
 
             $scope.save = function() {
-                var retColors = {name:$stateParams.name, colors:[]};
+                var retColors = {name:$scope.season.name, colors:[]};
 
                 for(var i in $scope.allColors) {
                     if($scope.allColors[i].active === true){
@@ -38,7 +42,7 @@ angular
                     }
                 }
 
-                apiBartimeus.updateItem("seasons", retColors.name, JSON.stringify(retColors));
+                apiBartimeus.updateItem("seasons", oldName, JSON.stringify(retColors));
                 $state.go('admin.seasons');
             }
         }

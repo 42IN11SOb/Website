@@ -37,7 +37,7 @@ angular
                 ],
                 height: 600,
                 //todo get rid of the dropdowns?
-                menubar: false, //enable again if missing components
+                menubar: true, //disable again if menubar is unnecessary and confusing
                 toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | mybutton abutton",
                 //buttons to add a panel and an heading item (subitem)
                 setup: function(editor) {

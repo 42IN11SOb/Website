@@ -8,6 +8,14 @@ altairApp
                 debug: false,
                 events: false,
                 modules: [
+                    {
+                        name:'lazy_wheelcolorpicker',
+                        files: [
+                            'assets/js/wheelcolorpicker/jquery.wheelcolorpicker-3.0-beta1.min.js',
+                            'assets/js/wheelcolorpicker/css/wheelcolorpicker.css'
+                        ],
+                        serie: true
+                    },
                     // ----------- FORM ELEMENTS -----------
                     {
                         name: 'lazy_autosize',

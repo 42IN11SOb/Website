@@ -16,7 +16,7 @@ altairApp
                             var data = data.data;
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
-                                $state.go('bartimeus.content', {name : 'index'});
+                                $state.go('bartimeus.content', {name : 'Home'});
                             } else {
                                 retVal = data;
                             }
@@ -40,7 +40,7 @@ altairApp
                         success: function(data) {
                             if (data.success === true) {
                                 localStorage.removeItem("token");
-                                $state.go('bartimeus.content', {name : 'index'});
+                                $state.go('bartimeus.content', {name : 'Home'});
                             }
                         },
                         error: function(data) {

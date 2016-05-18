@@ -4,8 +4,9 @@ angular
         '$scope',
         '$rootScope',
         'utils',
+        '$state',
         'apiBartimeus',
-        function ($scope,$rootScope,utils,apiBartimeus) {
+        function ($scope,$rootScope,utils,$state,apiBartimeus) {
             $scope.user = {};
             $scope.seasons = [];
             $scope.figures = [];
@@ -21,7 +22,7 @@ angular
                 });
             }
             function getFigures() {
-                apiBartimeus.getItems("seasons", function(figures) {
+                apiBartimeus.getItems("figures", function(figures) {
                     for(var i in figures){
                         $scope.figures.push({
                             name: figures[i].title,

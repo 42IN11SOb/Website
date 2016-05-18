@@ -7,8 +7,11 @@ angular
         '$state',
         'apiBartimeus',
         function ($rootScope, $scope, $stateParams, $state, apiBartimeus) {
+            var oldName;
+
             function getFigure(){
                 apiBartimeus.getItem("figures", $stateParams.name, function(figure) {
+                    oldName = figure.title;
                     $scope.figure = figure;
                     $scope.$apply();
                 });
@@ -23,7 +26,7 @@ angular
                 delete figure._id;
                 delete figure.__v;
 
-                apiBartimeus.updateItem("figures", figure.title, JSON.stringify(figure));
+                apiBartimeus.updateItem("figures", oldName, JSON.stringify(figure));
                 $state.go('admin.figures');
             }
         }

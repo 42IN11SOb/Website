@@ -862,3 +862,12 @@ nav.navbar-default{
     background-color: #000000;
     color: #ffffff !important;
 }
+
+img.klein 
+{
+    width: 50%;
+    height: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -45,6 +45,23 @@
                                 </div>
                             </div>
 
+                            <!-- Man/Vrouw-->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="email">Geslacht<span class="req">*</span></label>
+                                </div>
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <span class="icheck-inline">
+                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="user.gender" value="male" />
+                                        <label for="radio_male" class="inline-label">Man</label>
+                                    </span>
+                                    <span class="icheck-inline">
+                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="user.gender" value="female" />
+                                        <label for="radio_female" class="inline-label">Vrouw</label>
+                                    </span>
+                                </div>
+                            </div>
+
                             <!-- Continue button -->
                             <div class="uk-clearfix uk-margin-large-top">
                                 <button class="md-btn md-btn-primary uk-float-right" type="submit" wz-next>Volgende</button>
@@ -58,7 +75,7 @@
                                 <span class="sub-heading">Selecteer hieronder welk seizon en welk figuur de gebruiker heeft</span>
                             </h2>
                             <h3 class="heading_a">
-                                Figuur
+                                Seizoen
                             </h3>
                             <hr class="md-hr"/>
                             <!-- season -->
