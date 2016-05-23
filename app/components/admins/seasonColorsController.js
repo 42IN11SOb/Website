@@ -12,7 +12,7 @@ angular
             var oldName;
 
             $(function() {
-                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {console.log(season);
+                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {
                     oldName = season.name;
                     $scope.season = season;
                     var seasonColors = [];

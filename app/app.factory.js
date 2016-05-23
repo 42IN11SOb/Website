@@ -100,35 +100,6 @@ altairApp
                         }
                     });
                 },
-                createUser : function(user) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/users/signup",
-                        type: "POST",
-                        data: user,
-                        //contentType: "application/json",
-                        success: function(user){
-                            if(user.success === true){
-                                return user.data;
-                            } else return user;
-                        },
-                        dataType: 'json'
-                    })
-                },
-                createPassport: function(passport, callback) {
-                    $.ajax({
-                        url: "http://projectpep.herokuapp.com/passports/",
-                        type: "POST",
-                        data: passport,
-                        contentType: "application/json",
-                        success: function(passport) {
-                            if (passport.success === true) {
-                                callback(passport.data);
-                                return passport.data;
-                            } else return passport;
-                        },
-                        dataType: 'json'
-                    })
-                },
                 getItems : function(type, callback) {
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/" + type,
@@ -174,7 +145,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type,
                         type: "POST",
                         data: object,
-                        contentType: (type === 'pages' || type === 'users') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'pages' || type === 'users' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
                         success: function(item) {
                             if (item.success === true) {
                                 if(callback) callback(item.data);
@@ -189,7 +160,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type + "/" + name,
                         type: "PUT",
                         data: item,
-                        contentType: (type === 'colors' || type === 'pages') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'colors' || type === 'pages' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
                         success: function(item){
                             if(item.success === true){
                                 if(callback) callback(item.data);
@@ -226,9 +197,13 @@ altairApp
                         icon: '&#xE87C;',
                         link: 'admin.users'
                     }, {
-                        title: 'Paginas',
+                        title: "Pagina's",
                         icon: '&#xE24D;',
                         link: 'admin.pages'
+                    }, {
+                        title: "Nieuws",
+                        icon: '&#xE8B0;',
+                        link: 'admin.news'
                     }, {
                         title: 'Seizoenen',
                         icon: '&#xE545;',

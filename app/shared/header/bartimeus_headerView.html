@@ -24,7 +24,7 @@
         <div class="md-top-bar">
             <ul id="menu_top" class="uk-clearfix">
                 <li ng-repeat="section in sections">
-                    <a id="{{section.title}}" class="{{section.class}}" ui-sref="bartimeus.content({name : section.name})">{{section.title}}</a>
+                    <a ui-sref-active="active" id="{{section.title}}" class="{{section.class}}" ui-sref="bartimeus.content({name : section.name})">{{section.title}}</a>
                 </li>
             </ul>
         </div>

@@ -567,23 +567,12 @@ angular
         'apiBartimeus',
         '$state',
         function ($scope,$rootScope,apiBartimeus,$state) {
-            //dynamically set the active class in menu
-            $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error){
-                //still needs reload check 
-                for(var section in $scope.sections){
-                    var sec = $scope.sections[section];
-
-                    if(sec.name == toParams.name){
-                        console.log($('#'+sec.title));
-                        $('#'+sec.title).addClass('active');
-                    } else if(sec.name == fromParams.name){
-                        $('#'+sec.title).removeClass('active');
-                    }
-                }
-            });
-
             $(function(){
-                $scope.sections = [];
+                $scope.sections = [{
+                    title: "Nieuws",
+                    class: "",
+                    name: "news"
+                }];
                 apiBartimeus.getItems("pages", function(items) {
                     for(var page in items){
                         $scope.sections.push({
@@ -594,17 +583,6 @@ angular
                     }
                     $scope.$apply();
                 })
-                //$scope.sections = apiBartimeus.getPages();
-
-                //on first enter set active class on entered page
-               /* for(var section in $scope.sections){
-                    var sec = $scope.sections[section];
-
-                    if(sec.name == $state.params.name){
-                        console.log($('#'+sec.title));
-                        $('#'+sec.title).addClass('active');
-                    }
-                }*/
             });
         }
     ])

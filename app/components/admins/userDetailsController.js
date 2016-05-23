@@ -6,7 +6,8 @@ angular
         '$stateParams',
         '$state',
         'apiBartimeus',
-        function ($rootScope, $scope, $stateParams, $state, apiBartimeus) {
+        'user_data',
+        function ($rootScope, $scope, $stateParams, $state, apiBartimeus, user_data) {
             $scope.seasons = [];
             $scope.figures = [];
 
@@ -40,7 +41,8 @@ angular
             $(function() {
                 getSeasons();
                 getFigures();
-                getUser();
+                //getUser();
+                $scope.user = user_data;
             });
 
             $scope.saveUser = function() {

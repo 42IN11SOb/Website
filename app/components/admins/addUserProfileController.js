@@ -40,9 +40,9 @@ angular
             var $userProfileForm = $('#userProfileForm');
   
             $scope.finishedWizard = function() {
-                apiBartimeus.createPassport(JSON.stringify($scope.user.passport), function(retData) {
+                apiBartimeus.createItemObject("passports", JSON.stringify($scope.user.passport), function(retData) {
                     $scope.user.passport = retData._id;
-                    apiBartimeus.createUser($scope.user);
+                    apiBartimeus.createItemObject("users", $scope.user);
                     $state.go('admin.users');
                 });               
                 /*var form_serialized = JSON.stringify( utils.serializeObject($userProfileForm), null, 2 );

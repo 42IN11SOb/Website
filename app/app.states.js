@@ -182,7 +182,6 @@ altairApp
                     }
                 })
             // -- ADMIN PAGE CONTENT --
-            // inside modules/anuglar-tinymce.js set init to use css and custom block to create new panel
                 .state("admin.pagecontent", {
                     url: "/pages/:name",
                     templateUrl: 'app/components/admins/pageContentView.html',
@@ -197,6 +196,49 @@ altairApp
                     },
                     data: {
                         pageTitle: 'Pages'
+                    }
+                })
+            // -- ADMIN NEWS LIST --
+                .state("admin.news", {
+                    url: "/news",
+                    templateUrl: 'app/components/admins/newsListView.html',
+                    controller: 'newsListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/newsListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'News'
+                    }
+                })
+            // -- ADMIN NEWS CONTENT --
+                .state("admin.newscontent", {
+                    url: "/news/:name",
+                    templateUrl: 'app/components/admins/newsContentView.html',
+                    controller: 'newsContentCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tinymce',
+                                'app/components/admins/newsContentController.js'
+                            ], {serie:true});
+                        }],
+                        news_data: function($stateParams, apiBartimeus, $q){
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("news", $stateParams.name, function(news) {
+                                deferred.resolve(news);
+                            });
+
+                            return deferred.promise;
+                        }
+                    },
+                    data: {
+                        pageTitle: 'News'
                     }
                 })
             // -- ADMIN SEASON LIST --
@@ -326,7 +368,16 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/admins/userDetailsController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        user_data: function($stateParams, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("users", $stateParams.name, function(user) {
+                                deferred.resolve(user);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'User Details'
