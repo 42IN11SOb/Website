@@ -32,9 +32,10 @@ angular
                     for(var i in figures){
                         $scope.figures.push({
                             name: figures[i].title,
+                            male: figures[i].male,
                             id: figures[i]._id
                         });
-                    }
+                    }console.log($scope.figures);
                 });
             }
 
@@ -42,6 +43,7 @@ angular
                 getSeasons();
                 getFigures();
                 //getUser();
+                console.log(user_data);
                 $scope.user = user_data;
             });
 

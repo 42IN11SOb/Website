@@ -52,11 +52,11 @@
                                 </div>
                                 <div class="uk-width-medium-1-1 parsley-row">
                                     <span class="icheck-inline">
-                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="user.gender" value="male" />
+                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="user.male" ng-value="true" />
                                         <label for="radio_male" class="inline-label">Man</label>
                                     </span>
                                     <span class="icheck-inline">
-                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="user.gender" value="female" />
+                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="user.male" ng-value="false" />
                                         <label for="radio_female" class="inline-label">Vrouw</label>
                                     </span>
                                 </div>
@@ -97,7 +97,7 @@
                                 <!-- title -->
                             <div class="uk-grid">
                                 <div class="uk-width-medium-1-1 parsley-row">
-                                    <span class="icheck-inline" ng-repeat="figure in figures">
+                                    <span class="icheck-inline" ng-repeat="figure in figures | filter: {gender: user.gender}">
                                         <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
                                         <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
                                     </span>

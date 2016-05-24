@@ -10,8 +10,8 @@
                     <div class="md-card">
                         <div class="md-card-toolbar subitem">
                             <h3 class="md-card-toolbar-heading-text subitem">
-                                Details
-                            </h3>
+                                                    Details
+                                                </h3>
                         </div>
                         <div class="md-card-content large-padding">
                             <div class="uk-grid uk-grid-medium">
@@ -24,14 +24,33 @@
                                     </div>
                                 </div>
                                 <div class="uk-width-medium-1-2">
-                <div class="uk-form-row">
-                    <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="user.active" id="{{user.username}}" />
-                    <label for="{{user.username}}" class="inline-label">Actief</label>
-                </div>
-            </div>
+                                    <div class="uk-form-row">
+                                        <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="user.active" id="{{user.username}}" />
+                                        <label for="{{user.username}}" class="inline-label">Actief</label>
+                                    </div>
+                                </div>
+                                <div class="uk-width-medium-1-2">
+                                    <!-- Man/Vrouw-->
+                                    <div class="uk-form-row uk-margin-medium-top">
+                                        <div class="parsley-row">
+                                            <label for="email">Geslacht</label>
+                                        </div>
+                                    </div>
+                                    <div class="parsley-row">
+                                        <span class="icheck-inline">
+                                                            <input type="radio" name="radio_male" id="radio_male" icheck ng-model="user.male" ng-value="true" />
+                                                            <label for="radio_male" class="inline-label">Man</label>
+                                                        </span>
+                                        <span class="icheck-inline">
+                                                            <input type="radio" name="radio_female" id="radio_female" icheck ng-model="user.male" ng-value="false" />
+                                                            <label for="radio_female" class="inline-label">Vrouw</label>
+                                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="md-card">
                         <div class="md-card-toolbar subitem">
                             <h3 class="md-card-toolbar-heading-text subitem">
@@ -52,7 +71,7 @@
                             </h3>
                         </div>
                         <div class="md-card-content large-padding">
-                            <span class="icheck-inline" ng-repeat="figure in figures">
+                            <span class="icheck-inline" ng-repeat="figure in figures | filter: {'male' : user.male}">
                                 <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
                                 <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
                             </span>

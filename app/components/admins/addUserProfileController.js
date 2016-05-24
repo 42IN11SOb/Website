@@ -22,7 +22,7 @@ angular
                 });
             }
             function getFigures() {
-                apiBartimeus.getItems("figures", function(figures) {
+                apiBartimeus.getItems("figures", function(figures) {console.log(figures);
                     for(var i in figures){
                         $scope.figures.push({
                             name: figures[i].title,

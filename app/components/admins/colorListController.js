@@ -94,13 +94,7 @@ angular
                         .tablesorter({
                             theme: 'altair',
                             widthFixed: true,
-                            widgets: ['zebra', 'filter'],
-                            headers: {
-                                0: {
-                                    sorter: false,
-                                    parser: true
-                                }
-                            }
+                            widgets: ['zebra', 'filter']
                         })
                         // initialize the pager plugin
                         .tablesorterPager(pagerOptions)

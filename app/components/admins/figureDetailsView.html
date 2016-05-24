@@ -14,10 +14,29 @@
                             </h3>
                         </div>
                         <div class="md-card-content large-padding">
+                        <div class="uk-grid uk-grid-medium">
+                    <div class="uk-width-medium-1-2">
                             <div class="parsley-row uk-margin-medium-bottom">
                                 <label for="figure_name">Naam</label>
                                 <input type="text" class="md-input" name="figure_name" id="figure_name" ng-model="figure.title" md-input required/>
                             </div>
+                    </div>
+                    <div class="uk-width-medium-1-2">
+                        <div class="uk-width-medium-1-1 parsley-row">
+                            <label for="email">Geslacht</label>
+                        </div>
+                        <div class="uk-width-medium-1-1 parsley-row">
+                            <span class="icheck-inline">
+                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="figure.male" ng-value="true" />
+                                        <label for="radio_male" class="inline-label">Man</label>
+                                    </span>
+                            <span class="icheck-inline">
+                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="figure.male" ng-value="false" />
+                                        <label for="radio_female" class="inline-label">Vrouw</label>
+                                    </span>
+                        </div>
+                    </div>
+                    </div>
                             <div class="uk-grid uk-grid-divider uk-grid-medium">
                                 <div class="uk-width-large-1-2">
                                     <div class="uk-form-row">
