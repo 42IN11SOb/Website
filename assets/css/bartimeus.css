@@ -788,6 +788,13 @@ nav.navbar-default{
 	background-color: #222;
 }
 
+.blackLink a {
+    color:#1e88e5;
+}
+.blackLink a:hover{
+    color:#000000;
+}
+
 /*login*/
 .login_page {
     background-color: #000000;
@@ -854,4 +861,13 @@ nav.navbar-default{
 .footer_main_content .md-btn-primary {
     background-color: #000000;
     color: #ffffff !important;
+}
+
+img.klein 
+{
+    width: 50%;
+    height: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

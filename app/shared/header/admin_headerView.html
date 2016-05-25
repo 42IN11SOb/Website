@@ -12,22 +12,12 @@
             <div class="uk-navbar-flip">
                 <ul class="uk-navbar-nav user_actions">
                     <!-- <li><a href="#" class="user_action_icon" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a></li> -->
-                    <li ng-show="loggedin"><a ui-sref="admin.index">Admin</a></li> <!-- todo: add isadmin check-->
-                    <li ng-show="loggedin"><a ui-sref="bartimeus.profiel">Mijn Profiel</a></li>
-                    <li ng-hide="loggedin"><a ui-sref="login">Inloggen</a></li>
-                    <li ng-show="loggedin"><a ng-click="logoff()">Uitloggen</a></li>
+                    <li ng-show="loggedin"><a ui-sref="bartimeus.content({name:'Home'})">Home</a></li>
+                    <li ng-hide="loggedin"><a ui-sref="login">Login</a></li>
+                    <li ng-show="loggedin"><a ng-click="logoff()">Logout</a></li>
                 </ul>
             </div>
         </nav>
-    </div>
-    <div id="top_bar" ng-controller="menu_topViewCtrl">
-        <div class="md-top-bar">
-            <ul id="menu_top" class="uk-clearfix">
-                <li ng-repeat="section in sections">
-                    <a ui-sref-active="active" id="{{section.title}}" class="{{section.class}}" ui-sref="bartimeus.content({name : section.name})">{{section.title}}</a>
-                </li>
-            </ul>
-        </div>
     </div>
 </header>
 <!-- main header end -->

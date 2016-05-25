@@ -1,4 +1,226 @@
 altairApp
+    //api wrapper
+    .factory('apiBartimeus', [
+        '$state',
+        '$rootScope',
+        function($state, $rootScope) {
+            return {
+                login: function(username, password, callback) {
+                    var retVal;
+
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/login",
+                        type: "POST",
+                        data: { 'username': username, 'password': password },
+                        success: function(data) {
+                            var data = data.data;
+                            if (data.success === true) {
+                                localStorage.setItem("token", data.token);
+                                $state.go('bartimeus.content', {name : 'Home'});
+                            } else {
+                                retVal = data;
+                            }
+                            callback(retVal);
+                        },
+                        error: function(data) {
+                            //show error message
+                            retVal = {
+                                status: true,
+                                message: "Something went wrong, login again."
+                            }
+                            callback(retVal);
+                        },
+                        dataType: "json"
+                    });
+                },
+                logout: function() {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/logout",
+                        type: "POST",
+                        success: function(data) {
+                            if (data.success === true) {
+                                localStorage.removeItem("token");
+                                $state.go('bartimeus.content', {name : 'Home'});
+                            }
+                        },
+                        error: function(data) {
+                            //show error message
+                        }
+                    });
+                },
+                loggedIn: function(checkApi) {
+                    //this function is called alot, to prevent flood on api just return true when token is defined. if token is false you should return to login page (after its expried, or server rebooted)
+                    if(!checkApi) return localStorage.getItem("token") != null;
+
+                    if (checkApi) {
+                        $.ajax({
+                            url: "http://projectpep.herokuapp.com/users/loggedIn",
+                            type: "GET",
+                            success: function(data) {
+                                if (data.success === true) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }
+                            },
+                        });
+                    }
+                },
+                isAdmin: function() {
+                    
+                },
+                rgbToHex: function(r, g, b) {
+                    function componentToHex(c) {
+                        var hex = c.toString(16);
+                        return hex.length == 1 ? "0" + hex : hex;
+                    }
+
+                    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+                },
+                hexToRgb: function(hex) {
+                    hex = hex.replace(/[^0-9A-F]/gi, '');
+                    var bigint = parseInt(hex, 16);
+                    var r = (bigint >> 16) & 255;
+                    var g = (bigint >> 8) & 255;
+                    var b = bigint & 255;
+
+                    return { r: r, g: g, b: b };
+                },
+                getProfile: function(callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/profile",
+                        type: "GET",
+                        success: function(profile) {
+                            if (profile.success != true) {
+                                //user not logged in or token expired
+                                $state.go('login');
+                            } else {
+                                callback(profile.data);
+                            }
+                        }
+                    });
+                },
+                getItems : function(type, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type,
+                        type: "GET",
+                        success: function(items){
+                            if(items.success === true){
+                                if(callback) callback(items.data)
+                                return items.data;
+                           } else return items;
+                        },
+                        dataType: "json"
+                    })
+                },
+                getItem : function(type, name, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "GET",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data)
+                                return item.data;
+                           } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                createItem : function(type, name, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type,
+                        type: "POST",
+                        data: (type === 'figures' ? {title : name} : { name: name }),
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                createItemObject : function(type, object, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type,
+                        type: "POST",
+                        data: object,
+                        contentType: (type === 'pages' || type === 'users' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        success: function(item) {
+                            if (item.success === true) {
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: 'json'
+                    })
+                },
+                updateItem : function(type, name, item, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "PUT",
+                        data: item,
+                        contentType: (type === 'colors' || type === 'pages' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                deleteItem : function(type, name, callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/" + type + "/" + name,
+                        type: "DELETE",
+                        success: function(item){
+                            if(item.success === true){
+                                if(callback) callback(item.data);
+                                return item.data;
+                            } else return item;
+                        },
+                        dataType: "json"
+                    })
+                },
+                getAdminSections: function() {
+                    return [/*{
+                        title: 'User Profile',
+                        icon: '&#xE87C;',
+                        //link: 'restricted.pages.user_profile',
+                        submenu: [{
+                            title: 'Regular Elements',
+                            link: 'restricted.forms.regular'
+                        }]
+                    },*/ {
+                        title: 'Gebruikers',
+                        icon: '&#xE87C;',
+                        link: 'admin.users'
+                    }, {
+                        title: "Pagina's",
+                        icon: '&#xE24D;',
+                        link: 'admin.pages'
+                    }, {
+                        title: "Nieuws",
+                        icon: '&#xE8B0;',
+                        link: 'admin.news'
+                    }, {
+                        title: 'Seizoenen',
+                        icon: '&#xE545;',
+                        link: 'admin.seasons'
+                    }, {
+                        title: 'Kleuren',
+                        icon: '&#xE40A;',
+                        link: 'admin.colors'
+                    }, {
+                        title: 'Figuren',
+                        icon: '&#xE84E;',
+                        link: 'admin.figures'
+                    }];
+                }
+            }
+        }
+    ])
     .factory('windowDimensions', [
         '$window',
         function($window) {

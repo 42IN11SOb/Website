@@ -1,0 +1,27 @@
+<div id="page_content">
+    <div id="page_content_inner">
+		<div class="uk-grid" data-uk-grid-margin>
+		    <div class="uk-width-medium-1-2">
+		        <div class="parsley-row uk-margin-medium-bottom">
+		            <label for="login_username">Nieuws title</label>
+		            <input class="md-input" type="text" name="login_username" id="login_username" ng-model="news.title" md-input required/>
+		        </div>
+		    </div>
+		    <div class="uk-width-medium-1-2">
+		        <div class="uk-form-row">
+		            <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="news.publish" id="switchPublish" />
+                    <label for="switchPublish" class="inline-label">Zichtbaar</label>
+		        </div>
+		    </div>
+		</div>
+
+        <form method="post">
+            <textarea ui-tinymce="tinymce_options" ng-model="tinymce_content" cols="30" rows="24"></textarea>
+        </form>
+
+        <h3 class="heading_c uk-margin-bottom uk-margin-medium-top">tinyMCEe Content</h3>
+        <a class="md-btn md-btn-primary md-btn-large" ng-click="saveContent()"> save changes </a>
+<pre><code>{{tinymce_content}}</code></pre>
+
+    </div>
+</div>

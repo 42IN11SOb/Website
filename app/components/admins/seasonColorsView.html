@@ -1,0 +1,24 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="md-card">
+            <div class="md-card-content">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-2">
+                        <div class="parsley-row uk-margin-medium-bottom">
+                            <label for="season_name">Naam</label>
+                            <input type="text" class="md-input" name="season_name" id="season_name" ng-model="season.name" md-input required/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="uk-grid uk-margin-small-bottom" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-6" ng-repeat="color in allColors">
+                        <input type="checkbox" class="switchery switchery-large" ui-switch ng-model="color.active" id="{{color.name}}" />
+                        <label for="{{color.name}}" class="inline-label">{{color.name}}</label>
+                    </div>
+                </div>
+                <button class="md-btn md-btn-primary" ng-click="save()">Opslaan</button>
+            </div>
+        </div>
+    </div>
+</div>

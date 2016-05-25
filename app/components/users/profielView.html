@@ -1,16 +1,78 @@
 <div id="page_content">
     <div id="page_content_inner">
-    {{user}}
-    	<div class="md-card-content">
+        <div class="md-card-content">
             <div class="uk-grid uk-grid-width-large1-1" data-uk-grid="{gutter:24}">
-                <div ng-repeat="item in items">
+                <div>
                     <div class="md-card">
                         <div class="md-card-toolbar">
-                            <h3 class="md-card-toolbar-heading-text">
-                                {{item.title}}
-                            </h3>
+                            <h1 class="md-card-toolbar-heading-text large-heading">
+                                {{user.username}}
+                                <small></small>
+                            </h1>
                         </div>
-                        <div class="md-card-content" ng-bind-html='toTrustedHTML( item.text )'></div>
+                        <div class="md-card-content">
+                            <p>Hallo {{user.username}}, hieronder staat uw passport en alle beschikbare info.</p>
+                            <!-- no content in main card yet -->
+                        </div>
+                        <!-- 'sub item content' -->
+                        <div class="md-card-content">
+                            <div>
+                                <div class="md-card subitem">
+                                    <div class="md-card-toolbar subitem">
+                                        <h3 class="md-card-toolbar-heading-text subitem">
+                                            Seizoen
+                                        </h3>
+                                    </div>
+                                    <div class="md-card-content subitem">
+                                        <p>U bent een <b>'{{user.passport.season.name}}'</b>. Dat betekend dat de volgende kleuren u zullen staan:</p>
+                                        <div class="uk-margin-bottom">
+                                            <!-- ugly border for now, because of possible white color -->
+                                            <div id="palette" style="border:solid 0.1px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
+                        <!-- 'sub item content' -->
+                        <div class="md-card-content">
+                            <div>
+                                <div class="md-card subitem">
+                                    <div class="md-card-toolbar subitem">
+                                        <h3 class="md-card-toolbar-heading-text subitem">
+                                            Figuur
+                                        </h3>
+                                    </div>
+                                    <div class="md-card-content subitem">
+                                        <div class="uk-grid uk-grid-divider uk-grid-medium">
+                                            <div class="uk-width-large-1-2">
+                                                <p>U heeft het figuur <b>'{{user.passport.figure.title}}'</b>, hieronder staat informatie, advies en de do's en dont's van dit figuur</p>
+                                                <p>{{user.passport.figure.info}}</p>
+                                                <p>{{user.passport.figure.advice}}</p>
+                                                <p><b>Do's:</b>
+                                                    <ul>
+                                                        <li ng-repeat="do in user.passport.figure.dos">
+                                                            {{do}}
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                                <p><b>Dont's:</b>
+                                                    <ul>
+                                                        <li ng-repeat="dont in user.passport.figure.donts">
+                                                            {{dont}}
+                                                        </li>
+                                                    </ul>
+                                                </p>
+                                            </div>
+                                            <div class="uk-width-large-1-2">
+                                                <img ng-src="{{user.passport.figure.img}}" alt="Afbeelding van het figuur {{user.passport.figure.title}}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end -->
                     </div>
                 </div>
             </div>

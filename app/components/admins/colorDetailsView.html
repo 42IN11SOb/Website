@@ -1,0 +1,20 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="md-card">
+            <div class="md-card-content">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-medium-1-2">
+                        <div class="parsley-row uk-margin-medium-bottom">
+                            <label for="color_name">Naam</label>
+                            <input class="md-input" type="text" name="color_name" id="color_name" ng-model="color.name" md-input required/>
+                        </div>
+                        <button class="md-btn md-btn-primary" ng-click="save()">opslaan</button>
+                    </div>
+                    <div class="uk-width-medium-1-2">
+                        <input type="text" name="color" id="ColorInput" data-wheelcolorpicker data-wcp-layout="block" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

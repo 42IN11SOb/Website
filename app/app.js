@@ -57,8 +57,9 @@ altairApp
         '$timeout',
         'preloaders',
         'variables',
-        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables) {
-
+        'apiBartimeus',
+        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables, apiBartimeus) {
+            $rootScope.initialized = false;
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
@@ -81,6 +82,12 @@ altairApp
             });
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                //admin pages restriction
+                if (toParams.hasOwnProperty('isAdmin') && localStorage.token == null) {
+                    event.preventDefault();
+                    $state.go('login');
+                }
+                
                 // main search
                 $rootScope.mainSearchActive = false;
                 // single card
@@ -89,10 +96,19 @@ altairApp
                 $rootScope.toBarActive = false;
                 // page heading
                 $rootScope.pageHeadingActive = false;
-                // top menu
-                $rootScope.topMenuActive = false; //set to true for top header
-                // full header
-                $rootScope.fullHeaderActive = false; //set to true for top header
+
+                if (toState.name.indexOf('bartimeus') > -1) {//if tostate contains bartimeus its frontend, so fullheader and top menu
+                    // top menu
+                    $rootScope.topMenuActive = true; //set to true for top header
+                    // full header
+                    $rootScope.fullHeaderActive = true; //set to true for top header
+                } else {
+                    // top menu
+                    $rootScope.topMenuActive = false; //set to true for top header
+                    // full header
+                    $rootScope.fullHeaderActive = false; //set to true for top header
+                }
+
                 // full height
                 $rootScope.page_full_height = false;
                 // secondary sidebar
@@ -108,7 +124,6 @@ altairApp
                     $rootScope.pageLoading = true;
                     $rootScope.pageLoaded = false;
                 }
-
             });
 
             // fastclick (eliminate the 300ms delay between a physical tap and the firing of a click event on mobile browsers)

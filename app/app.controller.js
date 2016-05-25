@@ -14,15 +14,17 @@ angular
         '$timeout',
         '$scope',
         '$window',
-        function ($timeout,$scope,$window) {
-            //logout
-            $scope.logoff = function(){
-                localStorage.removeItem("token");
+        'apiBartimeus',
+        '$state',
+        function ($timeout,$scope,$window,apiBartimeus,$state) { 
+            $scope.loggedin = apiBartimeus.loggedIn();
+            $scope.isAdmin = apiBartimeus.isAdmin();
+
+            $scope.logoff = function() {
+                apiBartimeus.logout();
+                $scope.loggedin = false;
             }
-            $scope.loggedin = function() {
-                return localStorage.getItem("token") != null;
-            }
-            
+
             $scope.user_data = {
                 name: "Lue Feest",
                 avatar: "assets/img/avatars/avatar_11_tn.png",
@@ -102,7 +104,8 @@ angular
         '$timeout',
         '$scope',
         '$rootScope',
-        function ($timeout,$scope,$rootScope) {
+        'apiBartimeus',
+        function ($timeout,$scope,$rootScope,apiBartimeus) {
 
             $scope.$on('onLastRepeat', function (scope, element, attrs) {
                 $timeout(function() {
@@ -553,46 +556,34 @@ angular
                         }
                     ]
                 }
-            ]
+            ];
+            $scope.sections = apiBartimeus.getAdminSections();
 
         }
     ])
     .controller('menu_topViewCtrl', [
         '$scope',
         '$rootScope',
-        function ($scope,$rootScope) {
-            //dynamically set the active class in menu
-            $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, error){
-                //still needs reload check 
-                for(var section in $scope.sections){
-                    var sec = $scope.sections[section];
-
-                    if(sec.link == toState.name){
-                        $('#'+sec.id).addClass('active');
-                    } else if(sec.link == fromState.name){
-                        $('#'+sec.id).removeClass('active');
+        'apiBartimeus',
+        '$state',
+        function ($scope,$rootScope,apiBartimeus,$state) {
+            $(function(){
+                $scope.sections = [{
+                    title: "Nieuws",
+                    class: "",
+                    name: "news"
+                }];
+                apiBartimeus.getItems("pages", function(items) {
+                    for(var page in items){
+                        $scope.sections.push({
+                            title: items[page].title,
+                            class: items[page].class,
+                            name: items[page].name
+                        })
                     }
-                }
+                    $scope.$apply();
+                })
             });
-
-            $scope.sections = [
-                {
-                    id: 0,
-                    title: 'home',
-                    class: 'material-icons md-24',
-                    link: 'bartimeus.index'
-                },
-                {
-                    id: 1,
-                    title: 'PEPdag',
-                    link: 'bartimeus.pepdag'
-                },
-                {
-                    id: 2,
-                    title: 'Ervaringsverhalen',
-                    link: 'bartimeus.ervaringsverhalen'
-                }
-            ];
         }
     ])
 ;

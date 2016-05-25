@@ -1,0 +1,123 @@
+<div id="page_content">
+    <div id="page_content_inner">
+
+        <div class="md-card uk-margin-large-bottom">
+            <div class="md-card-content">
+                <form id="userProfileForm" class="uk-form-stacked ng-pristine ng-invalid ng-invalid-required">
+                    <wizard on-finish="finishedWizard()" template="app/templates/wizard.tpl.html">
+                        <!-- User section -->
+                        <wz-step title="user_information" template="app/templates/wizard.step.tpl.html">
+                            <h2 class="heading_a">
+                                Gebruiker Informatie
+                                <span class="sub-heading">Vul hier de informatie in van de gebruiker</span>
+                            </h2>
+                            <hr class="md-hr"/>
+
+                            <!-- Username -->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="userName">Gebruikersnaam<span class="req">*</span></label>
+                                    <input type="text" name="userName" id="userName" required class="md-input"  md-input ng-model="user.username" />
+                                </div>
+                            </div>
+
+                            <!-- Password -->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="password">Wachtwoord<span class="req">*</span></label>
+                                    <input type="password" name="password" id="password" required class="md-input" md-input ng-model="user.password" />
+                                </div>
+                            </div>
+
+                            <!-- Password repeat -->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="passwordRepeat">Herhaal Wachtwoord<span class="req">*</span></label>
+                                    <input type="password" name="passwordRepeat" id="passwordRepeat" required class="md-input" md-input ng-model="user.paswordRepeat" />
+                                </div>
+                            </div>
+
+                            <!-- Email address-->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="email">Emailadres<span class="req">*</span></label>
+                                    <input type="email" name="email" id="email" required class="md-input" md-input ng-model="user.email" />
+                                </div>
+                            </div>
+
+                            <!-- Man/Vrouw-->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <label for="email">Geslacht<span class="req">*</span></label>
+                                </div>
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <span class="icheck-inline">
+                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="user.male" ng-value="true" />
+                                        <label for="radio_male" class="inline-label">Man</label>
+                                    </span>
+                                    <span class="icheck-inline">
+                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="user.male" ng-value="false" />
+                                        <label for="radio_female" class="inline-label">Vrouw</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Continue button -->
+                            <div class="uk-clearfix uk-margin-large-top">
+                                <button class="md-btn md-btn-primary uk-float-right" type="submit" wz-next>Volgende</button>
+                            </div>
+                        </wz-step>
+
+                        <!-- Profile section -->
+                        <wz-step title="profile_information" template="app/templates/wizard.step.tpl.html">
+                            <h2 class="heading_a uk-margin-medium-bottom">
+                                Stijladvies
+                                <span class="sub-heading">Selecteer hieronder welk seizon en welk figuur de gebruiker heeft</span>
+                            </h2>
+                            <h3 class="heading_a">
+                                Seizoen
+                            </h3>
+                            <hr class="md-hr"/>
+                            <!-- season -->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <span class="icheck-inline" ng-repeat="season in seasons">
+                                        <input type="radio" name="radio_{{season.name}}" id="radio_{{season.name}}" icheck ng-model="user.passport.season._id" value="{{season.id}}" />
+                                        <label for="radio_{{season.name}}" class="inline-label">{{season.name}}</label>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <hr class="md-hr"/>
+                            <!-- figure -->
+                            <h3 class="heading_a">
+                                Figuur
+                            </h3>
+                            <hr class="md-hr"/>
+                                <!-- title -->
+                            <div class="uk-grid">
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <span class="icheck-inline" ng-repeat="figure in figures | filter: {gender: user.gender}">
+                                        <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
+                                        <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- <div class="uk-grid uk-grid-width-large-1-2 uk-grid-width-xlarge-1-4" data-uk-grid-margin>
+                                
+                            </div>
+                            <div class="uk-grid uk-grid-width-large-1-3 uk-grid-width-xlarge-1-6" data-uk-grid-margin> -->
+                            <!-- </div> -->
+                                
+                            <!-- continue/back buttons -->
+                            <div class="uk-clearfix uk-margin-large-top">
+                                <button class="md-btn md-btn-flat md-btn-flat-primary uk-float-left" type="submit" wz-previous>Back</button>
+                                <button class="md-btn md-btn-primary uk-float-right" type="submit" wz-next>Continue</button>
+                            </div>
+                        </wz-step>
+                    </wizard>
+                </form>
+            </div>
+        </div>        
+    </div>
+</div>

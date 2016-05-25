@@ -2,11 +2,12 @@ altairApp
     .config([
         '$stateProvider',
         '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+        '$locationProvider',
+        function ($stateProvider, $urlRouterProvider, $locationProvider) {
 
             // Use $urlRouterProvider to configure any redirects (when) and invalid urls (otherwise).
             $urlRouterProvider
-                .when('/dashboard', '/')
+                .when('/', '/bartimeus/page/Home')
                 .otherwise('/');
 
             $stateProvider
@@ -55,7 +56,7 @@ altairApp
             // -- BARTIMEUS --
                 .state("bartimeus", {
                     abstract: true,
-                    url: "",
+                    url: "/bartimeus",
                     views: {
                         'main_header': {
                             templateUrl: 'app/shared/header/bartimeus_headerView.html',
@@ -63,7 +64,7 @@ altairApp
                         },
                         '': {
                             templateUrl: 'app/views/bartimeus.html',
-                            controller: 'bartimeusCtrl'
+                            //controller: 'bartimeusCtrl'
                         },
                         'main_footer': {
                             templateUrl: 'app/shared/footer/bartimeus_footerView.html',
@@ -77,73 +78,326 @@ altairApp
                                 'lazy_prismJS',
                                 'lazy_autosize',
                                 'lazy_iCheck',
-                                'app/components/visitors/bartimeusController.js'
+                                //'app/components/visitors/bartimeusController.js'
                             ],{ serie: true });
                         }]
                     }
                 })
             // -- INDEX --
-                .state("bartimeus.index", {
-                    url: "/index",
-                    templateUrl: 'app/components/visitors/indexView.html',
-                    controller: 'indexCtrl',
+                .state("bartimeus.content", {
+                    url: "/page/:name",
+                    templateUrl: 'app/components/visitors/contentView.html',
+                    controller: 'contentCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'app/components/visitors/indexController.js'
+                                'app/components/visitors/contentController.js'
                             ], { serie: true });
                         }]
                     },
                     data: {
-                        pageTitle: 'Index'
-                    }
-                })
-            // -- ERVARGINSVERHALEN --
-                .state("bartimeus.ervaringsverhalen", {
-                    url: "/ervaringsverhalen",
-                    templateUrl: 'app/components/visitors/verhalenView.html',
-                    controller: 'verhalenCtrl',
-                    resolve: {
-                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
-                            return $ocLazyLoad.load([
-                                'app/components/visitors/verhalenController.js'
-                            ], { serie: true });
-                        }]
-                    },
-                    data: {
-                        pageTitle: 'Ervarings Verhalen'
+                        pageTitle: name
                     }
                 })
             // -- PROFIEL --
                 .state("bartimeus.profiel", {
-                    url: "/profiel",
+                    url: "/profile",
                     templateUrl: 'app/components/users/profielView.html',
                     controller: 'profielCtrl',
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
+                                'lazy_KendoUI',
                                 'app/components/users/profielController.js'
                             ], { serie: true });
                         }]
                     },
                     data: {
-                        pageTitle: 'Profiel'
+                        pageTitle: 'profiel'
                     }
                 })
-            // -- PROFIEL --
-                .state("bartimeus.pepdag", {
-                    url: "/pepdag",
-                    templateUrl: 'app/components/visitors/pepView.html',
-                    controller: 'pepCtrl',
+            // -- BARTIMEUS ADMIN --
+                .state("admin", {
+                    abstract: true,
+                    url: "/admin",
+                    views: {
+                        'main_header': {
+                            templateUrl: 'app/shared/header/admin_headerView.html',
+                            controller: 'main_headerCtrl'
+                        },
+                        'main_sidebar': {
+                            templateUrl: 'app/shared/main_sidebar/main_sidebarView.html',
+                            controller: 'main_sidebarCtrl'
+                        },
+                        '': {
+                            templateUrl: 'app/views/bartimeusAdmin.html',
+                            //controller: 'bartimeusCtrl'
+                        }
+                    },
                     resolve: {
                         deps: ['$ocLazyLoad', function($ocLazyLoad) {
                             return $ocLazyLoad.load([
-                                'app/components/visitors/pepController.js'
+                                'lazy_selectizeJS',
+                                'lazy_switchery',
+                                'lazy_prismJS',
+                                'lazy_autosize',
+                                'lazy_iCheck',
+                                //'app/components/admins/bartimeusController.js'
+                            ],{ serie: true });
+                        }]
+                    },
+                    params: { isAdmin: true } //set this param to set page as admin page
+                })
+            // -- ADMIN INDEX --
+                .state("admin.index", {
+                    url: "/index",
+                    templateUrl: 'app/components/admins/indexView.html',
+                    controller: 'indexCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/indexController.js'
                             ], { serie: true });
                         }]
                     },
                     data: {
-                        pageTitle: 'PEPdag'
+                        pageTitle: 'Index',
+                    }
+                })
+            // -- ADMIN PAGE LIST --
+                .state("admin.pages", {
+                    url: "/pages",
+                    templateUrl: 'app/components/admins/pageListView.html',
+                    controller: 'pageListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/pageListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Pages'
+                    }
+                })
+            // -- ADMIN PAGE CONTENT --
+                .state("admin.pagecontent", {
+                    url: "/pages/:name",
+                    templateUrl: 'app/components/admins/pageContentView.html',
+                    controller: 'pageContentCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tinymce',
+                                'app/components/admins/pageContentController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Pages'
+                    }
+                })
+            // -- ADMIN NEWS LIST --
+                .state("admin.news", {
+                    url: "/news",
+                    templateUrl: 'app/components/admins/newsListView.html',
+                    controller: 'newsListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/newsListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'News'
+                    }
+                })
+            // -- ADMIN NEWS CONTENT --
+                .state("admin.newscontent", {
+                    url: "/news/:name",
+                    templateUrl: 'app/components/admins/newsContentView.html',
+                    controller: 'newsContentCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tinymce',
+                                'app/components/admins/newsContentController.js'
+                            ], {serie:true});
+                        }],
+                        news_data: function($stateParams, apiBartimeus, $q){
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("news", $stateParams.name, function(news) {
+                                deferred.resolve(news);
+                            });
+
+                            return deferred.promise;
+                        }
+                    },
+                    data: {
+                        pageTitle: 'News'
+                    }
+                })
+            // -- ADMIN SEASON LIST --
+                .state("admin.seasons", {
+                    url: "/seasons",
+                    templateUrl: 'app/components/admins/seasonListView.html',
+                    controller: 'seasonListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/seasonListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Seasons'
+                    }
+                })
+            // -- ADMIN SEASON COLORS --
+                .state("admin.seasoncolors", {
+                    url: "/seasons/:name",
+                    templateUrl: 'app/components/admins/seasonColorsView.html',
+                    controller: 'seasonColorsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/seasonColorsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Season Colors'
+                    }
+                })
+            // -- ADMIN COLORS FOR SEASONS --
+                .state("admin.colors", {
+                    url: "/colors",
+                    templateUrl: 'app/components/admins/colorListView.html',
+                    controller: 'colorListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/colorListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Colors'
+                    }
+                })
+            // -- ADMIN COLORS FOR SEASONS --
+                .state("admin.colordetails", {
+                    url: "/colors/:name",
+                    templateUrl: 'app/components/admins/colorDetailsView.html',
+                    controller: 'colorDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_wheelcolorpicker',
+                                'app/components/admins/colorDetailsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Color details'
+                    }
+                })
+            // -- ADMIN FIGURES LIST --
+                .state("admin.figures", {
+                    url: "/figures",
+                    templateUrl: 'app/components/admins/figureListView.html',
+                    controller: 'figureListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/figureListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Figures'
+                    }
+                })
+            // -- ADMIN FIGURE DETAILS --
+                .state("admin.figuredetails", {
+                    url: "/figures/:name",
+                    templateUrl: 'app/components/admins/figureDetailsView.html',
+                    controller: 'figureDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/figureDetailsController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Figure Details'
+                    }
+                })
+            // -- ADMIN USERS LIST --
+                .state("admin.users", {
+                    url: "/users",
+                    templateUrl: 'app/components/admins/userListView.html',
+                    controller: 'userListCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {   
+                            return $ocLazyLoad.load([
+                                'lazy_tablesorter',
+                                'app/components/admins/userListController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Users'
+                    }
+                })
+            // -- ADMIN USER DETAILS --
+                .state("admin.userdetails", {
+                    url: "/users/:name",
+                    templateUrl: 'app/components/admins/userDetailsView.html',
+                    controller: 'userDetailsCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'app/components/admins/userDetailsController.js'
+                            ], {serie:true});
+                        }],
+                        user_data: function($stateParams, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("users", $stateParams.name, function(user) {
+                                deferred.resolve(user);
+                            });
+
+                            return deferred.promise;
+                        }
+                    },
+                    data: {
+                        pageTitle: 'User Details'
+                    }
+                })
+            // -- ADMIN REGISTER USER --
+                .state("admin.register", {
+                    url: "/register",
+                    templateUrl: 'app/components/admins/addUserProfileView.html',
+                    controller: 'userProfileCtrl',
+                    resolve: {
+                        deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
+                                'lazy_wizard',
+                                'app/components/admins/addUserProfileController.js'
+                            ], {serie:true});
+                        }]
+                    },
+                    data: {
+                        pageTitle: 'Register'
                     }
                 })
 
@@ -1381,5 +1635,8 @@ altairApp
                         pageTitle: 'Blog Article'
                     }
                 })
+
+                //to get rid of /#/
+            //$locationProvider.html5Mode({enabled:true,requireBase:false});
         }
     ]);
