@@ -3,19 +3,17 @@ angular
     .controller('newsListCtrl', [
         '$rootScope',
         '$scope',
-        '$stateParams',
+        'news_data',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,$stateParams,utils,apiBartimeus) {
-            $scope.heading = "News";
+        function ($rootScope,$scope,news_data,utils,apiBartimeus) {
+            $scope.heading = "Nieuws";
             $scope.newses = [];
 
             function getNewses() {
-                apiBartimeus.getItems("news", function(newses) {
-                    for(var news in newses){
-                        $scope.newses.push(newses[news]);
-                    }
-                })
+                for(var news in news_data){
+                    $scope.newses.push(news_data[news]);
+                }
             }
 
             var $newses_card = $('#newses_card'),
@@ -37,12 +35,12 @@ angular
                     .hide();
             };
             $scope.newNews = function($event) {
-                $scope.heading = "New News";
+                $scope.heading = "Nieuw nieuws";
                 $event.preventDefault();
                 utils.card_show_hide($newses_card,undefined,newNewsShow,undefined);
             };
             $scope.backToNewses = function($event) {
-                $scope.heading = "News";
+                $scope.heading = "Nieuws";
                 $event.preventDefault();
                 utils.card_show_hide($newses_card,undefined,newsListShow,undefined);
             };

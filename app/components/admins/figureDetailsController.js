@@ -3,18 +3,16 @@ angular
     .controller('figureDetailsCtrl', [
         '$rootScope',
         '$scope',
-        '$stateParams',
+        'figure_data',
         '$state',
         'apiBartimeus',
-        function ($rootScope, $scope, $stateParams, $state, apiBartimeus) {
+        function ($rootScope, $scope, figure_data, $state, apiBartimeus) {
             var oldName;
 
             function getFigure(){
-                apiBartimeus.getItem("figures", $stateParams.name, function(figure) {
-                    oldName = figure.title;
-                    $scope.figure = figure;
-                    $scope.$apply();
-                });
+                    oldName = figure_data.title;
+                    $scope.figure = figure_data;
+                    //$scope.$apply();
             }
 
             $(function() {

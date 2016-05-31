@@ -3,19 +3,17 @@ angular
     .controller('pageListCtrl', [
         '$rootScope',
         '$scope',
-        '$stateParams',
+        'pages_data',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,$stateParams,utils,apiBartimeus) {
+        function ($rootScope,$scope,pages_data,utils,apiBartimeus) {
             $scope.heading = "Pages";
             $scope.pages = [];
 
             function getPages() {
-                apiBartimeus.getItems("pages", function(pages) {
-                    for(var page in pages){
-                        $scope.pages.push(pages[page]);
+                    for(var page in pages_data){
+                        $scope.pages.push(pages_data[page]);
                     }
-                })
             }
 
             var $pages_card = $('#pages_card'),

@@ -80,7 +80,18 @@ altairApp
                                 'lazy_iCheck',
                                 //'app/components/visitors/bartimeusController.js'
                             ],{ serie: true });
-                        }]
+                        }],
+                        user_data: function($rootScope, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getRole(function(role) {
+                                console.log(role);
+                                $rootScope.role = role == null ? null: role.name;
+                                deferred.resolve(role);
+                            });
+
+                            return deferred.promise;
+                        }
                     }
                 })
             // -- INDEX --
@@ -93,10 +104,38 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/visitors/contentController.js'
                             ], { serie: true });
-                        }]
+                        }],
+                        page_data: function($stateParams, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            if ($stateParams.name === "news") {
+                                var news = "";
+                                apiBartimeus.getItems("news", function(items) {
+                                    for (var item in items) {
+                                        var message = items[item];
+                                        if (message.publish) {
+                                            news += '<div class="md-card">';
+                                            news += '<div class="md-card-toolbar">';
+                                            news += '<h1 class="md-card-toolbar-heading-text large-heading">' + message.title + '</h1>';
+                                            news += '</div>';
+                                            news += '<div class="md-card-content">';
+                                            news += message.content;
+                                            news += '</div></div>';
+                                        }
+                                    }
+                                    deferred.resolve({ content: news });
+                                });
+                            } else {
+                                apiBartimeus.getItem("pages", $stateParams.name, function(item) {
+                                    deferred.resolve(item);
+                                });
+                            }
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
-                        pageTitle: name
+                        pageTitle: ''
                     }
                 })
             // -- PROFIEL --
@@ -110,7 +149,16 @@ altairApp
                                 'lazy_KendoUI',
                                 'app/components/users/profielController.js'
                             ], { serie: true });
-                        }]
+                        }],
+                        profile_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getProfile(function(profile) {
+                                deferred.resolve(profile);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'profiel'
@@ -144,7 +192,18 @@ altairApp
                                 'lazy_iCheck',
                                 //'app/components/admins/bartimeusController.js'
                             ],{ serie: true });
-                        }]
+                        }],
+                        user_data: function($rootScope, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getRole(function(role) {
+                                console.log(role);
+                                $rootScope.role = role == null ? null: role.name;
+                                deferred.resolve(role);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     params: { isAdmin: true } //set this param to set page as admin page
                 })
@@ -175,7 +234,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/pageListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        pages_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("pages", function(pages) {
+                                deferred.resolve(pages);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Pages'
@@ -192,7 +260,16 @@ altairApp
                                 'lazy_tinymce',
                                 'app/components/admins/pageContentController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        page_data: function($stateParams, apiBartimeus, $q) {
+                           var deferred = $q.defer();
+
+                           apiBartimeus.getItem("pages", $stateParams.name, function(item) {
+                               deferred.resolve(item);
+                           });
+
+                           return deferred.promise;
+                       }
                     },
                     data: {
                         pageTitle: 'Pages'
@@ -209,7 +286,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/newsListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        news_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("news", function(newses) {
+                                deferred.resolve(newses);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'News'
@@ -268,7 +354,25 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/admins/seasonColorsController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        season_data: function($stateParams, apiBartimeus, $q) {
+                                var deferred = $q.defer();
+
+                                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {
+                                    deferred.resolve(season);
+                                });
+
+                                return deferred.promise;
+                            },
+                        colors_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("colors", function(colors) {
+                                deferred.resolve(colors);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Season Colors'
@@ -302,7 +406,16 @@ altairApp
                                 'lazy_wheelcolorpicker',
                                 'app/components/admins/colorDetailsController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        color_data: function($stateParams, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("colors", $stateParams.name, function(color) {
+                                deferred.resolve(color);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Color details'
@@ -335,7 +448,16 @@ altairApp
                             return $ocLazyLoad.load([
                                 'app/components/admins/figureDetailsController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        figure_data: function($stateParams, apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItem("figures", $stateParams.name, function(figure) {
+                                deferred.resolve(figure);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Figure Details'
@@ -374,6 +496,24 @@ altairApp
 
                             apiBartimeus.getItem("users", $stateParams.name, function(user) {
                                 deferred.resolve(user);
+                            });
+
+                            return deferred.promise;
+                        },
+                        seasons_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("seasons", function(seasons) {
+                                deferred.resolve(seasons);
+                            });
+
+                            return deferred.promise;
+                        },
+                        figures_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("figures", function(figures) {
+                                deferred.resolve(figures);
                             });
 
                             return deferred.promise;

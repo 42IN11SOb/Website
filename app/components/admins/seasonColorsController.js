@@ -4,33 +4,30 @@ angular
         '$rootScope',
         '$scope',
         'apiBartimeus',
-        '$stateParams',
+        'colors_data',
+        'season_data',
         '$state',
-        function ($rootScope, $scope, apiBartimeus, $stateParams, $state) {
+        function ($rootScope, $scope, apiBartimeus, colors_data, season_data, $state) {
             $scope.allColors = [];
             $scope.season;
             var oldName;
 
             $(function() {
-                apiBartimeus.getItem("seasons", $stateParams.name, function(season) {
-                    oldName = season.name;
-                    $scope.season = season;
-                    var seasonColors = [];
-                    var colors = season.colors;
+                oldName = season_data.name;
+                $scope.season = season_data;
+                var seasonColors = [];
+                var colors = season_data.colors;
 
-                    for (var i in colors) {
-                        if(colors[i].color != null) seasonColors.push(colors[i].color.name);
-                    }
+                for (var i in colors) {
+                    if (colors[i].color != null) seasonColors.push(colors[i].color.name);
+                }
 
-                    apiBartimeus.getItems("colors", function(colors) {
-                        for (var i in colors) {
-                            colors[i].hex = apiBartimeus.rgbToHex(colors[i].r, colors[i].g, colors[i].b);
-                            if (seasonColors.indexOf(colors[i].name) > -1) colors[i].active = true;
-                            $scope.allColors.push(colors[i]);
-                        }
-                        $scope.$apply();
-                    });
-                });
+                for (var i in colors_data) {
+                    colors_data[i].hex = apiBartimeus.rgbToHex(colors_data[i].r, colors_data[i].g, colors_data[i].b);
+                    if (seasonColors.indexOf(colors_data[i].name) > -1) colors_data[i].active = true;
+                    $scope.allColors.push(colors_data[i]);
+                }
+                //$scope.$apply();
             });
 
             $scope.save = function() {

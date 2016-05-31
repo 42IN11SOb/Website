@@ -14,6 +14,7 @@ altairApp
                         data: { 'username': username, 'password': password },
                         success: function(data) {
                             var data = data.data;
+                            
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
                                 $state.go('bartimeus.content', {name : 'Home'});
@@ -40,6 +41,8 @@ altairApp
                         success: function(data) {
                             if (data.success === true) {
                                 localStorage.removeItem("token");
+                                $rootScope.role = null;
+                                $rootScope.$apply();
                                 $state.go('bartimeus.content', {name : 'Home'});
                             }
                         },
@@ -57,17 +60,10 @@ altairApp
                             url: "http://projectpep.herokuapp.com/users/loggedIn",
                             type: "GET",
                             success: function(data) {
-                                if (data.success === true) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
+                                return data.success;
                             },
                         });
                     }
-                },
-                isAdmin: function() {
-                    
                 },
                 rgbToHex: function(r, g, b) {
                     function componentToHex(c) {
@@ -85,6 +81,19 @@ altairApp
                     var b = bigint & 255;
 
                     return { r: r, g: g, b: b };
+                },
+                getRole: function(callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/profile",
+                        type: "GET",
+                        success: function(profile) {
+                            if (profile.success === true) {
+                                callback(profile.data.role);
+                            } else {
+                                callback(null);
+                            }
+                        }
+                    });
                 },
                 getProfile: function(callback) {
                     $.ajax({

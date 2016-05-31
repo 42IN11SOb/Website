@@ -55,13 +55,14 @@ altairApp
         '$http',
         '$window',
         '$timeout',
-        'preloaders',
-        'variables',
         'apiBartimeus',
-        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables, apiBartimeus) {
+        function ($rootScope, $state, $stateParams,$http,$window, $timeout, apiBartimeus) {
             $rootScope.initialized = false;
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
+
+            //set the role on startup
+            /*$rootScope.role = apiBartimeus.getRole();*/
 
             $rootScope.$on('$stateChangeSuccess', function () {
                 // scroll view to top
@@ -83,7 +84,7 @@ altairApp
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 //admin pages restriction
-                if (toParams.hasOwnProperty('isAdmin') && localStorage.token == null) {
+                if (toParams.hasOwnProperty('isAdmin') && $rootScope.role !== 'admin') {
                     event.preventDefault();
                     $state.go('login');
                 }

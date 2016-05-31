@@ -3,19 +3,14 @@ angular
     .controller('pageContentCtrl', [
         '$scope',
         'apiBartimeus',
-        '$stateParams',
+        'page_data',
         '$state',
-        function ($scope, apiBartimeus, $stateParams, $state) {
+        function ($scope, apiBartimeus, page_data, $state) {
             $scope.page;
 
             function getPage() {
-                apiBartimeus.getItem("pages", $stateParams.name, function(item) {
-                    //if(item.success === true) {
-                        $scope.page = item;
-                        $scope.tinymce_content = $scope.page.content;
-                        $scope.$apply();
-                    //}
-                });
+                $scope.page = page_data;
+                $scope.tinymce_content = $scope.page.content;
             }
 
             $scope.saveContent = function(){

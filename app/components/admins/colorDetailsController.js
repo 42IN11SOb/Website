@@ -3,21 +3,19 @@ angular
     .controller('colorDetailsCtrl', [
         '$rootScope',
         '$scope',
-        '$stateParams',
+        'color_data',
         '$state',
         'apiBartimeus',
-        function ($rootScope, $scope, $stateParams, $state, apiBartimeus) {
+        function ($rootScope, $scope, color_data, $state, apiBartimeus) {
             $scope.color;
             var oldName;
             var picker =  $('#colorInput');
 
             function getColor(callback) {
-                apiBartimeus.getItem("colors", $stateParams.name, function(color) {
-                    $scope.color = color;
-                    oldName = color.name;
-                    $scope.$apply();
-                    callback(color);
-                });
+                    $scope.color = color_data;
+                    oldName = color_data.name;
+                    //$scope.$apply();
+                    callback(color_data);
             }
 
             $(function() {
