@@ -11,9 +11,9 @@ angular
             $scope.pages = [];
 
             function getPages() {
-                    for(var page in pages_data){
-                        $scope.pages.push(pages_data[page]);
-                    }
+                for(var page in pages_data){
+                    $scope.pages.push(pages_data[page]);
+                }
             }
 
             var $pages_card = $('#pages_card'),

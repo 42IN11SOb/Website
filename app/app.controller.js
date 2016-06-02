@@ -556,7 +556,7 @@ angular
                     ]
                 }
             ];
-            //$scope.sections = apiBartimeus.getAdminSections();
+            $scope.sections = apiBartimeus.getAdminSections();
 
         }
     ])

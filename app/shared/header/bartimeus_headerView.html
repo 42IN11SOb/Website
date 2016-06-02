@@ -12,7 +12,7 @@
             <div class="uk-navbar-flip">
                 <ul class="uk-navbar-nav user_actions">
                     <!-- <li><a href="#" class="user_action_icon" full-screen-toggle><i class="material-icons md-24 md-light">&#xE5D0;</i></a></li> -->
-                    <li ng-show="role === 'admin'"><a ui-sref="admin.index">Admin</a></li> <!-- todo: add isadmin check-->
+                    <li ng-if="role === 'admin'"><a ui-sref="admin.index">Admin</a></li> <!-- todo: add isadmin check-->
                     <li ng-show="loggedin"><a ui-sref="bartimeus.profiel">Mijn Profiel</a></li>
                     <li ng-hide="loggedin"><a ui-sref="login">Inloggen</a></li>
                     <li ng-show="loggedin"><a ng-click="logoff()">Uitloggen</a></li>

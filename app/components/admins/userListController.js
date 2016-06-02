@@ -4,20 +4,15 @@ angular
         '$rootScope',
         '$scope',
         'apiBartimeus',
-        function ($rootScope,$scope,apiBartimeus) {
+        'users_data',
+        function ($rootScope,$scope,apiBartimeus,users_data) {
             $scope.heading = "Gebruikers";
             $scope.users = [];
 
             function getUsers() {
-                $scope.users.length = 0;
-                apiBartimeus.getItems("users", function(users) {
-                    for(var i in users){
-                        $scope.users.push(users[i]);
-                    }
-                    $scope.$apply();
-                    //update table 
-                    ts_users.trigger('update');
-                });
+                for(var user in users_data){
+                    $scope.users.push(users_data[user]);
+                }
             }
 
             $(function() {

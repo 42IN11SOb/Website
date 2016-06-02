@@ -82,15 +82,18 @@ altairApp
                             ],{ serie: true });
                         }],
                         user_data: function($rootScope, apiBartimeus, $q) {
-                            var deferred = $q.defer();
+                            //if fromstate = login, dont run this it will give weird role results
+                            if ($rootScope.fromState != 'login') {
+                                var deferred = $q.defer();
 
-                            apiBartimeus.getRole(function(role) {
-                                console.log(role);
-                                $rootScope.role = role == null ? null: role.name;
-                                deferred.resolve(role);
-                            });
+                                apiBartimeus.getRole(function(role) {
+                                    console.log(role);
+                                    $rootScope.role = role == null ? null : role.name;
+                                    deferred.resolve(role);
+                                });
 
-                            return deferred.promise;
+                                return deferred.promise;
+                            } else $rootScope.fromstate = null;
                         }
                     }
                 })
@@ -338,7 +341,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/seasonListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        seasons_data: function(apiBartimeus, $q){
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("seasons", function(seasons) {
+                                deferred.resolve(seasons);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Seasons'
@@ -389,7 +401,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/colorListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        colors_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("colors", function(colors) {
+                                deferred.resolve(colors);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Colors'
@@ -432,7 +453,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/figureListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        figures_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("figures", function(figures) {
+                                deferred.resolve(figures);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Figures'
@@ -474,7 +504,16 @@ altairApp
                                 'lazy_tablesorter',
                                 'app/components/admins/userListController.js'
                             ], {serie:true});
-                        }]
+                        }],
+                        users_data: function(apiBartimeus, $q) {
+                            var deferred = $q.defer();
+
+                            apiBartimeus.getItems("users", function(users) {
+                                deferred.resolve(users);
+                            });
+
+                            return deferred.promise;
+                        }
                     },
                     data: {
                         pageTitle: 'Users'

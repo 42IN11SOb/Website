@@ -5,7 +5,8 @@ angular
         '$scope',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,apiBartimeus) {
+        'figures_data',
+        function ($rootScope,$scope,utils,apiBartimeus,figures_data) {
             $scope.heading = "Figuren";
             $scope.figures = [];
 
@@ -39,15 +40,9 @@ angular
             };
 
             function getFigures() {
-                $scope.figures.length = 0;
-                apiBartimeus.getItems("figures", function(figures) {
-                    for(var i in figures){
-                        $scope.figures.push(figures[i]);
-                    }
-                    $scope.$apply();
-                    //update table 
-                    ts_users.trigger('update');
-                });
+                for(var figure in figures_data){
+                    $scope.figures.push(figures_data[figure]);
+                }
             }
 
             $(function() {
@@ -59,9 +54,11 @@ angular
             };
 
             $scope.createFigure = function(name, event) {
-                apiBartimeus.createItem("figures", name);
-                $scope.backToFigures(event);
-                getFigures();
+                apiBartimeus.createItem("figures", name, function(newFigure) {
+                    $scope.figures.push(newFigure);
+                    //ts_users.trigger('update');
+                    $scope.backToFigures(event);
+                });
             };
 
             //table setup 

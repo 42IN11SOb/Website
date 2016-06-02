@@ -5,7 +5,8 @@ angular
         '$scope',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,apiBartimeus) {
+        'colors_data',
+        function ($rootScope,$scope,utils,apiBartimeus,colors_data) {
             $scope.heading = "Kleuren";
             $scope.colors = [];
 
@@ -39,15 +40,9 @@ angular
             };
 
             function getColors() {
-                $scope.colors.length = 0;
-                apiBartimeus.getItems("colors", function(colors) {
-                    for(var i in colors){
-                        $scope.colors.push(colors[i]);
-                    }
-                    $scope.$apply();
-                    //update table 
-                    ts_users.trigger('update');
-                });
+                for(var color in colors_data){
+                    $scope.colors.push(colors_data[color]);
+                }
             }
 
             $(function() {
@@ -59,9 +54,11 @@ angular
             };
 
             $scope.createColor = function(name, event) {
-                apiBartimeus.createItem("colors", name);
-                $scope.backToColors(event);
-                getColors();
+                apiBartimeus.createItemObject("colors", {name: name, r:0, g:0, b:0}, function(newColor) {
+                    $scope.colors.push(newColor);
+                    //ts_users.trigger('update');
+                    $scope.backToColors(event);
+                });
             };
 
             //table setup 

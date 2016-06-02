@@ -20,10 +20,7 @@ angular
 
                 //init palette after colors are ready
                 $("#palette").kendoColorPalette({
-                    tileSize: {
-                        width: 90,
-                        height: 90
-                    },
+                    tileSize: 90,
                     palette: colors
                 });
             });

@@ -17,6 +17,9 @@ altairApp
                             
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
+                                $rootScope.role = data.profile.role.name;
+                                //set fromstate to login, to prevent getRole call on state change
+                                $rootScope.fromState = 'login';
                                 $state.go('bartimeus.content', {name : 'Home'});
                             } else {
                                 retVal = data;
@@ -38,7 +41,7 @@ altairApp
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/users/logout",
                         type: "POST",
-                        success: function(data) {
+                        success: function(data) {console.log(data);
                             if (data.success === true) {
                                 localStorage.removeItem("token");
                                 $rootScope.role = null;
@@ -87,6 +90,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/users/profile",
                         type: "GET",
                         success: function(profile) {
+                            console.log(profile);
                             if (profile.success === true) {
                                 callback(profile.data.role);
                             } else {
@@ -154,7 +158,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type,
                         type: "POST",
                         data: object,
-                        contentType: (type === 'pages' || type === 'users' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'passport') ? "application/json": "application/x-www-form-urlencoded; charset=UTF-8",
                         success: function(item) {
                             if (item.success === true) {
                                 if(callback) callback(item.data);
