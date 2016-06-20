@@ -37,7 +37,7 @@ angular
                 //buttons to add a panel and an heading item (subitem)
                 setup: function(editor) {
                     editor.addButton('mybutton', {
-                        text: 'Add panel',
+                        text: 'Panel toevoegen',
                         icon: false,
                         onclick: function() {
                             retContent = "<div class='md-card'>";
@@ -48,7 +48,7 @@ angular
                         }
                     });
                     editor.addButton('abutton', {
-                        text: 'Add item',
+                        text: 'Hoofdstuk toevoegen',
                         icon: false,
                         onclick: function() {
                             retContent = "<div class='md-card subitem'>";

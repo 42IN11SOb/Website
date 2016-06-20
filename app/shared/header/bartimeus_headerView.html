@@ -19,15 +19,18 @@
                 </ul>
             </div>
         </nav>
-    </div>
     <div id="top_bar" ng-controller="menu_topViewCtrl">
         <div class="md-top-bar">
             <ul id="menu_top" class="uk-clearfix">
                 <li ng-repeat="section in sections">
                     <a ui-sref-active="active" id="{{section.title}}" class="{{section.class}}" ui-sref="bartimeus.content({name : section.name})">{{section.title}}</a>
                 </li>
+                <li class="sr-only" ng-show="loggedin"><a ui-sref="bartimeus.profiel">Mijn Profiel</a></li>
+                <li class="sr-only" ng-hide="loggedin"><a ui-sref="login">Inloggen</a></li>
+                <li class="sr-only" ng-show="loggedin"><a ng-click="logoff()">Uitloggen</a></li>
             </ul>
         </div>
+    </div>
     </div>
 </header>
 <!-- main header end -->

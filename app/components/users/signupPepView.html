@@ -1,0 +1,73 @@
+<div id="page_content">
+    <div id="page_content_inner">
+        <div class="uk-grid uk-grid-width-large1-1" data-uk-grid="{gutter:24}">
+            <div>
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <h1 class="md-card-toolbar-heading-text large-heading">Algemene informatie</h1>
+                    </div>
+                    <div class="md-card-content">
+                    </div>
+                </div>
+                <div class="md-card">
+                    <div class="md-card-toolbar">
+                        <h1 class="md-card-toolbar-heading-text large-heading">Aanmelden PEPdag</h1>
+                    </div>
+                    <div class="md-card-content">
+                    	<p>Hieronder staan de PEPdagen waarvoor u nog voor kunt inschrijven.</p>
+                        <div class="uk-grid" data-uk-grid-margin>
+                            <div class="uk-width-medium-1-2">
+                                <div class="uk-form-row">
+                                    <label for="name">Naam</label>
+                                    <input type="text" class="md-input" id='name' ng-model="signup.name" md-input required/>
+                                </div>
+                                <div class="uk-form-row"> 
+                                    <label for="date">Geboorte datum</label>
+                                    <input class="md-input" type="text" id="date" value="" data-uk-datepicker="{format:'DD-MM-YYYY'}" md-input ng-model="signup.birthdate" required/>
+                                </div>
+                            </div>
+                            <div class="uk-width-medium-1-2">
+                                <div class="uk-form-row">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="md-input" id='email' ng-model="signup.email" md-input required/>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label for="phone">Telefoon nummber</label>
+                                    <input type="text" class="md-input" id='phone' ng-model="signup.phone" md-input required/>
+                                </div>
+                            </div>
+                            <div class="uk-width-medium-1-2">
+                                <div class="uk-width-medium-1-1 uk-form-row">
+                                    <label for="email">Geslacht</label>
+                                </div>
+                                <div class="uk-width-medium-1-1 parsley-row">
+                                    <span class="icheck-inline">
+                                                <input type="radio" name="radio_male" id="radio_male" icheck ng-model="signup.ismale" ng-value="true" />
+                                                <label for="radio_male" class="inline-label">Man</label>
+                                            </span>
+                                    <span class="icheck-inline">
+                                                <input type="radio" name="radio_female" id="radio_female" icheck ng-model="signup.ismale" ng-value="false" />
+                                                <label for="radio_female" class="inline-label">Vrouw</label>
+                                            </span>
+                                </div>
+                            </div>
+                            <div class="uk-width-medium-1-2">
+                                <div class=" uk-form-row">
+                                <label>Beschikbare PEPdagen</label>
+                                </div>
+                                <div class="parsley-row">
+                                    <span class="icheck-inline" ng-repeat="pep in peps | filter: {man: signup.ismale}">
+                                        <input type="radio" name="radio_demo_inline" id="radio_demo_inline_{{pep._id}}" icheck ng-model="signup.pepid" ng-value="pep._id" />
+                                        <label for="radio_demo_inline_{{pep._id}}" class="inline-label">{{pep.plaats}} {{pep.datum | jsonDate | date:'dd-MM-yyyy'}}</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="md-btn md-btn-small md-btn-primary uk-margin-medium-top" ng-click="createSignup()">aanmelden</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

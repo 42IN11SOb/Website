@@ -173,7 +173,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type + "/" + name,
                         type: "PUT",
                         data: item,
-                        contentType: (type === 'colors' || type === 'pages' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'colors' || type === 'pages' || type === 'news' || type === 'pepdagdates') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
                         success: function(item){
                             if(item.success === true){
                                 if(callback) callback(item.data);
@@ -197,18 +197,14 @@ altairApp
                     })
                 },
                 getAdminSections: function() {
-                    return [/*{
-                        title: 'User Profile',
-                        icon: '&#xE87C;',
-                        //link: 'restricted.pages.user_profile',
-                        submenu: [{
-                            title: 'Regular Elements',
-                            link: 'restricted.forms.regular'
-                        }]
-                    },*/ {
+                    return [{
                         title: 'Gebruikers',
                         icon: '&#xE87C;',
                         link: 'admin.users'
+                    },{
+                        title: 'PEPdag',
+                        icon: '&#xE8A3;',
+                        link: 'admin.pep'
                     }, {
                         title: "Pagina's",
                         icon: '&#xE24D;',

@@ -95,6 +95,12 @@ altairApp
                     event.preventDefault();
                     $state.go('login');
                 }
+
+                //if page not is niews, dont show aanmelden voor pepdag button
+                if (toParams.name == 'news')
+                    $rootScope.showSignButton = true;
+                else 
+                    $rootScope.showSignButton = false;
                 
                 // main search
                 $rootScope.mainSearchActive = false;
