@@ -114,7 +114,7 @@ angular
                         e.preventDefault();
 
                         var $this = $(this);
-                        UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
+                        UIkit.modal.confirm('Weet u zeker dat u dit item wilt verwijderen?', function(){
                             deletePage($this.closest('tr')[0].cells[0].innerText);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');

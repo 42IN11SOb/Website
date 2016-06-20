@@ -109,8 +109,10 @@ angular
                         e.preventDefault();
 
                         var $this = $(this);
-                        UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
-                            deleteSeason($this.closest('tr')[0].cells[0].innerText);
+                         UIkit.modal.confirm('Weet u zeker dat u dit wilt verwijderen?', function(){
+                            var lastPart = $($this.closest('tr')[0].cells[1]).children().first().attr("href").split("/").pop();
+                            console.log(lastPart);
+                            deletePep(lastPart);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');
                         }, {
