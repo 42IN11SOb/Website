@@ -5,7 +5,8 @@ angular
         '$scope',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,utils,apiBartimeus) {
+        'seasons_data',
+        function ($rootScope,$scope,utils,apiBartimeus,seasons_data) {
             $scope.heading = "Seizoenen";
             $scope.seasons = [];
 
@@ -39,15 +40,9 @@ angular
             };
 
             function getSeasons() {
-                $scope.seasons.length = 0;
-                apiBartimeus.getItems("seasons", function(seasons) {
-                    for(var i in seasons){
-                        $scope.seasons.push(seasons[i]);
-                    }
-                    $scope.$apply();
-                    //update table 
-                    ts_users.trigger('update');
-                });
+                for(var season in seasons_data) {
+                    $scope.seasons.push(seasons_data[season]);
+                }
             }
 
             $(function() {
@@ -59,9 +54,11 @@ angular
             };
 
             $scope.createSeason = function(name, event) {
-                apiBartimeus.createItem("seasons", name);
-                $scope.backToSeasons(event);
-                getSeasons();
+                apiBartimeus.createItem("seasons", name, function(newSeason) {
+                    $scope.seasons.push(newSeason);
+                    //ts_users.trigger('update');
+                    $scope.backToSeasons(event);
+                });
             };
 
             //table setup 

@@ -14,8 +14,12 @@ altairApp
                         data: { 'username': username, 'password': password },
                         success: function(data) {
                             var data = data.data;
+                            
                             if (data.success === true) {
                                 localStorage.setItem("token", data.token);
+                                $rootScope.role = data.profile.role.name;
+                                //set fromstate to login, to prevent getRole call on state change
+                                $rootScope.fromState = 'login';
                                 $state.go('bartimeus.content', {name : 'Home'});
                             } else {
                                 retVal = data;
@@ -37,9 +41,11 @@ altairApp
                     $.ajax({
                         url: "http://projectpep.herokuapp.com/users/logout",
                         type: "POST",
-                        success: function(data) {
+                        success: function(data) {console.log(data);
                             if (data.success === true) {
                                 localStorage.removeItem("token");
+                                $rootScope.role = null;
+                                $rootScope.$apply();
                                 $state.go('bartimeus.content', {name : 'Home'});
                             }
                         },
@@ -57,17 +63,10 @@ altairApp
                             url: "http://projectpep.herokuapp.com/users/loggedIn",
                             type: "GET",
                             success: function(data) {
-                                if (data.success === true) {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
+                                return data.success;
                             },
                         });
                     }
-                },
-                isAdmin: function() {
-                    
                 },
                 rgbToHex: function(r, g, b) {
                     function componentToHex(c) {
@@ -85,6 +84,20 @@ altairApp
                     var b = bigint & 255;
 
                     return { r: r, g: g, b: b };
+                },
+                getRole: function(callback) {
+                    $.ajax({
+                        url: "http://projectpep.herokuapp.com/users/profile",
+                        type: "GET",
+                        success: function(profile) {
+                            console.log(profile);
+                            if (profile.success === true) {
+                                callback(profile.data.role);
+                            } else {
+                                callback(null);
+                            }
+                        }
+                    });
                 },
                 getProfile: function(callback) {
                     $.ajax({
@@ -145,7 +158,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type,
                         type: "POST",
                         data: object,
-                        contentType: (type === 'pages' || type === 'users' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'passport') ? "application/json": "application/x-www-form-urlencoded; charset=UTF-8",
                         success: function(item) {
                             if (item.success === true) {
                                 if(callback) callback(item.data);
@@ -160,7 +173,7 @@ altairApp
                         url: "http://projectpep.herokuapp.com/" + type + "/" + name,
                         type: "PUT",
                         data: item,
-                        contentType: (type === 'colors' || type === 'pages' || type === 'news') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
+                        contentType: (type === 'colors' || type === 'pages' || type === 'news' || type === 'pepdagdates') ? "application/x-www-form-urlencoded; charset=UTF-8" : "application/json",
                         success: function(item){
                             if(item.success === true){
                                 if(callback) callback(item.data);
@@ -184,18 +197,14 @@ altairApp
                     })
                 },
                 getAdminSections: function() {
-                    return [/*{
-                        title: 'User Profile',
-                        icon: '&#xE87C;',
-                        //link: 'restricted.pages.user_profile',
-                        submenu: [{
-                            title: 'Regular Elements',
-                            link: 'restricted.forms.regular'
-                        }]
-                    },*/ {
+                    return [{
                         title: 'Gebruikers',
                         icon: '&#xE87C;',
                         link: 'admin.users'
+                    },{
+                        title: 'PEPdag',
+                        icon: '&#xE8A3;',
+                        link: 'admin.pep'
                     }, {
                         title: "Pagina's",
                         icon: '&#xE24D;',

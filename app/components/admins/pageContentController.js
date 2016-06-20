@@ -3,19 +3,14 @@ angular
     .controller('pageContentCtrl', [
         '$scope',
         'apiBartimeus',
-        '$stateParams',
+        'page_data',
         '$state',
-        function ($scope, apiBartimeus, $stateParams, $state) {
+        function ($scope, apiBartimeus, page_data, $state) {
             $scope.page;
 
             function getPage() {
-                apiBartimeus.getItem("pages", $stateParams.name, function(item) {
-                    //if(item.success === true) {
-                        $scope.page = item;
-                        $scope.tinymce_content = $scope.page.content;
-                        $scope.$apply();
-                    //}
-                });
+                $scope.page = page_data;
+                $scope.tinymce_content = $scope.page.content;
             }
 
             $scope.saveContent = function(){
@@ -42,7 +37,7 @@ angular
                 //buttons to add a panel and an heading item (subitem)
                 setup: function(editor) {
                     editor.addButton('mybutton', {
-                        text: 'Add panel',
+                        text: 'Panel toevoegen',
                         icon: false,
                         onclick: function() {
                             retContent = "<div class='md-card'>";
@@ -53,7 +48,7 @@ angular
                         }
                     });
                     editor.addButton('abutton', {
-                        text: 'Add item',
+                        text: 'Hoofdstuk toevoegen',
                         icon: false,
                         onclick: function() {
                             retContent = "<div class='md-card subitem'>";

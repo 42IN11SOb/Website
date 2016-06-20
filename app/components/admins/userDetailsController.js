@@ -3,47 +3,15 @@ angular
     .controller('userDetailsCtrl', [
         '$rootScope',
         '$scope',
-        '$stateParams',
         '$state',
         'apiBartimeus',
         'user_data',
-        function ($rootScope, $scope, $stateParams, $state, apiBartimeus, user_data) {
-            $scope.seasons = [];
-            $scope.figures = [];
-
-            function getUser(){
-                apiBartimeus.getItem("users", $stateParams.name, function(user) {
-                    $scope.user = user;
-                    $scope.$apply();
-                });
-            }
-            function getSeasons() {
-                apiBartimeus.getItems("seasons", function(seasons) {
-                    for(var i in seasons){
-                        $scope.seasons.push({
-                            name: seasons[i].name,
-                            id: seasons[i]._id
-                        });
-                    }
-                });
-            }
-            function getFigures() {
-                apiBartimeus.getItems("figures", function(figures) {
-                    for(var i in figures){
-                        $scope.figures.push({
-                            name: figures[i].title,
-                            male: figures[i].male,
-                            id: figures[i]._id
-                        });
-                    }console.log($scope.figures);
-                });
-            }
-
+        'seasons_data',
+        'figures_data',
+        function ($rootScope, $scope, $state, apiBartimeus, user_data, seasons_data, figures_data) {
             $(function() {
-                getSeasons();
-                getFigures();
-                //getUser();
-                console.log(user_data);
+                $scope.seasons = seasons_data;
+                $scope.figures = figures_data;
                 $scope.user = user_data;
             });
 

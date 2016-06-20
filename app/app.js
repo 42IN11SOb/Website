@@ -55,19 +55,27 @@ altairApp
         '$http',
         '$window',
         '$timeout',
-        'preloaders',
-        'variables',
         'apiBartimeus',
-        function ($rootScope, $state, $stateParams,$http,$window, $timeout,variables, apiBartimeus) {
+        function ($rootScope, $state, $stateParams,$http,$window, $timeout, apiBartimeus) {
             $rootScope.initialized = false;
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
-            $rootScope.$on('$stateChangeSuccess', function () {
+            //set the role on startup
+            /*$rootScope.role = apiBartimeus.getRole();*/
+
+            $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                 // scroll view to top
                 $("html, body").animate({
                     scrollTop: 0
                 }, 200);
+
+                if (toState.name.indexOf('admin') > -1) {//if tostate contains admin its backend, so no fullheader and top menu
+                    // top menu
+                    $rootScope.topMenuActive = false; //set to true for top header
+                    // full header
+                    $rootScope.fullHeaderActive = false; //set to true for top header
+                }
 
                 $timeout(function() {
                     $rootScope.pageLoading = false;
@@ -83,10 +91,16 @@ altairApp
 
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
                 //admin pages restriction
-                if (toParams.hasOwnProperty('isAdmin') && localStorage.token == null) {
+                if (toParams.hasOwnProperty('isAdmin') && $rootScope.role !== 'admin') {
                     event.preventDefault();
                     $state.go('login');
                 }
+
+                //if page not is niews, dont show aanmelden voor pepdag button
+                if (toParams.name == 'news')
+                    $rootScope.showSignButton = true;
+                else 
+                    $rootScope.showSignButton = false;
                 
                 // main search
                 $rootScope.mainSearchActive = false;
@@ -95,18 +109,13 @@ altairApp
                 // top bar
                 $rootScope.toBarActive = false;
                 // page heading
-                $rootScope.pageHeadingActive = false;
+                $rootScope.pageHeadingActive = false; 
 
-                if (toState.name.indexOf('bartimeus') > -1) {//if tostate contains bartimeus its frontend, so fullheader and top menu
+                if (toState.name.indexOf('bartimeus') > -1) {
                     // top menu
                     $rootScope.topMenuActive = true; //set to true for top header
                     // full header
                     $rootScope.fullHeaderActive = true; //set to true for top header
-                } else {
-                    // top menu
-                    $rootScope.topMenuActive = false; //set to true for top header
-                    // full header
-                    $rootScope.fullHeaderActive = false; //set to true for top header
                 }
 
                 // full height

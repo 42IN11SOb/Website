@@ -59,7 +59,7 @@
                         </div>
                         <div class="md-card-content large-padding">
                             <span class="icheck-inline" ng-repeat="season in seasons">
-                                <input type="radio" name="radio_{{season.name}}" id="radio_{{season.name}}" icheck ng-model="user.passport.season._id" value="{{season.id}}" />
+                                <input type="radio" name="radio_{{season.name}}" id="radio_{{season.name}}" icheck ng-model="user.passport.season._id" value="{{season._id}}" />
                                 <label for="radio_{{season.name}}" class="inline-label">{{season.name}}</label>
                             </span>
                         </div>
@@ -72,8 +72,8 @@
                         </div>
                         <div class="md-card-content large-padding">
                             <span class="icheck-inline" ng-repeat="figure in figures | filter: {'male' : user.male}">
-                                <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure.id}}" />
-                                <label for="radio_{{figure.name}}" class="inline-label">{{figure.name}}</label>
+                                <input type="radio" name="radio_{{figure.name}}" id="radio_{{figure.name}}" icheck ng-model="user.passport.figure._id" value="{{figure._id}}" />
+                                <label for="radio_{{figure.name}}" class="inline-label">{{figure.title}}</label>
                             </span>
                         </div>
                     </div>

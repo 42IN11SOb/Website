@@ -4,7 +4,8 @@ angular
         '$rootScope',
         '$scope',
         '$timeout',
-        function($rootScope, $scope, $timeout) {/*
+        'apiBartimeus',
+        function($rootScope, $scope, $timeout,apiBartimeus) {/*
                 $rootScope.toBarActive = true;
                 $rootScope.topMenuActive = true;
 

@@ -1,67 +1,70 @@
 angular
     .module('altairApp')
-    .controller('newsListCtrl', [
+    .controller('pepListCtrl', [
         '$rootScope',
         '$scope',
-        'news_data',
         'utils',
         'apiBartimeus',
-        function ($rootScope,$scope,news_data,utils,apiBartimeus) {
-            $scope.heading = "Nieuws";
-            $scope.newses = [];
+        'peps_data',
+        function ($rootScope,$scope,utils,apiBartimeus,peps_data) {
+            $scope.heading = "PEPdagen";
+            $scope.peps = [];
 
-            function getNewses() {
-                for(var news in news_data){
-                    $scope.newses.push(news_data[news]);
-                }
-            }
-
-            var $newses_card = $('#newses_card'),
-                $news_list = $('#news_list'),
-                $new_news = $('#new_news');
+            var $figures_card = $('#figures_card'),
+                $figure_list = $('#figure_list'),
+                $new_figure = $('#new_figure');
 
             // show lpage list (hide other forms)
-            var newsListShow = function() {
-                $news_list
+            var figureListShow = function() {
+                $figure_list
                     .show()
                     .siblings()
                     .hide();
             };
             // show new page (hide other forms)
-            var newNewsShow = function() {
-                $new_news
+            var newFigureShow = function() {
+                $new_figure
                     .show()
                     .siblings()
                     .hide();
             };
-            $scope.newNews = function($event) {
-                $scope.heading = "Nieuw nieuws";
+            $scope.newFigure = function($event) {
+                $scope.heading = "Nieuwe PEPdag";
                 $event.preventDefault();
-                utils.card_show_hide($newses_card,undefined,newNewsShow,undefined);
+                utils.card_show_hide($figures_card,undefined,newFigureShow,undefined);
             };
-            $scope.backToNewses = function($event) {
-                $scope.heading = "Nieuws";
+            $scope.backToFigures = function($event) {
+                $scope.heading = "PEPdagen";
                 $event.preventDefault();
-                utils.card_show_hide($newses_card,undefined,newsListShow,undefined);
+                utils.card_show_hide($figures_card,undefined,figureListShow,undefined);
             };
 
-            //$scope.pages = pages;
+            function getPeps() {
+                for(var pep in peps_data){
+                    $scope.peps.push(peps_data[pep]);
+                }
+            }
 
             $(function() {
-                getNewses();
+                getPeps();
             });
 
-            $scope.createNews = function(event) {
-                var news = {
-                    title: $scope.newTitle,
-                    content: "<p></p>"
-                }
-                apiBartimeus.createItemObject("news", news);
-                $scope.newses.push(news);
-                $scope.backToNewses(event);
+            function deleteFigure (name) {
+                apiBartimeus.deleteItem("pepdagdates", name);
             };
-            function deleteNews(name){
-                apiBartimeus.deleteItem("news", name);
+
+            $scope.createPep = function(place, date, isMale, event) {
+                var newPepDay = {
+                    plaats: place,
+                    datum: date,
+                    isMan: isMale
+                };
+
+                apiBartimeus.createItemObject("pepdagdates", newPepDay, function(newPep) {
+                    $scope.peps.push(newPep);
+                    //ts_users.trigger('update');
+                    $scope.backToFigures(event);
+                });
             };
 
             //table setup 
@@ -94,7 +97,13 @@ angular
                         .tablesorter({
                             theme: 'altair',
                             widthFixed: true,
-                            widgets: ['zebra', 'filter']
+                            widgets: ['zebra', 'filter'],
+                            headers: {
+                                0: {
+                                    sorter: true,
+                                    parser: true
+                                }
+                            }
                         })
                         // initialize the pager plugin
                         .tablesorterPager(pagerOptions)
@@ -112,8 +121,8 @@ angular
                         e.preventDefault();
 
                         var $this = $(this);
-                        UIkit.modal.confirm('Are you sure you want to delete this season?', function(){
-                            deleteNews($this.closest('tr')[0].cells[0].innerText);
+                        UIkit.modal.confirm('Are you sure you want to delete this PEPday?', function(){
+                            deleteFigure($this.closest('tr')[0].cells[1].innerText);
                             $this.closest('tr').remove();
                             ts_users.trigger('update');
                         }, {
@@ -124,5 +133,7 @@ angular
                     });
                 }
             });
+
+
         }
     ]);

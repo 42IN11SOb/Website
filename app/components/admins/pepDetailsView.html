@@ -1,0 +1,67 @@
+<div id="page_content">
+    <div id="page_heading">
+        <h1>PEPdag: {{pep.plaats}}{{pep.datum | jsonDate | date:'dd-MM-yyyy'}}</h1>
+    </div>
+
+    <div id="page_content_inner">
+        <form action="" class="uk-form-stacked" id="product_edit_form">
+            <div class="uk-grid uk-grid-medium" data-uk-grid-margin>
+                <div class="uk-width-xLarge  uk-width-large">
+                    <div class="md-card">
+                        <div class="md-card-toolbar subitem">
+                            <h3 class="md-card-toolbar-heading-text subitem">
+                                Details
+                            </h3>
+                        </div>
+                        <div class="md-card-content large-padding">
+                        <div class="uk-grid uk-grid-medium">
+                    <div class="uk-width-medium-1-2">
+                            <div class="parsley-row uk-margin-medium-bottom">
+                                <label for="figure_name">Plaats</label>
+                                <input type="text" class="md-input" name="figure_name" id="figure_name" ng-model="pep.plaats" md-input required/>
+                            </div>
+                    </div>
+                    <div class="uk-width-medium-1-2">
+                            <div class="parsley-row uk-margin-medium-bottom">
+                                <label for="figure_t">Datum</label>
+                                <input class="md-input" type="text" id="figure_t" value="" data-uk-datepicker="{format:'DD-MM-YYYY'}" md-input ng-model="pep.datum">
+                            </div>
+                    </div>
+                    <div class="uk-width-medium-1-2">
+                        <div class="uk-width-medium-1-1 parsley-row">
+                            <label for="email">Geslacht</label>
+                        </div>
+                        <div class="uk-width-medium-1-1 parsley-row">
+                            <span class="icheck-inline">
+                                        <input type="radio" name="radio_male" id="radio_male" icheck ng-model="pep.man" ng-value="true" />
+                                        <label for="radio_male" class="inline-label">Man</label>
+                                    </span>
+                            <span class="icheck-inline">
+                                        <input type="radio" name="radio_female" id="radio_female" icheck ng-model="pep.man" ng-value="false" />
+                                        <label for="radio_female" class="inline-label">Vrouw</label>
+                                    </span>
+                        </div>
+                    </div>
+                    <div ng-if="pep.users.length > 0" class="uk-width-medium-1-1">
+                            <div class="parsley-row uk-margin-medium-bottom">
+                                <label for="signups">Aanmeldingen</label>
+                                <ul>
+                                    <li ng-repeat="user in pep.users">{{user.naam}}</li>
+                                </ul>
+                            </div>
+                    </div>
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="md-fab-wrapper">
+    <button title="opslaan" class="md-fab md-fab-primary md-btn-primary" ng-click="savePep()">
+        <i class="material-icons">&#xE161;</i>
+    </button>
+</div>

@@ -816,6 +816,7 @@ nav.navbar-default{
 /*header*/
 #header_main, #top_bar {
   background-color: #000000;
+  height: auto;
 }
 #header_main .uk-navbar .uk-navbar-nav>li>a, #menu_top>li>a, #menu_top .material-icons {
   color: #FFD500;
@@ -870,4 +871,33 @@ img.klein
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* ADMIN */
+
+input.filter {    
+    width: auto;
+    height: auto;
+    margin: 0;
+    padding: 4px;
+    line-height: 24px;
+    border: 1px solid rgba(0,0,0,.12);
+    color: #212121;
+    box-sizing: border-box;
+    -webkit-transition: height .1s ease;
+    transition: height .1s ease;
+    border-radius: 0;
+    -webkit-appearance: none;
+}
+
+/* SCREENREADERS ONLY */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
 }
